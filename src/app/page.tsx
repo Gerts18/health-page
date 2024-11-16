@@ -1,9 +1,12 @@
 'use client'
 
+import Navbar from "./components/Navbar/navbar";
+
 const Home = () => {
   return (
-    <div>
-      layout
+    <div className="bg-[#F5F5F5] w-full h-svh">
+        <Navbar />
+
     </div>
   )
 }
