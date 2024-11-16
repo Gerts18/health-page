@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 const {nextui} = require("@nextui-org/react");
 
+
 export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -14,6 +15,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        'authImage': "url('/assets/bg.svg')",
+      }
     },
   },
   darkMode: "class",
