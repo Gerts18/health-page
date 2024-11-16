@@ -16,7 +16,7 @@ export default function RegistrationForm() {
                 <p className="text-center text-sm text-white ">Ingrese sus datos en los campos establecidos</p>
             </div>
 
-            <Card className="w-full max-w-md">
+            <Card className="w-full max-w-md p-4">
                 <CardBody className="flex flex-col gap-4">
                     <Input
                         label="Nombre"
@@ -57,9 +57,12 @@ export default function RegistrationForm() {
                         </SelectItem>
                     </Select>
 
-                    <Checkbox>Estoy de acuerdo con los términos y condiciones</Checkbox>
+                    <Checkbox
+                     size="sm"
+                     className='mb-10'
+                    >Estoy de acuerdo con los términos y condiciones</Checkbox>
 
-                    <Button color="primary" className="w-full">
+                    <Button className="w-full p-7 bg-button text-white font-medium " radius='sm' >
                         Registrarse
                     </Button>
                 </CardBody>

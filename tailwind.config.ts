@@ -14,6 +14,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        button: "#547EED",
       },
       backgroundImage: {
         'authImage': "url('/assets/bg.svg')",
