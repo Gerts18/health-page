@@ -218,7 +218,7 @@ export default function RegistrationForm() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center p-4 gap-5 bg-cover bg-center bg-authImage"
+      className="relative w-full h-screen mt-[76px] flex flex-col items-center justify-center p-4 gap-5 bg-cover bg-center bg-authImage"
     >
       <div className="flex flex-col gap-5">
         <h1 className="text-5xl font-bold text-center text-white">Registrar</h1>
