@@ -12,6 +12,8 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useRouter } from 'next/navigation';
+
 interface FormData {
   firstName: string;
   lastName: string;
@@ -31,6 +33,9 @@ interface FormErrors {
 }
 
 export default function RegistrationForm() {
+
+  const router = useRouter();
+
   const categories = [
     { label: 'Paciente', value: '1' },
     { label: 'Doctor', value: '2' },
@@ -181,11 +186,10 @@ export default function RegistrationForm() {
           toast.error("Error al registrar. Por favor, intenta de nuevo."); // Notificación de error
         } else {
           // Registro exitoso
-          toast.success("Registro exitoso!"); // Notificación de éxito
+          toast.success("Registro exitoso!, redirigiendo ..."); // Notificación de éxito
 
-          // Redirige a la página deseada después de 2 segundos
           setTimeout(() => {
-            //redirige a la pestaña
+            router.push('/');
           }, 2000);
         }
       } catch (error) {
