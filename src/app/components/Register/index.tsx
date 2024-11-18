@@ -9,6 +9,9 @@ import {
   SelectItem,
 } from '@nextui-org/react';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 interface FormData {
   firstName: string;
   lastName: string;
@@ -128,8 +131,8 @@ export default function RegistrationForm() {
     }));
   };
 
-  const handleSelectChange = (value: string | Set<string> | undefined) => {
-    const selectedValue = typeof value === 'string' ? value : Array.from(value)[0] || '';
+  const handleSelectChange = (value: string) => {
+    const selectedValue = value || '';
     setFormData((prev) => ({
       ...prev,
       category: selectedValue,
@@ -140,6 +143,7 @@ export default function RegistrationForm() {
       category: validateField('category', selectedValue),
     }));
   };
+
 
   const handleCheckboxChange = (isSelected: boolean) => {
     setFormData((prev) => ({
@@ -161,8 +165,6 @@ export default function RegistrationForm() {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Formulario enviado:", formData);
-
       try {
         const response = await fetch('/api/users', {
           method: 'POST',
@@ -171,22 +173,24 @@ export default function RegistrationForm() {
           },
           body: JSON.stringify(formData),
         });
-  
+
         if (!response.ok) {
           // Manejo de errores del servidor
           const errorData = await response.json();
-          
+          console.error('Error:', errorData);
+          toast.error("Error al registrar. Por favor, intenta de nuevo."); // Notificación de error
         } else {
           // Registro exitoso
-  
+          toast.success("Registro exitoso!"); // Notificación de éxito
+
           // Redirige a la página deseada después de 2 segundos
           setTimeout(() => {
-             //redirige a la pestaña
+            //redirige a la pestaña
           }, 2000);
         }
       } catch (error) {
         console.error('Error:', error);
-        
+        toast.error("Ocurrió un error inesperado."); // Notificación de error inesperado
       } finally {
         setIsSubmitting(false);
       }
@@ -202,9 +206,11 @@ export default function RegistrationForm() {
       setIsSubmitting(false);
     } else {
       console.log("Hay errores en el formulario");
+      toast.error("Por favor, corrige los errores en el formulario."); // Notificación de errores en el formulario
       setIsSubmitting(false);
     }
   };
+
 
   return (
     <div
@@ -278,7 +284,7 @@ export default function RegistrationForm() {
               }
               isInvalid={!!errors.category}
               errorMessage={errors.category}
-              
+
             >
               {categories.map((category) => (
                 <SelectItem key={category.value} value={category.value}>
@@ -313,6 +319,8 @@ export default function RegistrationForm() {
           </form>
         </CardBody>
       </Card>
+
+      <ToastContainer />
     </div>
   );
 }

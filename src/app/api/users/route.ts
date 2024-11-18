@@ -4,7 +4,7 @@ import { conn } from '@/libs/PostgDB';
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
-    console.log("Data:", data);
+    //console.log("Data:", data);
 
     const { firstName, lastName, email, password, category } = data;
 
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error al crear el usuario:", error);
+    //console.error("Error al crear el usuario:", error);
 
     return NextResponse.json(
       {
