@@ -4,6 +4,9 @@ import Navbar from "./components/Navbar/navbar";
 import ImageSlider from "./components/ImageSlider/imageSlider";
 import Statistics from "./components/Statistics/statistics";
 import BannerPrecisionMedicine from "./components/BannerPrecisionMedicine/bannerPrecisionMedicine";
+import NewsAndArticles from "./components/NewsAndArticles/newsAndArticles";
+import BannerUniqueTreatment from "./components/BannerUniqueTreatment/bannerUniqueTreatment";
+import Footer from "./components/Footer";
 import Link from "next/link";
 
 const Home = () => {
@@ -30,6 +33,10 @@ const Home = () => {
       </div>
 
       <BannerPrecisionMedicine />
+      <BannerUniqueTreatment />
+      <NewsAndArticles />
+
+      <Footer />
     </div>
   );
 };

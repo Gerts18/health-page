@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { VscChevronDown } from "react-icons/vsc";
+// import { VscChevronDown } from "react-icons/vsc";
 
 const navbar = () => {
   return (
@@ -9,14 +9,14 @@ const navbar = () => {
       <div className="flex justify-center items-center pt-2 ml-20 mr-16">
         <Link href={"/"}>
           <div className="flex gap-6 mr-8 w-auto h-full justify-center items-start">
-            <Image src="/assets/logo.png" alt="logo" className="w-full h-full" width={800} height={500}/>
+            <Image src="/assets/logo.png" alt="logo" className="w-full h-full" width={750} height={450}/>
           </div>
         </Link>
 
         <div className="flex gap-6 p-6 w-full h-full justify-center items-center">
           <Link href={""} className="flex">
             <p className="text-2xl text-[#6A6A6A] font-medium">Nosotros</p>
-            <VscChevronDown className="text-2xl text-[#6A6A6A]"/>
+            {/* <VscChevronDown className="text-2xl text-[#6A6A6A]"/> */}
           </Link>
           <Link href={""}>
             <p className="text-2xl text-[#6A6A6A] font-medium">

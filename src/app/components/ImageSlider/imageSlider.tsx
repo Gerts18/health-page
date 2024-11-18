@@ -7,13 +7,13 @@ const ImageSlider = () => {
       url: './assets/slider-main.png',
     },
     {
-      url: 'https://via.placeholder.com/600/771796',
+      url: 'assets/cancer4.png',
     },
     {
-      url: 'https://via.placeholder.com/600/24f355',
+      url: 'assets/cancer2.png',
     },
     {
-      url: 'https://via.placeholder.com/600/d32776',
+      url: 'assets/cancer3.png',
     },
   ];
 
