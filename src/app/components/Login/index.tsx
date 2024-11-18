@@ -56,7 +56,8 @@ const LoginArea = () => {
   };
 
   return (
-      <body className="login-body">
+    <>
+      <div className="login-body">
         <section className="login-area">
           <h3 className="text-center">INICIAR SESIÓN</h3>
           <h3 className="sub-text-center">Inicie sesión con los datos de su cuenta</h3>
@@ -92,7 +93,7 @@ const LoginArea = () => {
                       </span>
                     </div>
                     <button
-                      className="primary_btn btn-icon-green w-100"
+                      className="primary_btn"
                       type="submit"
                       disabled={isSubmitting} // Deshabilitar el botón
                     >
@@ -105,7 +106,8 @@ const LoginArea = () => {
             </div>
           </div>
         </section>
-      </body>
+      </div>
+    </>
   );
 };
 
