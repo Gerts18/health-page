@@ -56,8 +56,7 @@ const LoginArea = () => {
   };
 
   return (
-    <>
-      <div className="login-body">
+      <body className="login-body">
         <section className="login-area">
           <h3 className="text-center">INICIAR SESIÓN</h3>
           <h3 className="sub-text-center">Inicie sesión con los datos de su cuenta</h3>
@@ -106,8 +105,7 @@ const LoginArea = () => {
             </div>
           </div>
         </section>
-      </div>
-    </>
+      </body>
   );
 };
 
