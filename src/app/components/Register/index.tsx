@@ -135,7 +135,6 @@ export default function RegistrationForm() {
       category: selectedValue,
     }));
 
-    // Validar el campo categoría
     setErrors((prev) => ({
       ...prev,
       category: validateField('category', selectedValue),
@@ -148,14 +147,13 @@ export default function RegistrationForm() {
       termsAccepted: isSelected,
     }));
 
-    // Validar el campo términos
     setErrors((prev) => ({
       ...prev,
       termsAccepted: validateField('termsAccepted', isSelected),
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -165,9 +163,34 @@ export default function RegistrationForm() {
     if (Object.keys(validationErrors).length === 0) {
       console.log("Formulario enviado:", formData);
 
-      // Aquí puedes agregar la lógica para enviar el formulario a un servidor
+      try {
+        const response = await fetch('/api/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        if (!response.ok) {
+          // Manejo de errores del servidor
+          const errorData = await response.json();
+          
+        } else {
+          // Registro exitoso
+  
+          // Redirige a la página deseada después de 2 segundos
+          setTimeout(() => {
+             //redirige a la pestaña
+          }, 2000);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        
+      } finally {
+        setIsSubmitting(false);
+      }
 
-      // Reiniciar el formulario
       setFormData({
         firstName: "",
         lastName: "",

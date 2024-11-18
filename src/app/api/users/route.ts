@@ -4,6 +4,7 @@ import { conn } from '@/libs/PostgDB';
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
+    console.log("Data:", data);
 
     const { firstName, lastName, email, password, category } = data;
 
@@ -26,7 +27,7 @@ export async function POST(request: NextRequest) {
     const query = `
       INSERT INTO users (first_name, last_names, email, password, category) 
       VALUES ($1, $2, $3, $4, $5)
-      RETURNING id, first_name, last_name, email, category
+      RETURNING first_name, last_names, email, category
     `;
     const values = [firstName, lastName, email, password, category];
 
