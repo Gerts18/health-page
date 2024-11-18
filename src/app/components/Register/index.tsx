@@ -54,15 +54,15 @@ export default function RegistrationForm() {
       case "firstName":
         if (!value.trim()) {
           error = "El nombre es obligatorio";
-        } else if (value.trim().length < 2) {
-          error = "El nombre debe tener al menos 2 caracteres";
+        } else if (value.trim().length < 3) {
+          error = "El nombre debe tener al menos 3 caracteres";
         }
         break;
       case "lastName":
         if (!value.trim()) {
           error = "Los apellidos son obligatorios";
-        } else if (value.trim().length < 2) {
-          error = "Los apellidos deben tener al menos 2 caracteres";
+        } else if (value.trim().length < 3) {
+          error = "Los apellidos deben tener al menos 3 caracteres";
         }
         break;
       case "email":
@@ -280,7 +280,7 @@ export default function RegistrationForm() {
             )}
 
             <Button
-              className="w-full bg-button text-white font-medium mt-5"
+              className="w-full bg-button text-white font-medium mt-2 p-7"
               radius="sm"
               type="submit"
               isLoading={isSubmitting}
