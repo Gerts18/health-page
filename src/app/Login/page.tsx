@@ -1,6 +1,6 @@
 'use client'
 
-import Footer from '@/app/components/Footer/Index'
+import Footer from '@/app/components/Footer/Footer'
 import Header from '@/app/components/Header/Index'
 import '../components/Login/login.css'
 import { StrictMode } from "react"

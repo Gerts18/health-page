@@ -11,7 +11,7 @@ import Link from "next/link";
 import './components/Login/login.css'
 import { StrictMode } from "react"
 import Header from "./components/Header/Index"
-import Footer from '@/app/components/Footer'
+import Footer from '@/app/components/Footer/Footer'
 import LoginPage from './Login/page'
 
 const Home = () => {
