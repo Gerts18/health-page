@@ -87,6 +87,7 @@ const Footer: React.FC = () => {
           <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
             <FaGithub size={20} />
           </a>
+          
         </div>
       </div>
     </footer>
