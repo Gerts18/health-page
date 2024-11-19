@@ -8,10 +8,10 @@ import NewsAndArticles from "./components/NewsAndArticles/newsAndArticles";
 import BannerUniqueTreatment from "./components/BannerUniqueTreatment/bannerUniqueTreatment";
 import Link from "next/link";
 
-import './components/Login/login.css'
+import './components/LoginImg/login.css'
 import { StrictMode } from "react"
 import Header from "./components/Header/Index"
-import Footer from '@/app/components/Footer'
+import Footer from './components/Footer'
 import LoginPage from './Login/page'
 
 const Home = () => {

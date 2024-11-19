@@ -1,10 +1,10 @@
 'use client'
 
-import Footer from '@/app/components/Footer/Index'
-import Header from '@/app/components/Header/Index'
-import '../components/Login/login.css'
+import Footer from "../components/Footer/"
+import Header from "../components/Header/Index"
+import '../components/LoginImg/login.css'
 import { StrictMode } from "react"
-import LoginArea from "@/app/components/login/index"
+import LoginArea from "@/app/components/LoginImg/index"
 
 const LoginPage = () => {
   return (
