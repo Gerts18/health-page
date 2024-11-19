@@ -1,160 +1,330 @@
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import {
+  Card,
+  CardBody,
+  Input,
+  Checkbox,
+  Button,
+  Select,
+  SelectItem,
+} from '@nextui-org/react';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { Button } from "@nextui-org/react"
-import { useState } from "react"
+import { useRouter } from 'next/navigation';
 
-const Register = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [password, setPassword] = useState('');
-    const [securityQuestion, setSecurityQuestion] = useState('');
-
-    const [successMessage, setSuccessMessage] = useState('');
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        try {
-            const response = await fetch('/api/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    phone,
-                    password,
-                    securityQuestion,
-                }),
-            });
-
-            if (response.ok) {
-                // Registro exitoso
-                const data = await response.json();
-                console.log('Registro exitoso:', data);
-
-                setName('');
-                setEmail('');
-                setPhone('');
-                setPassword('');
-                setSecurityQuestion('');
-
-                // Mostrar mensaje de éxito
-                setSuccessMessage('¡Registro exitoso!');
-            } else {
-                // Manejo de errores
-                const errorData = await response.json();
-                console.error('Error en el registro:', errorData);
-                // Mostrar mensaje de error al usuario si es necesario
-            }
-        } catch (error) {
-            console.error('Ocurrió un error:', error);
-            // Manejo de errores de red o inesperados
-        }
-    };
-
-
-    return (
-        <section>
-            <div className="min-h-screen flex items-center justify-center bg-gray-100" >
-                <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-md">
-                    <h2 className="text-2xl font-bold text-center mb-6">
-                        Subamos de nivel en la lucha contra el cáncer, juntos.
-                    </h2>
-
-                    {successMessage && (
-                        <div className="mb-4 text-green-600 text-center font-semibold">
-                            {successMessage}
-                        </div>
-                    )}
-
-                    <form className="space-y-4" onSubmit={handleSubmit}>
-                        <div>
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                                Nombre
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                className="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-                                placeholder="Tu nombre"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                id="email"
-                                className="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-                                placeholder="tú@correo.com"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                                Teléfono
-                            </label>
-                            <input
-                                type="tel"
-                                id="phone"
-                                className="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-                                placeholder="+52 (555) 000-0000"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                Contraseña
-                            </label>
-                            <input
-                                type="password"
-                                id="password"
-                                className="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="security-question" className="block text-sm font-medium text-gray-700">
-                                Pregunta de seguridad
-                            </label>
-                            <input
-                                type="text"
-                                id="security-question"
-                                className="mt-1 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-                                placeholder="Escribe tu pregunta de seguridad"
-                                value={securityQuestion}
-                                onChange={(e) => setSecurityQuestion(e.target.value)}
-                            />
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="w-full py-2 bg-pink-500 text-white font-semibold rounded-md hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50"
-                        >
-                            Registrar
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    )
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  category: string;
+  termsAccepted: boolean;
 }
 
-export default Register
+interface FormErrors {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+  category?: string;
+  termsAccepted?: string;
+}
+
+export default function RegistrationForm() {
+
+  const router = useRouter();
+
+  const categories = [
+    { label: 'Paciente', value: '1' },
+    { label: 'Doctor', value: '2' },
+    { label: 'Otro', value: '3' },
+  ];
+
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    category: '',
+    termsAccepted: false,
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Función de validación para cada campo
+  const validateField = (name: keyof FormData, value: any): string => {
+    let error = "";
+
+    switch (name) {
+      case "firstName":
+        if (!value.trim()) {
+          error = "El nombre es obligatorio";
+        } else if (value.trim().length < 3) {
+          error = "El nombre debe tener al menos 3 caracteres";
+        }
+        break;
+      case "lastName":
+        if (!value.trim()) {
+          error = "Los apellidos son obligatorios";
+        } else if (value.trim().length < 3) {
+          error = "Los apellidos deben tener al menos 3 caracteres";
+        }
+        break;
+      case "email":
+        if (!value.trim()) {
+          error = "El correo electrónico es obligatorio";
+        } else if (
+          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+        ) {
+          error = "Por favor, ingresa un correo válido";
+        }
+        break;
+      case "password":
+        if (!value) {
+          error = "La contraseña es obligatoria";
+        } else if (value.length < 6) {
+          error = "La contraseña debe tener al menos 6 caracteres";
+        }
+        break;
+      case "category":
+        if (!value) {
+          error = "Por favor, selecciona una categoría";
+        }
+        break;
+      case "termsAccepted":
+        if (!value) {
+          error = "Debes aceptar los términos y condiciones";
+        }
+        break;
+      default:
+        break;
+    }
+
+    return error;
+  };
+
+  // Validar todo el formulario
+  const validateForm = (): FormErrors => {
+    const newErrors: FormErrors = {};
+
+    (Object.keys(formData) as Array<keyof FormData>).forEach((field) => {
+      const error = validateField(field, formData[field]);
+      if (error) {
+        newErrors[field] = error;
+      }
+    });
+
+    return newErrors;
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    const fieldValue = type === 'checkbox' ? checked : value;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: fieldValue,
+    }));
+
+    // Validar el campo específico
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validateField(name as keyof FormData, fieldValue),
+    }));
+  };
+
+  const handleSelectChange = (value: string) => {
+    const selectedValue = value || '';
+    setFormData((prev) => ({
+      ...prev,
+      category: selectedValue,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      category: validateField('category', selectedValue),
+    }));
+  };
+
+
+  const handleCheckboxChange = (isSelected: boolean) => {
+    setFormData((prev) => ({
+      ...prev,
+      termsAccepted: isSelected,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      termsAccepted: validateField('termsAccepted', isSelected),
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const validationErrors = validateForm();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        const response = await fetch('/api/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          // Manejo de errores del servidor
+          const errorData = await response.json();
+          console.error('Error:', errorData);
+          toast.error("Error al registrar. Por favor, intenta de nuevo."); // Notificación de error
+        } else {
+          // Registro exitoso
+          toast.success("Registro exitoso!, redirigiendo ..."); // Notificación de éxito
+
+          setTimeout(() => {
+            router.push('/');
+          }, 2000);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        toast.error("Ocurrió un error inesperado."); // Notificación de error inesperado
+      } finally {
+        setIsSubmitting(false);
+      }
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        category: "",
+        termsAccepted: false,
+      });
+      setIsSubmitting(false);
+    } else {
+      console.log("Hay errores en el formulario");
+      toast.error("Por favor, corrige los errores en el formulario."); // Notificación de errores en el formulario
+      setIsSubmitting(false);
+    }
+  };
+
+
+  return (
+    <div
+      className="relative w-full h-screen mt-[76px] flex flex-col items-center justify-center p-4 gap-5 bg-cover bg-center bg-authImage"
+    >
+      <div className="flex flex-col gap-5">
+        <h1 className="text-5xl font-bold text-center text-white">Registrar</h1>
+        <p className="text-center text-sm text-white ">
+          Ingrese sus datos en los campos establecidos
+        </p>
+      </div>
+
+      <Card className="w-full max-w-md p-6 shadow-lg">
+        <CardBody className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+
+            <Input
+              label="Nombre"
+              type='text'
+              variant="bordered"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              errorMessage={errors.firstName}
+              isInvalid={!!errors.firstName}
+              isRequired
+            />
+
+            <Input
+              label="Apellidos"
+              type='text'
+              variant="bordered"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              errorMessage={errors.lastName}
+              isInvalid={!!errors.lastName}
+              isRequired
+            />
+
+            <Input
+              label="Correo"
+              type="email"
+              variant="bordered"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              errorMessage={errors.email}
+              isInvalid={!!errors.email}
+              isRequired
+            />
+
+            <Input
+              label="Contraseña"
+              type="password"
+              variant="bordered"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              errorMessage={errors.password}
+              isInvalid={!!errors.password}
+              isRequired
+            />
+
+            <Select
+              label="Categoría"
+              variant="bordered"
+              selectedKeys={new Set([formData.category])}
+              onSelectionChange={(keys) =>
+                handleSelectChange(Array.from(keys).join(''))
+              }
+              isInvalid={!!errors.category}
+              errorMessage={errors.category}
+
+            >
+              {categories.map((category) => (
+                <SelectItem key={category.value} value={category.value}>
+                  {category.label}
+                </SelectItem>
+              ))}
+            </Select>
+
+            <Checkbox
+              size="sm"
+              name="termsAccepted"
+              isSelected={formData.termsAccepted}
+              onChange={(e) => handleCheckboxChange(e.target.checked)}
+              isRequired
+            >
+              Estoy de acuerdo con los términos y condiciones
+            </Checkbox>
+            {errors.termsAccepted && (
+              <div className="text-[hsl(339,90%,51%)] text-tiny m-0">
+                {errors.termsAccepted}
+              </div>
+            )}
+
+            <Button
+              className="w-full bg-button text-white font-medium mt-2 p-7"
+              radius="sm"
+              type="submit"
+              isLoading={isSubmitting}
+            >
+              Registrarse
+            </Button>
+          </form>
+        </CardBody>
+      </Card>
+
+      <ToastContainer />
+    </div>
+  );
+}

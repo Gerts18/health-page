@@ -9,8 +9,15 @@ import BannerUniqueTreatment from "./components/BannerUniqueTreatment/bannerUniq
 import Footer from "./components/Footer";
 import Link from "next/link";
 
+import './components/Login/login.css'
+import { StrictMode } from "react"
+import Header from "./components/Header/Index"
+import Footer from '@/app/components/Footer/Index'
+import LoginPage from './Login/page'
+
 const Home = () => {
   return (
+
     <div className="bg-[#F5F5F5] w-full h-svh">
       <Navbar />
       <ImageSlider />
@@ -40,5 +47,6 @@ const Home = () => {
     </div>
   );
 };
+
 
 export default Home;
