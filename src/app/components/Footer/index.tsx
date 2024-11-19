@@ -1,10 +1,9 @@
-import Link from 'next/link';
-import { FaTwitter, FaFacebook, FaInstagram, FaGithub } from 'react-icons/fa'; // Asegúrate de instalar react-icons
+import Link from 'next/link'
 
-const Footer: React.FC = () => {
+export default function Footer() {
   return (
     <footer className="bg-[#0a0f1c] text-white py-12">
-      <div className="max-w-screen-xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Horario Section */}
         <div>
           <h2 className="text-xl font-bold mb-4">Horario</h2>
@@ -69,29 +68,12 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom Section with Copyright and Social Icons */}
-      <div className="max-w-screen-xl mx-auto px-4 mt-12 flex flex-col md:flex-row justify-between items-center">
+      {/* Bottom Section with Copyright */}
+      <div className="container mx-auto px-4 mt-12 flex flex-col md:flex-row justify-between items-center">
         <p className="text-sm text-gray-400 mb-4 md:mb-0">
           © Copyright 2022, All Rights Reserved by ClarityUI
         </p>
-        <div className="flex space-x-4">
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-            <FaTwitter size={20} />
-          </a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-            <FaFacebook size={20} />
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-            <FaInstagram size={20} />
-          </a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-            <FaGithub size={20} />
-          </a>
-          
-        </div>
       </div>
     </footer>
-  );
-};
-
-export default Footer;
+  )
+}
