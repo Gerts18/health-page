@@ -6,13 +6,12 @@ import Statistics from "./components/Statistics/statistics";
 import BannerPrecisionMedicine from "./components/BannerPrecisionMedicine/bannerPrecisionMedicine";
 import NewsAndArticles from "./components/NewsAndArticles/newsAndArticles";
 import BannerUniqueTreatment from "./components/BannerUniqueTreatment/bannerUniqueTreatment";
-import Footer from "./components/Footer";
 import Link from "next/link";
 
 import './components/Login/login.css'
 import { StrictMode } from "react"
 import Header from "./components/Header/Index"
-import Footer from '@/app/components/Footer/Index'
+import Footer from '@/app/components/Footer'
 import LoginPage from './Login/page'
 
 const Home = () => {
