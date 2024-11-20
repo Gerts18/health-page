@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -44,23 +43,23 @@ const LoginArea = () => {
 
   // Función de envío del formulario
   const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true); // Deshabilitar el botón
+    setIsSubmitting(true);
     try {
       const response = await fetch('/api/backlogin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data), // Enviar email y password
+        body: JSON.stringify(data),
       });
 
       const result = await response.json();
 
       if (result.success) {
         toast.success("¡Inicio de sesión exitoso!");
-        reset(); // Reiniciar el formulario
+        reset(); 
         setTimeout(() => {
-          window.location.href = "/dashboard"; // Redirigir al usuario
+          window.location.href = "/dashboard";
         }, 2000);
       } else {
         toast.error(result.message || "Error al iniciar sesión.");
@@ -69,7 +68,7 @@ const LoginArea = () => {
       console.error("Error en la solicitud:", error);
       toast.error(error.message || "Ocurrió un error en el servidor.");
     } finally {
-      setIsSubmitting(false); // Rehabilitar el botón
+      setIsSubmitting(false);
     }
   };
 
@@ -89,7 +88,7 @@ const LoginArea = () => {
                       <input
                         id="email"
                         type="text"
-                        {...register("email")} // Conectar el input al formulario
+                        {...register("email")}
                         placeholder="Correo"
                         disabled={isSubmitting}
                       />
@@ -101,7 +100,7 @@ const LoginArea = () => {
                       <input
                         id="password"
                         type="password"
-                        {...register("password")} // Conectar el input al formulario
+                        {...register("password")}
                         placeholder="Contraseña"
                         disabled={isSubmitting}
                       />
