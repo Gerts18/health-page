@@ -9,9 +9,9 @@ import { StrictMode } from "react"
 const Home = () => {
   return (
     <StrictMode>
-        <Header />
-        <Login />
-        <Footer />
+      <Header />
+      <Login />
+      <Footer />  
     </StrictMode>
   )
 }
