@@ -1,7 +1,5 @@
 'use client';
-import Link from 'next/link';
 import React, { useState } from 'react';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -16,42 +14,61 @@ interface FormData {
   password: string;
 }
 
+// Esquema de validación con Yup
 const schema = yup
   .object({
-    email: yup.string().required().email().label("Email"),
-    password: yup.string().required().min(6).label("Password"),
+    email: yup
+      .string()
+      .required("El correo electrónico es obligatorio")
+      .email("Debe ser un correo electrónico válido"),
+    password: yup
+      .string()
+      .required("La contraseña es obligatoria")
+      .min(6, "La contraseña debe tener al menos 6 caracteres"),
   })
   .required();
 
 const LoginArea = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Configuración de react-hook-form
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: yupResolver(schema) });
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
 
+  // Función de envío del formulario
   const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true); // Deshabilitar el botón
+    setIsSubmitting(true);
     try {
-      const response = await axios.post('src\app\components\Login\login.ts', data); // URL de tu backend
+      const response = await fetch('/api/backlogin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-      if (response.data.success) {
+      const result = await response.json();
+
+      if (result.success) {
         toast.success("¡Inicio de sesión exitoso!");
-        reset(); // Reiniciar el formulario
-        // Puedes redirigir al usuario, por ejemplo:
-        // window.location.href = '/dashboard';
+        reset(); 
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 2000);
       } else {
-        toast.error(response.data.message || "Error al iniciar sesión.");
+        toast.error(result.message || "Error al iniciar sesión.");
       }
     } catch (error: any) {
-      toast.error(
-        error.response?.data?.message || "Ocurrió un error en el servidor."
-      );
+      console.error("Error en la solicitud:", error);
+      toast.error(error.message || "Ocurrió un error en el servidor.");
     } finally {
-      setIsSubmitting(false); // Habilitar el botón
+      setIsSubmitting(false);
     }
   };
 
@@ -63,29 +80,34 @@ const LoginArea = () => {
           <h3 className="sub-text-center">Inicie sesión con los datos de su cuenta</h3>
           <div className="container">
             <div className="row">
-              <div className="col-lg-8 offset-lg-2">
+              <div className="">
                 <div className="basic-login">
                   <form onSubmit={handleSubmit(onSubmit)}>
-                    <label htmlFor="email">Email<span>**</span></label>
-                    <input
-                      id="email"
-                      type="text"
-                      {...register("email")}
-                      placeholder="you@company.com"
-                      disabled={isSubmitting} // Deshabilitar mientras se envía
-                    />
+                    {/* Campo Email */}
+                    <div className='login-input'>
+                      <input
+                        id="email"
+                        type="text"
+                        {...register("email")}
+                        placeholder="Correo"
+                        disabled={isSubmitting}
+                      />
+                    </div>
                     <p className="form_error">{errors.email?.message}</p>
 
-                    <label htmlFor="password">Contraseña<span>**</span></label>
-                    <input
-                      id="password"
-                      type="password"
-                      {...register("password")}
-                      placeholder="********"
-                      disabled={isSubmitting} // Deshabilitar mientras se envía
-                    />
+                    {/* Campo Password */}
+                    <div className='login-input'>
+                      <input
+                        id="password"
+                        type="password"
+                        {...register("password")}
+                        placeholder="Contraseña"
+                        disabled={isSubmitting}
+                      />
+                    </div>
                     <p className="form_error">{errors.password?.message}</p>
 
+                    {/* Botón de envío */}
                     <div className="login-action mb-20 fix">
                       <span className="log-rem f-left">
                         <input id="remember" type="checkbox" disabled={isSubmitting} />
@@ -95,7 +117,7 @@ const LoginArea = () => {
                     <button
                       className="primary_btn"
                       type="submit"
-                      disabled={isSubmitting} // Deshabilitar el botón
+                      disabled={isSubmitting}
                     >
                       {isSubmitting ? "Iniciando..." : "Iniciar"}
                     </button>

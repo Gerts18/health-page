@@ -16,7 +16,6 @@ import LoginPage from './Login/page'
 
 const Home = () => {
   return (
-
     <div className="bg-[#F5F5F5] w-full h-svh">
       <Navbar />
       <ImageSlider />
