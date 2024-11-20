@@ -8,7 +8,6 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
-
 import './login.css';
 
 interface FormData {
@@ -16,6 +15,7 @@ interface FormData {
   password: string;
 }
 
+// Esquema de validación con Yup
 const schema = yup
   .object({
     email: yup
@@ -32,6 +32,7 @@ const schema = yup
 const LoginArea = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Configuración de react-hook-form
   const {
     register,
     handleSubmit,
@@ -41,35 +42,36 @@ const LoginArea = () => {
     resolver: yupResolver(schema),
   });
 
+  // Función de envío del formulario
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true); // Deshabilitar el botón
     try {
-      const response = await axios.post(
-        "/api/backlogin", // Ruta correcta para el backend
-        JSON.stringify(data),
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch('/api/backlogin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data), // Enviar email y password
+      });
 
-      if (response.data?.success) {
+      const result = await response.json();
+
+      if (result.success) {
         toast.success("¡Inicio de sesión exitoso!");
         reset(); // Reiniciar el formulario
-        // Redirigir al usuario si es necesario:
-        // window.location.href = "/dashboard";
+        setTimeout(() => {
+          window.location.href = "/dashboard"; // Redirigir al usuario
+        }, 2000);
       } else {
-        toast.error(response.data?.message || "Error al iniciar sesión.");
+        toast.error(result.message || "Error al iniciar sesión.");
       }
     } catch (error: any) {
       console.error("Error en la solicitud:", error);
-      toast.error(
-        error.response?.data?.message || "Ocurrió un error en el servidor."
-      );
+      toast.error(error.message || "Ocurrió un error en el servidor.");
     } finally {
-      setIsSubmitting(false); // Habilitar el botón
+      setIsSubmitting(false); // Rehabilitar el botón
     }
   };
-  
 
   return (
     <>
@@ -82,27 +84,31 @@ const LoginArea = () => {
               <div className="">
                 <div className="basic-login">
                   <form onSubmit={handleSubmit(onSubmit)}>
+                    {/* Campo Email */}
                     <div className='login-input'>
                       <input
                         id="email"
                         type="text"
-                        {...register("email")}
+                        {...register("email")} // Conectar el input al formulario
                         placeholder="Correo"
-                        disabled={isSubmitting} // Deshabilitar mientras se envía
+                        disabled={isSubmitting}
                       />
                     </div>
                     <p className="form_error">{errors.email?.message}</p>
+
+                    {/* Campo Password */}
                     <div className='login-input'>
                       <input
                         id="password"
                         type="password"
-                        {...register("password")}
+                        {...register("password")} // Conectar el input al formulario
                         placeholder="Contraseña"
-                        disabled={isSubmitting} // Deshabilitar mientras se envía
+                        disabled={isSubmitting}
                       />
                     </div>
                     <p className="form_error">{errors.password?.message}</p>
 
+                    {/* Botón de envío */}
                     <div className="login-action mb-20 fix">
                       <span className="log-rem f-left">
                         <input id="remember" type="checkbox" disabled={isSubmitting} />
@@ -112,7 +118,7 @@ const LoginArea = () => {
                     <button
                       className="primary_btn"
                       type="submit"
-                      disabled={isSubmitting} // Deshabilitar el botón
+                      disabled={isSubmitting}
                     >
                       {isSubmitting ? "Iniciando..." : "Iniciar"}
                     </button>
