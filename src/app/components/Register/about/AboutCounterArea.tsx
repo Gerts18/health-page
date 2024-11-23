@@ -1,6 +1,5 @@
 
 import React from 'react';
-import Count from '../common/Count';
 import Image, { StaticImageData } from 'next/image';
 import counter_icon_1 from "@/assets/img/counter/counter-icon-1.png";
 import counter_icon_2 from "@/assets/img/counter/counter-icon-2.png";
