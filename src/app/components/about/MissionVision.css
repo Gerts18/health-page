@@ -1,0 +1,82 @@
+.mission-vision-container {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	background-color: #A0B8FFCC;
+	;
+	padding: 20px;
+	font-family: Arial, sans-serif;
+	width: 100%;
+	height: auto; /* Solo ocupa el espacio necesario */
+  }
+  
+  .tabs {
+	display: flex;
+	justify-content: flex-start; /* Alinea las pestañas a la izquierda */
+	width: 100%;
+	margin-bottom: 20px;
+  }
+  
+  .tab {
+	font-size: 1.75rem;
+	font-weight: bold;
+	margin: 0 10px;
+	color: #fff;
+	opacity: 0.6;
+	cursor: pointer;
+	position: relative;
+  }
+  
+  .tab.active {
+	color: #fff;
+	opacity: 1;
+  }
+  
+  .tab.blue-line.active::after {
+	content: '';
+	position: absolute;
+	bottom: -8px;
+	left: 0;
+	width: 100%;
+	height: 3px;
+	background-color: #007bff; /* Línea azul */
+  }
+  
+  .tab.pink-line.active::after {
+	content: '';
+	position: absolute;
+	bottom: -8px;
+	left: 0;
+	width: 100%;
+	height: 3px;
+	background-color: #ff4da6; /* Línea rosada */
+  }
+  
+  .content {
+	display: flex;
+	align-items: center; /* Centra verticalmente texto e imagen */
+	justify-content: center; /* Centra horizontalmente el contenido */
+	gap: 20px; /* Espacio entre texto e imagen */
+	width: 100%;
+  }
+  
+  .text-section {
+	flex: 1;
+	font-size: 1.5rem; /* Agranda el tamaño del texto */
+	color: #fff; /* Cambia el color del texto a blanco */
+	text-align: justify;
+	line-height: 1.8; /* Mejora la legibilidad con mayor interlineado */
+  }
+  
+  .image-container {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+  }
+  
+  .image-container img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 5px;
+  }
+  

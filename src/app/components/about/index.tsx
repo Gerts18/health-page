@@ -1,15 +1,16 @@
 
 import React from 'react';
-import AboutVideoArea from './AboutVideoArea';
+import AboutVideoArea from './MissionVission';
 import AboutCounterArea from './AboutCounterArea';
-import AboutAppoinment from './AboutAppoinment';
 import TeamAreaHomeOne from './TeamAreaHomeOne';
+import Carrousel from './HeroSliderHomeOne'
+//import './index.css';
 
 const About = () => {
   return (
     <>
       <main>
-        <AboutAppoinment />
+        <Carrousel/>
         <AboutVideoArea />
         <AboutCounterArea />
         <TeamAreaHomeOne />

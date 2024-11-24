@@ -1,0 +1,117 @@
+/* Contenedor principal */
+.awards-container {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f9f9f9; /* Fondo claro */
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Título */
+  .awards-title {
+    color: #000; /* Negro fuerte */
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Subtítulo */
+  .awards-subtitle {
+    color: #ff4a8d; /* Rosa fuerte */
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* Grid de tarjetas */
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ancho ajustado de las tarjetas */
+    gap: 1rem; /* Espacio entre tarjetas */
+    justify-content: center;
+    align-items: start;
+    margin-bottom: 2rem;
+  }
+  
+  /* Tarjeta individual */
+  .award-card {
+    background-color: #fff; /* Fondo blanco */
+    border: 1px solid #e0e0e0; /* Borde sutil */
+    border-radius: 8px;
+    padding: 1rem; /* Padding reducido */
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 250px; /* Tarjetas más delgadas */
+    margin: 0 auto; /* Centra las tarjetas en el contenedor */
+  }
+  
+  .award-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  }
+  
+  /* Imagen en la tarjeta */
+  .award-image {
+    width: 100%; /* Imagen ocupa todo el ancho de la tarjeta */
+    max-height: 175px; /* Imagen aumentada un 25% más */
+    object-fit: contain; /* Mantiene la proporción de la imagen */
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Organización (nombre del grupo) */
+  .award-organization {
+    font-size: 0.85rem; /* Texto más pequeño */
+    color: #555; /* Gris medio */
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Botón dentro de la tarjeta */
+  .award-button {
+    display: inline-block;
+    padding: 0.2rem 0.8rem; /* Botón más pequeño */
+    background-color: #ff4a8d; /* Rosa fuerte */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.8rem; /* Texto del botón más pequeño */
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .award-button:hover {
+    background-color: #e03e7a; /* Rosa más oscuro */
+  }
+  
+  /* Título del reconocimiento */
+  .award-title {
+    font-size: 1rem; /* Texto más pequeño */
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #000;
+  }
+  
+  /* Descripción del reconocimiento */
+  .award-description {
+    font-size: 0.8rem; /* Texto más pequeño */
+    color: #666; /* Gris claro */
+    line-height: 1.4;
+  }
+  
+  /* Botón "Leer Más" */
+  .load-more-button {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem; /* Botón más pequeño */
+    background-color: #ff4a8d;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .load-more-button:hover {
+    background-color: #e03e7a;
+  }
+  
