@@ -59,7 +59,7 @@ const LoginArea = () => {
         toast.success("¡Inicio de sesión exitoso!");
         reset(); 
         setTimeout(() => {
-          window.location.href = "/dashboard";
+          window.location.href = "/Perfil";
         }, 2000);
       } else {
         toast.error(result.message || "Error al iniciar sesión.");
