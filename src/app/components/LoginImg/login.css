@@ -7,16 +7,6 @@
     text-align: center;
 }
 
-.text-center{
-    padding: 12px;
-    border-radius: 5px;
-    font-size: 48px; /* Tamaño grande del texto */
-    font-weight: bold; /* Negrita */
-    color: white; /* Color blanco */
-    text-align: center; /* Centrado opcional */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Sombra opcional para resaltar */
-}
-
 .sub-text-center{
     padding: 12px;
     border-radius: 5px;
