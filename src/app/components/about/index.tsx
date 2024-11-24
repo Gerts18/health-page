@@ -1,9 +1,9 @@
-
 import React from 'react';
 import AboutVideoArea from './MissionVission';
 import AboutCounterArea from './Specialties';
 import TeamAreaHomeOne from './Specialists';
 import Carrousel from './Carousel'
+import Awards from './Awards'
 
 const About = () => {
   return (
@@ -13,7 +13,7 @@ const About = () => {
         <AboutVideoArea />
         <AboutCounterArea />
         <TeamAreaHomeOne />
-        <TeamAreaHomeOne />
+        <Awards />
       </main>
     </>
   );
