@@ -9,7 +9,7 @@
   .title {
     font-size: 2rem;
     font-weight: bold;
-    color: #ff3385; /* Color rosa del título */
+    color: #ff3385; 
     margin-bottom: 2rem;
   }
   
@@ -18,7 +18,7 @@
     display: flex;
     justify-content: space-around;
     gap: 1.5rem;
-    flex-wrap: wrap; /* Permite que las tarjetas se ajusten en pantallas pequeñas */
+    flex-wrap: wrap; 
   }
   
   /* Estilos de cada tarjeta */
@@ -40,7 +40,7 @@
   
   /* Contenedor de íconos */
   .iconContainer {
-    background-color: #ffc4d6; /* Fondo rosa del ícono */
+    background-color: #ffc4d6; 
     padding: 1rem;
     border-radius: 8px 8px 0 0;
     display: flex;

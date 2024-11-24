@@ -5,7 +5,6 @@ import team_avatar_2 from "@/assets/img/about/docDos.png";
 import team_avatar_3 from "@/assets/img/about/docTres.png";
 import team_avatar_4 from "@/assets/img/about/docCuatro.png";
 import team_avatar_5 from "@/assets/img/about/docCinco.png";
-//import './index.css';
 
 interface TeamDataType {
   id: number;

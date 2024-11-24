@@ -39,7 +39,7 @@ const MissionVision: React.FC = () => {
         </div>
         <div className="image-container">
           <img
-            src="/assets/img/about/missionVission.png" // Reemplaza con la URL de tu imagen o utiliza un import.
+            src="/assets/img/about/missionVission.png"
             alt="Laboratorio"
           />
         </div>

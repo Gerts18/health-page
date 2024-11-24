@@ -1,10 +1,9 @@
 
 import React from 'react';
 import AboutVideoArea from './MissionVission';
-import AboutCounterArea from './AboutCounterArea';
-import TeamAreaHomeOne from './TeamAreaHomeOne';
-import Carrousel from './HeroSliderHomeOne'
-//import './index.css';
+import AboutCounterArea from './Specialties';
+import TeamAreaHomeOne from './Specialists';
+import Carrousel from './Carousel'
 
 const About = () => {
   return (

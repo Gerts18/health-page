@@ -1,25 +1,25 @@
 
 import React from 'react';
-import styles from "./Specialties.module.css"; // Archivo CSS importado
+import styles from "./Specialties.module.css";
 
 const Specialties = () => {
   const specialties = [
     {
-      icon: "/assets/img/about/count_icon1.png", // Reemplaza con tu ruta de ícono
+      icon: "/assets/img/about/count_icon1.png",
       title: "Oncología Clínica y Traslacional",
       description:
         "El conocimiento sobre la biología del cáncer en relación con su origen y evolución ha aumentado considerablemente en los últimos años.",
       link: "#",
     },
     {
-      icon: "/assets/img/about/count_icon2.png", // Reemplaza con tu ruta de ícono
+      icon: "/assets/img/about/count_icon2.png",
       title: "Marcadores Moleculares en Cáncer",
       description:
         "El cáncer es una enfermedad que afecta distintas partes del organismo y consiste en la proliferación excesiva.",
       link: "#",
     },
     {
-      icon: "/assets/img/about/count_icon3.png", // Reemplaza con tu ruta de ícono
+      icon: "/assets/img/about/count_icon3.png",
       title: "Genómica del Cáncer",
       description:
         "Con la llegada de las ciencias ómicas se ha profundizado en el conocimiento de la biología de las distintas enfermedades.",

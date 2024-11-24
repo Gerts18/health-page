@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-import styles from "./Carousel.module.css"; // Archivo CSS importado
+import styles from "./Carousel.module.css";
 
 const Carousel = () => {
   const slides = [

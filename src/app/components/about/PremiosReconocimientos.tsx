@@ -17,7 +17,7 @@ const Awards = () => {
         {Array(4).fill(null).map((_, index) => (
           <div className="award-card" key={index}>
             <img
-              src="/assets/img/about/awardImg.png" // Imagen de ejemplo
+              src="/assets/img/about/awardImg.png"
               alt="AACR logo"
               className="award-image"
             />

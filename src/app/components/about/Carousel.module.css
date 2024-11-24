@@ -1,8 +1,8 @@
 /* Contenedor general del carrusel */
 .carousel {
     position: relative;
-    width: 100vw; /* Toma todo el ancho de la pantalla */
-    height: 100vh; /* Toma todo el alto de la pantalla */
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
   }
   
@@ -13,26 +13,26 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover; /* Asegura que la imagen cubra todo */
+    background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    z-index: 0; /* Imagen al fondo */
+    z-index: 0;
   }
   
 /* Contenedor principal del texto */
 .textContainer {
-    position: absolute; /* Cambia de relative a absolute para posicionarlo */
-    top: 50%; /* Centraliza verticalmente */
-    left: 2rem; /* Mantiene el texto cargado a la izquierda */
-    transform: translateY(-50%); /* Ajusta el centro vertical exacto */
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    transform: translateY(-50%);
     
-    width: auto; /* Ajusta automáticamente el ancho al contenido */
-    max-width: 40%; /* Opcional: limita el ancho máximo */
+    width: auto;
+    max-width: 40%;
     padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     color: #333;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Agrega un efecto de sombra para destacar el texto */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }  
   
   /* Título del texto */
