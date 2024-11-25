@@ -24,10 +24,11 @@
     text-align: center;
     padding: 90px;
     border-radius: 10px;
+    width: 35%;
 }
 
 .basic-login {
-    padding: 90px;
+    padding: 25px;
     border: 2px solid #eaedff;
     border-radius: 20px;
 }
@@ -58,6 +59,11 @@
     }
 }
 
+.login-input{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
 .basic-login h3 {
     font-size: 30px;
 }
@@ -67,11 +73,11 @@
     height: 60px;
     border: 2px solid #eaedff;
     color: #6f7172;
-    padding: 0 20px;
+    padding: 0 10px;
 }
 
 .basic-login label {
-    color: #222;
+    color: blue;
     display: block;
     margin-bottom: 0.5rem;
 }

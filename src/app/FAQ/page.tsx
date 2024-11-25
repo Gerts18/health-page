@@ -1,7 +1,7 @@
 'use client'
 
 import Header from '../components/Header/Index'
-import Footer from '../components/Footer/Index'
+import Footer from '../components/Footer/Footer'
 import Image from 'next/image'
 import { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'

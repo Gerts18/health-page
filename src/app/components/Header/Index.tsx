@@ -1,19 +1,68 @@
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+interface UserData {
+  name: string;
+}
+
 const Header: React.FC = () => {
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    // Función para obtener los datos del usuario
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/api/auth', {
+          method: 'GET',
+          credentials: 'include', // Para incluir las cookies en la solicitud
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          setUserData(result.data as UserData);
+        } else {
+          setUserData(null);
+        }
+      } catch (error) {
+        console.error('Error al obtener datos del usuario:', error);
+        setUserData(null);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        credentials: 'include',
+      });
+      const result = await response.json();
+
+      console.log('Cerrar sesión:', result);
+
+      if (result.success) {
+        setUserData(null);
+      }
+
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 flex items-center justify-between px-8 py-4 bg-white shadow-md z-50">
       {/* Logo */}
       <div className="flex items-center space-x-2">
         <Image src="/assets/Logo8.png" alt="FICMAC Logo" width={200} height={200} />
         <div className="text-lg font-semibold text-gray-800">
-         
-          
+          {/* Aquí puedes añadir texto si lo deseas */}
         </div>
       </div>
 
-      {/* Navigation */}
+      {/* Navegación */}
       <nav className="flex items-center space-x-6 text-gray-700">
         <div className="relative group">
           <button className="focus:outline-none">Nosotros</button>
@@ -44,14 +93,32 @@ const Header: React.FC = () => {
         </Link>
       </nav>
 
-      {/* Buttons */}
+      {/* Botones */}
       <div className="flex items-center space-x-4">
-        <button className="px-4 py-2 text-blue-500 border border-blue-500 rounded-full hover:bg-blue-500 hover:text-white">
-          Log in
-        </button>
-        <button className="px-4 py-2 text-pink-500 border border-pink-500 rounded-full hover:bg-pink-500 hover:text-white">
-          Sign Up
-        </button>
+        {userData ? (
+          <>
+            <span>Hola, {userData.name}</span>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 text-red-500 border border-red-500 rounded-full hover:bg-red-500 hover:text-white"
+            >
+              Cerrar sesión
+            </button>
+          </>
+        ) : (
+          <>
+            <Link href="/login">
+              <button className="px-4 py-2 text-blue-500 border border-blue-500 rounded-full hover:bg-blue-500 hover:text-white">
+                Log in
+              </button>
+            </Link>
+            <Link href="/register">
+              <button className="px-4 py-2 text-pink-500 border border-pink-500 rounded-full hover:bg-pink-500 hover:text-white">
+                Sign Up
+              </button>
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );

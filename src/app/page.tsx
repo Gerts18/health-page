@@ -13,13 +13,14 @@ import { StrictMode } from "react"
 import Header from "./components/Header/Index"
 import Footer from "./components/Footer/Index"
 import LoginPage from './Login/page'
+import Footer from '@/app/components/Footer/Footer'
 
 const Home = () => {
   return (
-
     <div className="bg-[#F5F5F5] w-full h-svh">
       {/* <Navbar /> */}
       <Header />
+
       <ImageSlider />
       <Statistics />
 
