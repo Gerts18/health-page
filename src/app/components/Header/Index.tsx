@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -10,14 +10,14 @@ interface UserData {
 
 const Header: React.FC = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para controlar el menú desplegable
 
   useEffect(() => {
-    // Función para obtener los datos del usuario
     const fetchUserData = async () => {
       try {
         const response = await fetch('/api/auth', {
           method: 'GET',
-          credentials: 'include', // Para incluir las cookies en la solicitud
+          credentials: 'include',
         });
         const result = await response.json();
 
@@ -43,16 +43,16 @@ const Header: React.FC = () => {
       });
       const result = await response.json();
 
-      console.log('Cerrar sesión:', result);
-
       if (result.success) {
         setUserData(null);
-        window.dispatchEvent(new Event('logout'));
       }
-
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev); // Cambia el estado entre abierto y cerrado
   };
 
   return (
@@ -60,27 +60,58 @@ const Header: React.FC = () => {
       {/* Logo */}
       <div className="flex items-center space-x-2">
         <Image src="/assets/Logo8.png" alt="FICMAC Logo" width={200} height={200} />
-        <div className="text-lg font-semibold text-gray-800">
-          {/* Aquí puedes añadir texto si lo deseas */}
-        </div>
       </div>
 
       {/* Navegación */}
       <nav className="flex items-center space-x-6 text-gray-700">
-        <div className="relative group">
-          <button className="focus:outline-none">Nosotros</button>
-          <ul className="absolute left-0 hidden p-2 mt-2 bg-white border rounded-md shadow-md group-hover:block">
-            <li>
-              <Link href="/about/history" className="block px-4 py-2 hover:bg-gray-100">
-                Historia
-              </Link>
-            </li>
-            <li>
-              <Link href="/about/team" className="block px-4 py-2 hover:bg-gray-100">
-                Equipo
-              </Link>
-            </li>
-          </ul>
+        {/* Menú desplegable de "Nosotros" */}
+        <div className="relative">
+          <button
+            onClick={toggleMenu}
+            className="focus:outline-none text-gray-700 hover:text-pink-500"
+          >
+            Nosotros
+          </button>
+          {isMenuOpen && ( // Solo muestra el menú si `isMenuOpen` es true
+            <ul className="absolute left-0 w-48 mt-2 bg-pink-500 text-white rounded-md shadow-md">
+              <li>
+                <Link
+                  href="/FAQ"
+                  className="block px-4 py-2 hover:bg-pink-600"
+                  onClick={() => setIsMenuOpen(false)} // Cierra el menú al hacer clic
+                >
+                  Preguntas Frecuentes
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="block px-4 py-2 hover:bg-pink-600"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Contáctanos
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/quote"
+                  className="block px-4 py-2 hover:bg-pink-600"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Cotización
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="block px-4 py-2 hover:bg-pink-600"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Sobre Nosotros
+                </Link>
+              </li>
+            </ul>
+          )}
         </div>
         <Link href="/investigations" className="text-gray-700 hover:text-pink-500">
           Investigaciones
@@ -91,7 +122,7 @@ const Header: React.FC = () => {
         <Link href="/doctors" className="text-gray-700 hover:text-pink-500">
           Médicos
         </Link>
-        <Link href="/news" className="text-gray-700 hover:text-pink-500">
+        <Link href="/News" className="text-gray-700 hover:text-pink-500">
           Noticias
         </Link>
       </nav>
