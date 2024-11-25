@@ -33,7 +33,7 @@ const Home = () => {
         </p>
         <Link
           href="/register"
-          className="bg-[#547EED] w-auto text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300"
+          className="bg-[#547EED] w-auto text-white p-2 rounded-full hover:bg-blue-600 transition duration-300"
         >
           ¡Regístrate aquí!
         </Link>
@@ -43,7 +43,7 @@ const Home = () => {
       <BannerUniqueTreatment />
       <NewsAndArticles />
 
-      <Footer />
+      <Footer/>
     </div>
   );
 };

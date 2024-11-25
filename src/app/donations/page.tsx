@@ -14,22 +14,22 @@ const page = () => {
 
       <div className="w-full">
         {/* Primera sección con imagen y texto superpuesto */}
-        <div className="relative w-full h-auto flex justify-center items-center mt-6 py-8 px-4">
+        <div className="relative w-full h-auto flex justify-center items-center mt-6 py-8">
           <Image
             src="/assets/donationsMain.jpg"
             alt="Imagen principal de apoyo al cáncer"
             layout="responsive"
             width={800}
             height={400}
-            className="rounded-lg"
+            className="rounded-lg "
           />
-          <div className="absolute top-0 left-0 w-1/2 h-full flex flex-col justify-center items-center p-6">
-            <p className="text-[#6A6A6A] text-2xl text-center max-w-xl">
+          <div className="absolute top-0 left-0 w-1/2 h-full flex flex-col justify-center items-center p-6 pb-36">
+            <p className="text-[#6A6A6A] text-2xl text-center max-w-xl px-8">
               Brindarle calidad de vida a los pacientes es posible, gracias al
               proceso de transformación en la precisión del tratamiento del
               cáncer.
             </p>
-            <p className="text-[#6A6A6A] text-3xl font-bold text-center my-6">
+            <p className="text-[#6A6A6A] text-3xl font-bold text-center my-6 px-8">
               Sigamos sumando años de vida en la lucha contra el cáncer...
               <span className="text-[#6A6A6A]"> Apóyanos</span>
             </p>
@@ -37,7 +37,7 @@ const page = () => {
         </div>
 
         {/* Segunda sección con título, subtítulo y texto */}
-        <section className="px-4 md:px-8 lg:px-16 bg-white">
+        <section className="px-4 md:px-8 lg:px-16 bg-white shadow-md pb-4 mb-10">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center">
             {/* Imagen */}
             <div className="w-full lg:w-1/2 flex justify-center mb-8 lg:mb-0">
@@ -81,7 +81,7 @@ const page = () => {
             para no detenernos en esta lucha, y seguir dando esperanza y
             posibilidades a miles de personas.
           </p>
-          <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 px-36 pb-8">
+          <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 px-36 pb-14">
             {[...Array(3)].map((_, index) => (
               <div
                 key={index}
@@ -191,11 +191,11 @@ const page = () => {
         </div>
       </section>
 
-      <section>
+      <section className="pb-10">
         <h1 className="text-center text-2xl font-bold pb-3">
           Gracias a ti y a las donaciones hemos ayudado a:
         </h1>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-28">
           <div className="flex flex-col items-center text-center">
             <svg
               stroke="currentColor"
@@ -250,15 +250,15 @@ const page = () => {
       </section>
 
       <section
-        className="py-12 px-4 md:px-6 lg:px-8 w-full"
+        className="py-12 px-4 md:px-6 lg:px-8 w-full pb-10"
         style={{
           backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.3)), url('/assets/apoyo.jpg')`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "start",
         }}
       >
         <div className="w-3/4 mx-auto">
-          <p className="text-sm text-center mb-4 text-muted-foreground">
+          <p className="text-md text-center mb-4 text-muted-foreground">
             ¿NECESITAS APOYO?
           </p>
           <h1 className="text-3xl font-bold text-center mb-8">
@@ -297,8 +297,8 @@ const page = () => {
                 key={index}
                 className="border rounded-lg shadow-md p-4 flex flex-col items-start"
                 style={{
-                  backgroundColor: "rgba(255, 255, 255, 0.5)", // Fondo blanco con transparencia
-                  backdropFilter: "blur(5px)", // Añade un efecto de desenfoque (opcional)
+                  backgroundColor: "rgba(255, 255, 255, 0.5)",
+                  backdropFilter: "blur(5px)",
                 }}
               >
                 <div className="flex items-center gap-2 mb-4">
