@@ -1,0 +1,76 @@
+/* Contenedor principal */
+.specialists-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fcd6e2;
+  font-family: Arial, sans-serif;
+}
+
+/* Título */
+.specialists-title {
+  color: #ff007f;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Grid de especialistas */
+.specialists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0;
+  justify-content: center;
+  align-items: start;
+}
+
+/* Tarjeta de especialista */
+.specialist-card {
+  text-align: center;
+  transition: transform 0.3s ease;
+  margin: 0; 
+}
+
+.specialist-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Imagen del especialista */
+.specialist-image {
+  width: 100%;
+  max-width: 250px; 
+  height: auto;
+  border-radius: 12px; 
+  margin: 0 auto; 
+  display: block;
+}
+
+/* Nombre del especialista */
+.specialist-name {
+  font-size: 1.4rem; 
+  font-weight: bold;
+  color: #333;
+  margin-top: 0.5rem;
+}
+
+/* Especialidad del especialista */
+.specialist-specialty {
+  font-size: 1.1rem;
+  color: #007bff; 
+  margin-top: 0.3rem;
+}
+
+/* Botón "Cargar más" */
+.load-more-button {
+  margin-top: 2rem;
+  padding: 0.7rem 2.5rem;
+  background-color: #ff007f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.load-more-button:hover {
+  background-color: #e60070;
+}

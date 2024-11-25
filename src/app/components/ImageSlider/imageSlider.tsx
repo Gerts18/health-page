@@ -32,7 +32,7 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="w-full h-[950px] m-auto py-1 pb-4 relative group">
+    <div className="w-full h-[950px] m-auto mt-6 py-1 pb-4 relative group">
       {/* Imagen de fondo */}
       <div
         className="w-full h-full bg-center bg-cover duration-500"
