@@ -8,7 +8,7 @@ import NewsAndArticles from "./components/NewsAndArticles/newsAndArticles";
 import BannerUniqueTreatment from "./components/BannerUniqueTreatment/bannerUniqueTreatment";
 import Link from "next/link";
 
-import './components/LoginImg/login.css'
+import './components/Login/login.css'
 import { StrictMode } from "react"
 import Header from "./components/Header/Index"
 import Footer from "./components/Footer/Index"
