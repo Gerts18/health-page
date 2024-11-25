@@ -1,7 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
 import { conn } from '@/libs/PostgDB';
-import { verify } from 'jsonwebtoken';
-
 
 //Agregar un nuevo usuario a la base de datos
 export async function POST(request: NextRequest) {
