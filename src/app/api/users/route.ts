@@ -1,5 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { conn } from '@/libs/PostgDB';
+import {verify} from 'jsonwebtoken';
 
 export async function POST(request: NextRequest) {
   try {
@@ -62,5 +63,34 @@ export async function POST(request: NextRequest) {
       },
       { status: 500 }
     );
+  }
+}
+
+
+export async function GET(request: NextRequest) {
+  try {
+
+    //Dame la forma correcta de obtener mi cookie de los headers
+    const cookies = request.cookies.get('token')
+    const token = cookies['value']
+    
+    const data = verify(token, 'secretkey') //Obteniendo los datos del token
+    console.log(data)
+
+    return NextResponse.json(
+      {
+        success: true,
+        status: 200,
+        message: "Datos Cargados",
+        data: { users: 'Name' },
+        timestamp: Date.now(),
+        api: "api/users",
+        method: "GET",
+      },
+      { status: 200 }
+    );
+
+  }catch {
+
   }
 }

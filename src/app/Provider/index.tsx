@@ -8,7 +8,9 @@ interface ProviderProps {
 }
 
 const Provider: React.FC<ProviderProps> = ({ children }) => {
-  return <NextUIProvider>{children}</NextUIProvider>;
+  return <NextUIProvider>
+    {children}
+    </NextUIProvider>;
 };
 
 export default Provider;

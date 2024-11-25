@@ -57,10 +57,14 @@ const LoginArea = () => {
 
       if (result.success) {
         toast.success("¡Inicio de sesión exitoso!");
+
+        //console.log("Usuario:", result.data);
+
         reset(); 
-        setTimeout(() => {
+        /* setTimeout(() => {
           window.location.href = "/dashboard";
-        }, 2000);
+        }, 2000); */
+
       } else {
         toast.error(result.message || "Error al iniciar sesión.");
       }
