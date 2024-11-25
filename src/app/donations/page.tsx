@@ -2,7 +2,7 @@
 
 import React from "react";
 import Header from "../components/Header/Index";
-import Footer from "../components/Footer/index";
+import Footer from "../components/Footer/Index";
 import Image from "next/image";
 import Link from "next/link";
 import { BiAccessibility, BiHeart, BiPhone } from "react-icons/bi";
@@ -108,7 +108,7 @@ const page = () => {
                     pretium integer felis a.
                   </p>
                   <Link href="/pagoDonacion">
-                    <button className="text-white text-md bg-[#EB356E] w-auto p-1 rounded-3xl font-medium text-center">
+                    <button className="text-white text-md bg-[#EB356E] hover:bg-[#de648b] transition w-auto p-2 rounded-3xl font-medium text-center ">
                       CONOCE MÁS →
                     </button>
                   </Link>
@@ -177,7 +177,7 @@ const page = () => {
               Aplicada del Cáncer FICMAC Nit. 900239016-1
             </p>
             <button
-              className="text-white bg-[#EB356E] hover:bg-pink-500 py-3 px-6 rounded-full font-medium"
+              className="text-white bg-[#EB356E] hover:bg-pink-500 transition py-3 px-6 rounded-full font-medium"
               onClick={() =>
                 window.open(
                   "https://sites.placetopay.com/ficmac_abierto",
@@ -306,7 +306,7 @@ const page = () => {
                   <h3 className="text-lg font-bold">{card.title}</h3>
                 </div>
                 <p className=" mb-4">{card.description}</p>
-                <button className="mt-auto w-full border bg-[#17D183] border-gray-300 text-white font-bold rounded-full py-2 hover:bg-gray-100 hover:text-black">
+                <button className="mt-auto w-full border bg-[#17D183] border-gray-300 text-white font-bold rounded-full py-2 hover:bg-gray-100 hover:text-black transition">
                   Únete al Grupo
                 </button>
               </div>

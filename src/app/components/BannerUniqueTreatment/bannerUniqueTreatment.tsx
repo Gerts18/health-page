@@ -7,9 +7,9 @@ const BannerUniqueTreatment: React.FC = () => {
       {/* Imagen */}
       <div className="flex-1 absolute px-40">
         <Image
-          src={"/assets/cancerHug.jpeg"} width={550} height={550}
+          src={"/assets/cancerHug.jpeg"} width={500} height={500}
           alt="Paciente y médico"
-          className="object-cover w-auto h-auto"
+          className="object-cover w-[500px] h-auto"
         />
       </div>
 
