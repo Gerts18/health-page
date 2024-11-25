@@ -38,6 +38,8 @@ export default function PerfilPage() {
         }
         
         const responseData = await response.json();
+
+        console.log('responseData:', responseData);
         
         if (responseData.success && responseData.data) {
           const nombreCompleto = responseData.data.name?.split(' ') || [];
@@ -46,11 +48,11 @@ export default function PerfilPage() {
           const nombres = nombreCompleto.slice(0, 2).join(' ');
           
           // Tomamos el resto como apellidos
-          const apellidos = nombreCompleto.slice(2).join(' ');
+          const apellidos = responseData.data.last_names;
           
           console.log('Nombres:', nombres);
           console.log('Apellidos:', apellidos);
-          
+          console.log(apellidos)
           setUserData({
             first_name: nombres || '',
             last_names: apellidos || '',

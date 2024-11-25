@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     // Query para verificar las credenciales
     const query = `
-      SELECT email, first_name
+      SELECT email, first_name, last_names
       FROM users 
       WHERE email = $1 AND password = $2
     `;
@@ -61,6 +61,7 @@ export async function POST(request: NextRequest) {
       exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24), // Tiempo de expiracion de token, 1 hora de duración
       name: user['first_name'], //Aqui se coloca el nombre del usuario
       email: user['email'], //Aqui se coloca el email del usuario
+      last_names: user['last_names'], //Aqui se coloca el apellido del usuario
     }, 'secretkey')
 
 
