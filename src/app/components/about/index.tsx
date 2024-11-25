@@ -1,12 +1,12 @@
 
 import React from 'react';
-import AboutVideoArea from './MissionVission';
-import AboutCounterArea from './Specialties';
-import TeamAreaHomeOne from './Specialists';
-import Carrousel from './Carousel';
-import Awards from './Awards';
-import Header from '../Header/index';
-import Footer from '../Footer/index';
+import AboutVideoArea from './assets/MissionVission';
+import AboutCounterArea from './assets/Specialties';
+import TeamAreaHomeOne from './assets/Specialists';
+import Carrousel from './assets/Carousel';
+import Awards from './assets/Awards';
+import Header from '../Header/Index';
+import Footer from '../Footer/Footer';
 
 const About = () => {
   return (
