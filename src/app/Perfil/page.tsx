@@ -1,16 +1,17 @@
 'use client'
-import { useEffect, useState } from "react"
-//import Footer from "../components/Footer/Footer"
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Footer from "../components/Footer/Footer"
 import Header from "../components/Header/Index"
 import Image from "next/image";
 
 export default function PerfilPage() {
+  const router = useRouter();
+
   const [userData, setUserData] = useState({
-    nombre: '',
-    apellidos: '',
+    first_name: '',
+    last_names: '',
     email: '',
-    celular: '',
-    username: '',
   });
 
   const [passwords, setPasswords] = useState({
@@ -23,20 +24,72 @@ export default function PerfilPage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('/api/user/profile', {
-          credentials: 'include' // Para incluir las cookies de sesión
+        const response = await fetch('/api/auth', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          credentials: 'include'
         });
-        if (response.ok) {
-          const data = await response.json();
-          setUserData(data);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const responseData = await response.json();
+
+        console.log('responseData:', responseData);
+        
+        if (responseData.success && responseData.data) {
+          const nombreCompleto = responseData.data.name?.split(' ') || [];
+          
+          // Tomamos los dos primeros elementos como nombre
+          const nombres = nombreCompleto.slice(0, 2).join(' ');
+          
+          // Tomamos el resto como apellidos
+          const apellidos = responseData.data.last_names;
+          
+          console.log('Nombres:', nombres);
+          console.log('Apellidos:', apellidos);
+          console.log(apellidos)
+          setUserData({
+            first_name: nombres || '',
+            last_names: apellidos || '',
+            email: responseData.data.email || ''
+          });
+
+          // Debug del estado final
+          console.log('userData actualizado:', {
+            first_name: nombres,
+            last_names: apellidos,
+            email: responseData.data.email
+          });
+        } else {
+          throw new Error('No se encontraron datos del usuario en la respuesta');
         }
       } catch (error) {
-        console.error('Error al cargar datos del usuario:', error);
+        console.error('Error completo:', error);
+        setTimeout(() => router.push('/'), 5000);
       }
     };
 
     fetchUserData();
-  }, []);
+  }, [router]);
+
+  useEffect(() => {
+    // Agregar el event listener para el cierre de sesión
+    const handleLogout = () => {
+      router.push('/');
+    };
+
+    window.addEventListener('logout', handleLogout);
+
+    // Cleanup del event listener
+    return () => {
+      window.removeEventListener('logout', handleLogout);
+    };
+  }, [router]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -44,7 +97,9 @@ export default function PerfilPage() {
       ...prev,
       [name]: value
     }));
+
   };
+
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -142,14 +197,13 @@ export default function PerfilPage() {
               Información del Doctor
             </h3>
             <p>
-              <strong>Nombre:</strong> {userData.nombre} {userData.apellidos}
+
+              <strong>Nombre:</strong> {userData.first_name} {userData.last_names}
             </p>
             <p>
               <strong>Email:</strong> {userData.email}
             </p>
-            <p>
-              <strong>Teléfono:</strong> {userData.celular}
-            </p>
+
           </div>
 
           {/* Botones */}
@@ -174,9 +228,9 @@ export default function PerfilPage() {
               <label className="text-sm text-gray-500">Nombre:</label>
               <input
                 type="text"
-                value={userData.nombre}
+                value={userData.first_name}
                 className="w-full border rounded px-3 py-2 mt-1"
-                name="nombre"
+                name="first_name"
                 onChange={handleInputChange}
               />
             </div>
@@ -184,9 +238,9 @@ export default function PerfilPage() {
               <label className="text-sm text-gray-500">Apellidos:</label>
               <input
                 type="text"
-                value={userData.apellidos}
+                value={userData.last_names}
                 className="w-full border rounded px-3 py-2 mt-1"
-                name="apellidos"
+                name="last_names"
                 onChange={handleInputChange}
               />
             </div>
@@ -204,7 +258,7 @@ export default function PerfilPage() {
               <label className="text-sm text-gray-500">Celular:</label>
               <input
                 type="text"
-                value={userData.celular}
+                value={'4432189619'}
                 className="w-full border rounded px-3 py-2 mt-1"
                 name="celular"
                 onChange={handleInputChange}

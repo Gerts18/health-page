@@ -1,5 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { conn } from '@/libs/PostgDB';
+import jwt from 'jsonwebtoken';
+import {serialize} from 'cookie';
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     // Query para verificar las credenciales
     const query = `
-      SELECT email 
+      SELECT email, first_name, last_names
       FROM users 
       WHERE email = $1 AND password = $2
     `;
@@ -52,19 +54,44 @@ export async function POST(request: NextRequest) {
     // Extraer los datos del usuario encontrado
     const user = responseDB.rows[0];
 
-    // Responder con los datos del usuario
-    return NextResponse.json(
+    //console.log(user['first_name'])
+
+    //Genera el token unico
+    const token = jwt.sign({
+      exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24), // Tiempo de expiracion de token, 1 hora de duración
+      name: user['first_name'], //Aqui se coloca el nombre del usuario
+      email: user['email'], //Aqui se coloca el email del usuario
+      last_names: user['last_names'], //Aqui se coloca el apellido del usuario
+    }, 'secretkey')
+
+
+    // Crear la cookie con el token
+    // Crear la respuesta
+    const response = NextResponse.json(
       {
         success: true,
         status: 200,
         message: "Inicio de sesión exitoso",
-        data: user, // Retorna solo el email del usuario
+        data: user,
         timestamp: Date.now(),
         api: "api/backlogin",
         method: "POST",
       },
       { status: 200 }
     );
+
+    // Adjuntar la cookie a la respuesta
+    response.cookies.set('token', token, {
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: 60 * 60 * 24,
+      path: '/',
+    });
+
+    // Devolver la respuesta
+    return response;
+
+
   } catch (error) {
     console.error("Error en el backend:", error);
 
