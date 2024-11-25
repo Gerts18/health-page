@@ -62,7 +62,7 @@ const LoginArea = () => {
 
         reset(); 
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = "/Perfil";
         }, 2000);
 
       } else {
