@@ -61,9 +61,9 @@ const LoginArea = () => {
         //console.log("Usuario:", result.data);
 
         reset(); 
-        /* setTimeout(() => {
-          window.location.href = "/dashboard";
-        }, 2000); */
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
 
       } else {
         toast.error(result.message || "Error al iniciar sesión.");

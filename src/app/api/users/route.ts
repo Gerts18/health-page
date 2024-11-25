@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { conn } from '@/libs/PostgDB';
-import {verify} from 'jsonwebtoken';
+import { verify } from 'jsonwebtoken';
 
 export async function POST(request: NextRequest) {
   try {
@@ -39,9 +39,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        status: 201, 
+        status: 201,
         message: "Usuario creado en la base de datos",
-        data: responseDB.rows[0], 
+        data: responseDB.rows[0],
         timestamp: Date.now(),
         api: "api/users",
         method: "POST",
@@ -66,31 +66,46 @@ export async function POST(request: NextRequest) {
   }
 }
 
-
 export async function GET(request: NextRequest) {
   try {
+    // Obteniendo el token
+    const token = request.cookies.get('token')?.value;
 
-    //Dame la forma correcta de obtener mi cookie de los headers
-    const cookies = request.cookies.get('token')
-    const token = cookies['value']
-    
-    const data = verify(token, 'secretkey') //Obteniendo los datos del token
-    console.log(data)
+    if (!token) {
+      return NextResponse.json(
+        {
+          success: false,
+          status: 401,
+          message: 'No hay token',
+          timestamp: Date.now(),
+        },
+        { status: 401 }
+      );
+    }
+
+    const data = verify(token, 'secretkey'); // Obteniendo los datos del token
 
     return NextResponse.json(
       {
         success: true,
         status: 200,
-        message: "Datos Cargados",
-        data: { users: 'Name' },
+        message: 'Datos Cargados',
+        data: data,
         timestamp: Date.now(),
-        api: "api/users",
-        method: "GET",
+        api: 'api/users',
+        method: 'GET',
       },
       { status: 200 }
     );
-
-  }catch {
-
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        status: 500,
+        message: 'Error al verificar el token',
+        timestamp: Date.now(),
+      },
+      { status: 500 }
+    );
   }
 }
