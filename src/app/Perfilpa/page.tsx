@@ -1,178 +1,123 @@
-'use client'
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Footer from "../components/Footer/Footer"
-import Header from "../components/Header/Index"
+"use client";
+import { useEffect, useState } from "react";
+//import Footer from "../components/Footer/Footer"
+import Header from "../components/Header/Index";
 import Image from "next/image";
 
 export default function PerfilPage() {
-  const router = useRouter();
-
   const [userData, setUserData] = useState({
-    first_name: '',
-    last_names: '',
-    email: '',
+    nombre: "",
+    apellidos: "",
+    email: "",
+    celular: "",
+    username: "",
   });
 
   const [passwords, setPasswords] = useState({
-    currentPassword: '',
-    confirmCurrentPassword: '',
-    newPassword: '',
-    confirmNewPassword: '',
+    currentPassword: "",
+    confirmCurrentPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
   });
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('/api/auth', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          credentials: 'include'
+        const response = await fetch("/api/user/profile", {
+          credentials: "include", // Para incluir las cookies de sesión
         });
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const responseData = await response.json();
-
-        console.log('responseData:', responseData);
-        
-        if (responseData.success && responseData.data) {
-          const nombreCompleto = responseData.data.name?.split(' ') || [];
-          
-          // Tomamos los dos primeros elementos como nombre
-          const nombres = nombreCompleto.slice(0, 2).join(' ');
-          
-          // Tomamos el resto como apellidos
-          const apellidos = responseData.data.last_names;
-          
-          console.log('Nombres:', nombres);
-          console.log('Apellidos:', apellidos);
-          console.log(apellidos)
-          setUserData({
-            first_name: nombres || '',
-            last_names: apellidos || '',
-            email: responseData.data.email || ''
-          });
-
-          // Debug del estado final
-          console.log('userData actualizado:', {
-            first_name: nombres,
-            last_names: apellidos,
-            email: responseData.data.email
-          });
-        } else {
-          throw new Error('No se encontraron datos del usuario en la respuesta');
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data);
         }
       } catch (error) {
-        console.error('Error completo:', error);
-        setTimeout(() => router.push('/'), 5000);
+        console.error("Error al cargar datos del usuario:", error);
       }
     };
 
     fetchUserData();
-  }, [router]);
-
-  useEffect(() => {
-    // Agregar el event listener para el cierre de sesión
-    const handleLogout = () => {
-      router.push('/');
-    };
-
-    window.addEventListener('logout', handleLogout);
-
-    // Cleanup del event listener
-    return () => {
-      window.removeEventListener('logout', handleLogout);
-    };
-  }, [router]);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUserData(prev => ({
+    setUserData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
-
   };
-
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setPasswords(prev => ({
+    setPasswords((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleProfileUpdate = async () => {
     try {
-      const response = await fetch('/api/user/profile', {
-        method: 'PUT',
+      const response = await fetch("/api/user/profile", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
-        body: JSON.stringify(userData)
+        credentials: "include",
+        body: JSON.stringify(userData),
       });
 
       if (response.ok) {
-        alert('Perfil actualizado exitosamente');
+        alert("Perfil actualizado exitosamente");
       } else {
-        alert('Error al actualizar el perfil');
+        alert("Error al actualizar el perfil");
       }
     } catch (error) {
-      console.error('Error al actualizar perfil:', error);
-      alert('Error al actualizar el perfil');
+      console.error("Error al actualizar perfil:", error);
+      alert("Error al actualizar el perfil");
     }
   };
 
   const handlePasswordUpdate = async () => {
     if (passwords.newPassword !== passwords.confirmNewPassword) {
-      alert('Las nuevas contraseñas no coinciden');
+      alert("Las nuevas contraseñas no coinciden");
       return;
     }
     if (passwords.currentPassword !== passwords.confirmCurrentPassword) {
-      alert('Las contraseñas actuales no coinciden');
+      alert("Las contraseñas actuales no coinciden");
       return;
     }
 
     try {
-      const response = await fetch('/api/user/password', {
-        method: 'PUT',
+      const response = await fetch("/api/user/password", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({
           currentPassword: passwords.currentPassword,
           newPassword: passwords.newPassword,
-        })
+        }),
       });
 
       if (response.ok) {
-        alert('Contraseña actualizada exitosamente');
+        alert("Contraseña actualizada exitosamente");
         setPasswords({
-          currentPassword: '',
-          confirmCurrentPassword: '',
-          newPassword: '',
-          confirmNewPassword: '',
+          currentPassword: "",
+          confirmCurrentPassword: "",
+          newPassword: "",
+          confirmNewPassword: "",
         });
       } else {
-        alert('Error al actualizar la contraseña');
+        alert("Error al actualizar la contraseña");
       }
     } catch (error) {
-      console.error('Error al actualizar contraseña:', error);
-      alert('Error al actualizar la contraseña');
+      console.error("Error al actualizar contraseña:", error);
+      alert("Error al actualizar la contraseña");
     }
   };
 
   return (
-    <div className="min-h-screen bg-blue-50 flex flex-col items-center">
+    <div className="min-h-screen bg-red-50 flex flex-col items-center">
       <Header />
       {/* Contenido Main*/}
       <div className="mt-8 w-full max-w-5xl flex gap-6 p-20">
@@ -181,7 +126,7 @@ export default function PerfilPage() {
           {/* Foto de Usuario */}
           <div className="  bg-white shadow-md rounded p-4 flex flex-col items-center">
             <Image
-              src="/assets/profile_doc.png" // Cambiar esto por una imagen real
+              src="/assets/profile_pac.png" // Cambiar esto por una imagen real
               alt="Doctor Profile"
               width={128}
               height={128}
@@ -194,16 +139,17 @@ export default function PerfilPage() {
           {/* Información del Doctor */}
           <div className=" bg-white shadow-md rounded p-4 flex flex-col  mt-6">
             <h3 className="font-semibold text-gray-700 mb-2">
-              Información del Doctor
+              Información del Paciente
             </h3>
             <p>
-
-              <strong>Nombre:</strong> {userData.first_name} {userData.last_names}
+              <strong>Nombre:</strong> {userData.nombre} {userData.apellidos}
             </p>
             <p>
               <strong>Email:</strong> {userData.email}
             </p>
-
+            <p>
+              <strong>Teléfono:</strong> {userData.celular}
+            </p>
           </div>
 
           {/* Botones */}
@@ -212,7 +158,7 @@ export default function PerfilPage() {
               SOLICITUD DE ESTUDIO <br></br>(Biología Molecular)
             </button>
             <button className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-950">
-              AGREGAR ARTÍCULO
+              CONSULTAR RESULTADOS
             </button>
           </div>
         </aside>
@@ -228,9 +174,9 @@ export default function PerfilPage() {
               <label className="text-sm text-gray-500">Nombre:</label>
               <input
                 type="text"
-                value={userData.first_name}
+                value={userData.nombre}
                 className="w-full border rounded px-3 py-2 mt-1"
-                name="first_name"
+                name="nombre"
                 onChange={handleInputChange}
               />
             </div>
@@ -238,9 +184,9 @@ export default function PerfilPage() {
               <label className="text-sm text-gray-500">Apellidos:</label>
               <input
                 type="text"
-                value={userData.last_names}
+                value={userData.apellidos}
                 className="w-full border rounded px-3 py-2 mt-1"
-                name="last_names"
+                name="apellidos"
                 onChange={handleInputChange}
               />
             </div>
@@ -258,7 +204,7 @@ export default function PerfilPage() {
               <label className="text-sm text-gray-500">Celular:</label>
               <input
                 type="text"
-                value={'4432189619'}
+                value={userData.celular}
                 className="w-full border rounded px-3 py-2 mt-1"
                 name="celular"
                 onChange={handleInputChange}
