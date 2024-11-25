@@ -1,14 +1,23 @@
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+'use client'
+import { ReactNode } from 'react';
+import { Button } from "../components/ui/button"
+import { Card } from "../components/ui/card"
+import { Input } from "../components/ui/input"
+import { Textarea } from "../components/ui/textarea"
 import Image from "next/image"
 import Link from "next/link"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Navbar } from "@/components/Navbar"
+import { Checkbox } from "../components/ui/checkbox"
+import Header from "../components/Header/Index"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
 
-const ContactCard = ({ title, description, color, icon }) => (
+interface ContactCardProps {
+  title: string;
+  description: string;
+  color: string;
+  icon: string;
+}
+
+const ContactCard = ({ title, description, color, icon }: ContactCardProps) => (
   <Card className={`p-4 bg-${color} text-white rounded-xl`}>
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-4">
@@ -18,14 +27,19 @@ const ContactCard = ({ title, description, color, icon }) => (
           <p className="text-white/90 text-sm">{description}</p>
         </div>
       </div>
-      <Button variant="secondary" className={`bg-white text-${color} hover:bg-white/90`}>
+      <Button className={`bg-white text-${color} hover:bg-white/90`}>
         Realizar
       </Button>
     </div>
   </Card>
 )
 
-const FooterSection = ({ title, children }) => (
+interface FooterSectionProps {
+  title: string;
+  children: ReactNode;
+}
+
+const FooterSection = ({ title, children }: FooterSectionProps) => (
   <div>
     <h3 className="text-xl font-semibold text-white mb-4">{title}</h3>
     <div className="space-y-3 text-sm">{children}</div>
@@ -58,7 +72,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <Header />
       {/* Hero Section */}
       <div className="relative h-[400px] bg-gray-100">
         <div className="absolute inset-0">
