@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { conn } from '@/libs/PostgDB';
 
+//Agregar un nuevo usuario a la base de datos
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
@@ -38,9 +39,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        status: 201, 
+        status: 201,
         message: "Usuario creado en la base de datos",
-        data: responseDB.rows[0], 
+        data: responseDB.rows[0],
         timestamp: Date.now(),
         api: "api/users",
         method: "POST",
@@ -64,3 +65,9 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+
+
+
+
+
