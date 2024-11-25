@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "./components/Navbar/navbar";
+//import Navbar from "./components/Navbar/navbar";
 import ImageSlider from "./components/ImageSlider/imageSlider";
 import Statistics from "./components/Statistics/statistics";
 import BannerPrecisionMedicine from "./components/BannerPrecisionMedicine/bannerPrecisionMedicine";
@@ -9,10 +9,10 @@ import BannerUniqueTreatment from "./components/BannerUniqueTreatment/bannerUniq
 import Link from "next/link";
 
 import './components/Login/login.css'
-import { StrictMode } from "react"
+//import { StrictMode } from "react"
 import Header from "./components/Header/Index"
-import Footer from "./components/Footer/Index"
-import LoginPage from './Login/page'
+//import Footer from "./components/Footer/Index"
+//import LoginPage from './Login/page'
 import Footer from '@/app/components/Footer/Footer'
 
 const Home = () => {
