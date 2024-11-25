@@ -12,12 +12,12 @@ import './components/Login/login.css'
 import { StrictMode } from "react"
 import Header from "./components/Header/Index"
 import Footer from '@/app/components/Footer/Footer'
-import LoginPage from './Login/page'
+
 
 const Home = () => {
   return (
     <div className="bg-[#F5F5F5] w-full h-svh">
-      <Navbar />
+      <Header/>
       <ImageSlider />
       <Statistics />
 
