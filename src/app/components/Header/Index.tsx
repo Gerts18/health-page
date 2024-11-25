@@ -35,15 +35,18 @@ const Header: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('/api/logout', {
+      const response = await fetch('/api/auth', {
         method: 'POST',
         credentials: 'include',
       });
       const result = await response.json();
 
+      console.log('Cerrar sesión:', result);
+
       if (result.success) {
         setUserData(null);
       }
+
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
