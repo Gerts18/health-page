@@ -13,7 +13,7 @@ const Header: React.FC = () => {
     // Función para obtener los datos del usuario
     const fetchUserData = async () => {
       try {
-        const response = await fetch('/api/users', {
+        const response = await fetch('/api/auth', {
           method: 'GET',
           credentials: 'include', // Para incluir las cookies en la solicitud
         });
