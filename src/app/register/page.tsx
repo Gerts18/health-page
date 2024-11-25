@@ -1,6 +1,6 @@
 'use client'
 
-import Footer from "../components/Footer/"
+import Footer from "../components/Footer/Index"
 import Header from "../components/Header/Index"
 import Register from "../components/Register"
 
