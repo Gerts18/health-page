@@ -112,7 +112,7 @@ const newsAndArticles = () => {
       </div>
 
       <div className="flex justify-center items-center">
-        <button className="bg-[#547EED] text-white w-1/6 rounded-full text-lg h-10">
+        <button className="bg-[#547EED] text-white w-1/6 rounded-full text-lg h-auto p-1">
           Lee nuestras noticias y artículos
         </button>
       </div>

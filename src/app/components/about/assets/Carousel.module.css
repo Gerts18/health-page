@@ -1,0 +1,99 @@
+/* Contenedor general del carrusel */
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    overflow-x: hidden;
+    margin-top: 7.5rem;
+    box-sizing: border-box;
+  }
+  
+  /* Imagen de fondo */
+  .imageContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+  
+/* Contenedor principal del texto */
+.textContainer {
+    position: absolute;
+    top: 50%;
+    left: 3rem;
+    transform: translateY(-50%);
+    
+    width: auto;
+    max-width: 40%;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    color: #333;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }  
+  
+  /* Título del texto */
+  .title {
+    font-size: 6rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  /* Descripción */
+  .description {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+  
+  /* Botón */
+  .button {
+    padding: 0.8rem 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff3385;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #ffe6f1;
+  }
+  
+  /* Botones de navegación */
+  .prevButton,
+  .nextButton{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.3s;
+  }
+  
+  .prevButton:hover,
+  .nextButton:hover {
+    color: #ff3385;
+  }
+  
+  .prevButton {
+    left: 10px;
+  }
+  
+  .nextButton {
+    right: 10px;
+  }
+  

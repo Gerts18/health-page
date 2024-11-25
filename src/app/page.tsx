@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "./components/Navbar/navbar";
+//import Navbar from "./components/Navbar/navbar";
 import ImageSlider from "./components/ImageSlider/imageSlider";
 import Statistics from "./components/Statistics/statistics";
 import BannerPrecisionMedicine from "./components/BannerPrecisionMedicine/bannerPrecisionMedicine";
@@ -9,15 +9,18 @@ import BannerUniqueTreatment from "./components/BannerUniqueTreatment/bannerUniq
 import Link from "next/link";
 
 import './components/Login/login.css'
-import { StrictMode } from "react"
+//import { StrictMode } from "react"
 import Header from "./components/Header/Index"
+//import Footer from "./components/Footer/Index"
+//import LoginPage from './Login/page'
 import Footer from '@/app/components/Footer/Footer'
-
 
 const Home = () => {
   return (
     <div className="bg-[#F5F5F5] w-full h-svh">
-      <Header/>
+      {/* <Navbar /> */}
+      <Header />
+
       <ImageSlider />
       <Statistics />
 
@@ -31,7 +34,7 @@ const Home = () => {
         </p>
         <Link
           href="/register"
-          className="bg-[#547EED] w-auto text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300"
+          className="bg-[#547EED] w-auto text-white p-2 rounded-full hover:bg-blue-600 transition duration-300"
         >
           ¡Regístrate aquí!
         </Link>
@@ -41,7 +44,7 @@ const Home = () => {
       <BannerUniqueTreatment />
       <NewsAndArticles />
 
-      <Footer />
+      <Footer/>
     </div>
   );
 };
