@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import Footer from "../components/Footer/Footer"
 import Header from "../components/Header/Index"
+import Image from "next/image";
 
 export default function PerfilPage() {
   const [userData, setUserData] = useState({
@@ -119,14 +120,16 @@ export default function PerfilPage() {
     <div className="min-h-screen bg-blue-50 flex flex-col items-center">
       <Header />
       {/* Contenido Main*/}
-      <div className="mt-8 w-full max-w-5xl flex gap-6 p-20" >
+      <div className="mt-8 w-full max-w-5xl flex gap-6 p-20">
         {/* Panel Izquierdo*/}
-        <aside className="w-1/3 bg-white shadow-md rounded p-4">
+        <aside className="w-1/3">
           {/* Foto de Usuario */}
-          <div className="flex flex-col items-center">
-            <img
-              src="/profile-placeholder.png" // Cambiar esto por una imagen real
+          <div className="  bg-white shadow-md rounded p-4 flex flex-col items-center">
+            <Image
+              src="/assets/profile_doc.png" // Cambiar esto por una imagen real
               alt="Doctor Profile"
+              width={128}
+              height={128}
               className="w-32 h-32 rounded-full mb-4"
             />
             <p className="text-pink-500 font-bold">@User-Name</p>
@@ -134,15 +137,23 @@ export default function PerfilPage() {
           </div>
 
           {/* Información del Doctor */}
-          <div className="mt-6">
-            <h3 className="font-semibold text-gray-700 mb-2">Información del Doctor</h3>
-            <p><strong>Nombre:</strong> {userData.nombre} {userData.apellidos}</p>
-            <p><strong>Email:</strong> {userData.email}</p>
-            <p><strong>Teléfono:</strong> {userData.celular}</p>
+          <div className=" bg-white shadow-md rounded p-4 flex flex-col  mt-6">
+            <h3 className="font-semibold text-gray-700 mb-2">
+              Información del Doctor
+            </h3>
+            <p>
+              <strong>Nombre:</strong> {userData.nombre} {userData.apellidos}
+            </p>
+            <p>
+              <strong>Email:</strong> {userData.email}
+            </p>
+            <p>
+              <strong>Teléfono:</strong> {userData.celular}
+            </p>
           </div>
 
           {/* Botones */}
-          <div className="mt-6 flex flex-col gap-4">
+          <div className="  bg-white shadow-md rounded p-4  mt-6 flex flex-col gap-4">
             <button className="bg-blue-500 text-white py-2 rounded shadow">
               SOLICITUD DE ESTUDIO (Biología Molecular)
             </button>
@@ -154,7 +165,9 @@ export default function PerfilPage() {
 
         {/* Panel Derecho */}
         <section className="w-2/3 bg-white shadow-md rounded p-6">
-          <h2 className="text-lg font-bold text-gray-800 mb-4">Configuración de Usuario</h2>
+          <h2 className="text-lg font-bold text-gray-800 mb-4">
+            Configuración de Usuario
+          </h2>
           {/* Detalles del Usuario */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div>
@@ -198,7 +211,10 @@ export default function PerfilPage() {
               />
             </div>
           </div>
-          <button className="bg-pink-500 text-white px-4 py-2 rounded shadow" onClick={handleProfileUpdate}>
+          <button
+            className="bg-pink-500 text-white px-4 py-2 rounded shadow"
+            onClick={handleProfileUpdate}
+          >
             Guardar Cambios
           </button>
 
@@ -206,7 +222,9 @@ export default function PerfilPage() {
           <h3 className="mt-6 text-lg font-bold text-gray-800">Contraseña</h3>
           <div className="grid grid-cols-2 gap-4 mt-4">
             <div>
-              <label className="text-sm text-gray-500">Cambiar contraseña:</label>
+              <label className="text-sm text-gray-500">
+                Cambiar contraseña:
+              </label>
               <input
                 type="password"
                 placeholder="Pon tu contraseña..."
@@ -216,7 +234,9 @@ export default function PerfilPage() {
               />
             </div>
             <div>
-              <label className="text-sm text-gray-500">Confirma Contraseña:</label>
+              <label className="text-sm text-gray-500">
+                Confirma Contraseña:
+              </label>
               <input
                 type="password"
                 placeholder="Confirma tu contraseña..."
@@ -238,7 +258,9 @@ export default function PerfilPage() {
               />
             </div>
             <div>
-              <label className="text-sm text-gray-500">Confirma Nueva Contraseña:</label>
+              <label className="text-sm text-gray-500">
+                Confirma Nueva Contraseña:
+              </label>
               <input
                 type="password"
                 placeholder="Confirma nueva contraseña..."
@@ -248,13 +270,18 @@ export default function PerfilPage() {
               />
             </div>
           </div>
-          <button className="mt-4 bg-pink-500 text-white px-4 py-2 rounded shadow" onClick={handlePasswordUpdate}>
+          <button
+            className="mt-4 bg-pink-500 text-white px-4 py-2 rounded shadow"
+            onClick={handlePasswordUpdate}
+          >
             Guardar Cambios
           </button>
-          <p className="mt-4 text-sm text-pink-500 cursor-pointer">¿Olvidaste tu contraseña?</p>
+          <p className="mt-4 text-sm text-pink-500 cursor-pointer">
+            ¿Olvidaste tu contraseña?
+          </p>
         </section>
       </div>
       <Footer />
-    </div>  
+    </div>
   );
 }
