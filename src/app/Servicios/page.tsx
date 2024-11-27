@@ -16,11 +16,15 @@ export default function MedicalServices() {
           transition={{ duration: 1 }}
           className="relative h-[400px] mb-16"
         >
-          <div 
-            className="absolute inset-0 bg-[url('/placeholder.svg?height=400&width=1200')] bg-cover bg-center"
-            style={{ backgroundColor: 'rgba(229, 241, 248, 0.8)' }}
-          >
-            <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0">
+            <Image
+              src="/assets/Nuestros-S.png"
+              alt="Servicios médicos"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0" style={{ backgroundColor: 'rgba(229, 241, 248, 0.8)' }} />
           </div>
           <div className="relative h-full flex items-center justify-center">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
