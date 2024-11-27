@@ -1,8 +1,8 @@
-'use client'
-import { useEffect, useState } from 'react';
+"use client";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import Footer from "../components/Footer/Footer"
-import Header from "../components/Header/Index"
+import Header from "../components/Header/Index";
 import Image from "next/image";
 
 export default function PerfilPage() {
@@ -50,10 +50,8 @@ export default function PerfilPage() {
         const responseData = await response.json();
         
         if (responseData.success && responseData.data) {
-          // Verificar la categoría del usuario
-          if (responseData.data.category !== 2) {
-            // Si no es un doctor, redirigir a la página correspondiente
-            router.push('/Perfilpa');
+          if (responseData.data.category !== 1) {
+            router.push('/Perfil');
             return;
           }
           
@@ -213,7 +211,7 @@ export default function PerfilPage() {
           {/* Foto de Usuario */}
           <div className="  bg-white shadow-md rounded p-4 flex flex-col items-center">
             <Image
-              src="/assets/profile_doc.png" // Cambiar esto por una imagen real
+              src="/assets/profile_pac.png" // Cambiar esto por una imagen real
               alt="Doctor Profile"
               width={128}
               height={128}
@@ -226,7 +224,7 @@ export default function PerfilPage() {
           {/* Información del Doctor */}
           <div className=" bg-white shadow-md rounded p-4 flex flex-col  mt-6">
             <h3 className="font-semibold text-gray-700 mb-2">
-              Información del Doctor
+              Información del Paciente
             </h3>
             <p>
               <strong>Nombre:</strong> {userData.first_name} {userData.last_names}
@@ -238,11 +236,11 @@ export default function PerfilPage() {
 
           {/* Botones */}
           <div className="  bg-white shadow-md rounded p-4  mt-6 flex flex-col gap-4">
-            <button className="bg-blue-500 text-white py-2 rounded shadow">
-              SOLICITUD DE ESTUDIO (Biología Molecular)
+            <button className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-800">
+              SOLICITUD DE ESTUDIO <br></br>(Biología Molecular)
             </button>
-            <button className="bg-blue-700 text-white py-2 rounded shadow">
-              AGREGAR ARTÍCULO
+            <button className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-950">
+              CONSULTAR RESULTADOS
             </button>
           </div>
         </aside>
@@ -288,7 +286,7 @@ export default function PerfilPage() {
               <label className="text-sm text-gray-500">Celular:</label>
               <input
                 type="text"
-                value={'4432189619'}
+                value={"4432189619"}
                 className="w-full border rounded px-3 py-2 mt-1"
                 name="celular"
                 onChange={handleInputChange}
@@ -354,15 +352,17 @@ export default function PerfilPage() {
               />
             </div>
           </div>
-          <button
-            className="mt-4 bg-pink-500 text-white px-4 py-2 rounded shadow"
-            onClick={handlePasswordUpdate}
-          >
-            Guardar Cambios
-          </button>
-          <p className="mt-4 text-sm text-pink-500 cursor-pointer">
-            ¿Olvidaste tu contraseña?
-          </p>
+          <div className="flex flex-row">
+            <button
+              className="mt-4 bg-pink-500 text-white px-4 py-2 rounded shadow"
+              onClick={handlePasswordUpdate}
+            >
+              Guardar Cambios
+            </button>
+            <p className="mx-5 mt-6 text-sm text-pink-500 cursor-pointer">
+              ¿Olvidaste tu contraseña?
+            </p>
+          </div>
         </section>
       </div>
       <Footer />

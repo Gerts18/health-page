@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     // Query para verificar las credenciales
     const query = `
-      SELECT email, first_name, last_names
+      SELECT email, first_name, last_names, category
       FROM users 
       WHERE email = $1 AND password = $2
     `;
@@ -62,6 +62,7 @@ export async function POST(request: NextRequest) {
       name: user['first_name'], //Aqui se coloca el nombre del usuario
       email: user['email'], //Aqui se coloca el email del usuario
       last_names: user['last_names'], //Aqui se coloca el apellido del usuario
+      category: user['category'] // Agregar la categoría al token
     }, 'secretkey')
 
 
@@ -72,7 +73,10 @@ export async function POST(request: NextRequest) {
         success: true,
         status: 200,
         message: "Inicio de sesión exitoso",
-        data: user,
+        data: {
+          ...user,
+          redirectUrl: user['category'] === 1 ? '/Perfilpa' : '/Perfil' // Agregar URL de redirección
+        },
         timestamp: Date.now(),
         api: "api/backlogin",
         method: "POST",
