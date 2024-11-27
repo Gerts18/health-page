@@ -9,21 +9,21 @@ const Specialties = () => {
       title: "Oncología Clínica y Traslacional",
       description:
         "El conocimiento sobre la biología del cáncer en relación con su origen y evolución ha aumentado considerablemente en los últimos años.",
-      link: "#",
+      link: "https://ficmac.org/wp-content/uploads/2022/08/ONCOLOGIA-CLINICA-Y-TRASLACIONAL.pdf",
     },
     {
       icon: "/assets/img/about/count_icon2.png",
       title: "Marcadores Moleculares en Cáncer",
       description:
         "El cáncer es una enfermedad que afecta distintas partes del organismo y consiste en la proliferación excesiva.",
-      link: "#",
+      link: "https://ficmac.org/wp-content/uploads/2022/08/MARCADORES-MOLECULARES-EN-CANCER.pdf",
     },
     {
       icon: "/assets/img/about/count_icon3.png",
       title: "Genómica del Cáncer",
       description:
         "Con la llegada de las ciencias ómicas se ha profundizado en el conocimiento de la biología de las distintas enfermedades.",
-      link: "#",
+      link: "https://ficmac.org/wp-content/uploads/2022/08/GENOMICA-DEL-CANCER.pdf",
     },
   ];
 

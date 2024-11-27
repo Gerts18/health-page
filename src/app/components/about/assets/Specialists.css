@@ -3,13 +3,13 @@
   text-align: center;
   padding: 2rem;
   background-color: #fcd6e2;
-  font-family: Arial, sans-serif;
 }
 
 /* Título */
 .specialists-title {
-  color: #ff007f;
+  color: #ff007f ;
   font-size: 2rem;
+  font-weight: bold;
   margin-bottom: 1.5rem;
 }
 

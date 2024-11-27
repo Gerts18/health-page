@@ -4,10 +4,13 @@
 	align-items: stretch;
 	background-color: #A0B8FFCC;
 	;
-	padding: 20px;
+	padding: 2rem;
+	padding-left: 4rem;
+	padding-right: 4rem;
 	font-family: Arial, sans-serif;
 	width: 100%;
 	height: auto;
+	margin: auto;
   }
   
   .tabs {

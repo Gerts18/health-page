@@ -8,22 +8,19 @@ const Carousel = () => {
       title: "Historia ONCOLGROUP",
       description:
         "El grupo se creó en el año 2012 dada la necesidad de promover y fortalecer la investigación básica, clínica y traslacional del cáncer en Colombia teniendo en cuenta la incipiente productividad científica mundial en publicaciones relacionadas con la oncología menor al 1%.",
-      buttonLabel: "Saber más",
       image: "/assets/img/about/carrousel.png", // Ruta de la imagen
     },
     {
       title: "Misión del grupo",
       description:
         "Fomentar la investigación en la biología del cáncer para generar avances significativos en el diagnóstico y tratamiento de esta enfermedad.",
-      buttonLabel: "Descubre más",
-      image: "/assets/images/cancer-research-slide2.jpg", // Ruta de la imagen
+      image: "/assets/img/about/carrousel2.png", // Ruta de la imagen
     },
     {
       title: "Nuestra visión",
       description:
         "Convertirnos en un referente internacional en la investigación traslacional del cáncer, mejorando la calidad de vida de los pacientes.",
-      buttonLabel: "Conócenos",
-      image: "/assets/images/cancer-research-slide3.jpg", // Ruta de la imagen
+      image: "/assets/img/about/carrousel3.png", // Ruta de la imagen
     },
   ];
 
@@ -48,9 +45,6 @@ const Carousel = () => {
       <div className={styles.textContainer}>
         <h2 className={styles.title}>{slides[currentSlide].title}</h2>
         <p className={styles.description}>{slides[currentSlide].description}</p>
-        <button className={styles.button}>
-          {slides[currentSlide].buttonLabel}
-        </button>
       </div>
       <button className={styles.prevButton} onClick={handlePrev}>
         &#10094;
