@@ -46,7 +46,6 @@ const Specialists = () => {
           </div>
         ))}
       </div>
-      <button className="load-more-button">Cargar más</button>
     </div>
   );
 };
