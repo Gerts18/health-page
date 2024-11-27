@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Footer from "../components/Footer/Footer"
 import Header from "../components/Header/Index";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function PerfilPage() {
   const router = useRouter();
@@ -191,62 +192,91 @@ export default function PerfilPage() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-50 flex flex-col items-center">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="min-h-screen bg-blue-50 flex flex-col items-center"
+    >
       <Header />
       
+      {/* Toast con animación */}
       {toast.visible && (
-        <div 
+        <motion.div 
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
           className={`fixed top-4 right-4 p-4 rounded-md shadow-lg z-50 ${
             toast.type === 'success' ? 'bg-green-500' : 'bg-red-500'
-          } text-white font-bold`}
+          } text-white font-bold backdrop-blur-sm bg-opacity-90`}
         >
           {toast.message}
-        </div>
+        </motion.div>
       )}
 
-      {/* Contenido Main*/}
-      <div className="mt-8 w-full max-w-5xl flex gap-6 p-20">
-        {/* Panel Izquierdo*/}
-        <aside className="w-1/3">
-          {/* Foto de Usuario */}
-          <div className="  bg-white shadow-md rounded p-4 flex flex-col items-center">
-            <Image
-              src="/assets/profile_pac.png" // Cambiar esto por una imagen real
-              alt="Doctor Profile"
-              width={128}
-              height={128}
-              className="w-32 h-32 rounded-full mb-4"
-            />
-            <p className="text-pink-500 font-bold">@User-Name</p>
+      {/* Contenido Main con animación */}
+      <motion.div 
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="mt-8 w-full max-w-5xl flex gap-6 p-20"
+      >
+        {/* Panel Izquierdo */}
+        <motion.aside 
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="w-1/3"
+        >
+          {/* Foto de Usuario con hover effect */}
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            className="bg-white shadow-md rounded p-4 flex flex-col items-center transition-all duration-300 hover:shadow-xl"
+          >
+            <motion.div
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 1 }}
+            >
+              <Image
+                src="/assets/donationsMain.jpg"
+                alt="Paciente Profile"
+                width={128}
+                height={128}
+                className="w-32 h-32 rounded-full mb-4 border-4 border-pink-500 hover:border-blue-500 transition-colors duration-300"
+              />
+            </motion.div>
+            <p className="text-pink-500 font-bold hover:text-blue-500 transition-colors duration-300">@User-Name</p>
             <p className="text-sm text-gray-500">user@email.com</p>
-          </div>
+          </motion.div>
 
-          {/* Información del Doctor */}
-          <div className=" bg-white shadow-md rounded p-4 flex flex-col  mt-6">
-            <h3 className="font-semibold text-gray-700 mb-2">
-              Información del Paciente
-            </h3>
-            <p>
-              <strong>Nombre:</strong> {userData.first_name} {userData.last_names}
-            </p>
-            <p>
-              <strong>Email:</strong> {userData.email}
-            </p>
-          </div>
-
-          {/* Botones */}
-          <div className="  bg-white shadow-md rounded p-4  mt-6 flex flex-col gap-4">
-            <button className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-800">
+          {/* Botones con efectos hover */}
+          <motion.div 
+            className="bg-white shadow-md rounded p-4 mt-6 flex flex-col gap-4"
+            whileHover={{ scale: 1.01 }}
+          >
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-800 transition-all duration-300"
+            >
               SOLICITUD DE ESTUDIO <br></br>(Biología Molecular)
-            </button>
-            <button className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-950">
+            </motion.button>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-950 transition-all duration-300"
+            >
               CONSULTAR RESULTADOS
-            </button>
-          </div>
-        </aside>
+            </motion.button>
+          </motion.div>
+        </motion.aside>
 
         {/* Panel Derecho */}
-        <section className="w-2/3 bg-white shadow-md rounded p-6">
+        <motion.section 
+          initial={{ x: 50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="w-2/3 bg-white shadow-md rounded p-6 hover:shadow-xl transition-shadow duration-300"
+        >
           <h2 className="text-lg font-bold text-gray-800 mb-4">
             Configuración de Usuario
           </h2>
@@ -293,12 +323,14 @@ export default function PerfilPage() {
               />
             </div>
           </div>
-          <button
-            className="bg-pink-500 text-white px-4 py-2 rounded shadow"
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-pink-500 text-white px-4 py-2 rounded shadow hover:bg-pink-600 transition-colors duration-300"
             onClick={handleProfileUpdate}
           >
             Guardar Cambios
-          </button>
+          </motion.button>
 
           {/* Sección de Contraseña */}
           <h3 className="mt-6 text-lg font-bold text-gray-800">Contraseña</h3>
@@ -363,9 +395,9 @@ export default function PerfilPage() {
               ¿Olvidaste tu contraseña?
             </p>
           </div>
-        </section>
-      </div>
+        </motion.section>
+      </motion.div>
       <Footer />
-    </div>
+    </motion.div>
   );
 }

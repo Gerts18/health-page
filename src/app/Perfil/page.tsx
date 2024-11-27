@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Footer from "../components/Footer/Footer"
 import Header from "../components/Header/Index"
 import Image from "next/image";
+import { motion } from 'framer-motion';
 
 export default function PerfilPage() {
   const router = useRouter();
@@ -193,35 +194,59 @@ export default function PerfilPage() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-50 flex flex-col items-center">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="min-h-screen bg-blue-50 flex flex-col items-center"
+    >
       <Header />
       
       {toast.visible && (
-        <div 
+        <motion.div 
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: 100, opacity: 0 }}
           className={`fixed top-4 right-4 p-4 rounded-md shadow-lg z-50 ${
             toast.type === 'success' ? 'bg-green-500' : 'bg-red-500'
           } text-white font-bold`}
         >
           {toast.message}
-        </div>
+        </motion.div>
       )}
 
       {/* Contenido Main*/}
-      <div className="mt-8 w-full max-w-5xl flex gap-6 p-20">
+      <motion.div 
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="mt-8 w-full max-w-5xl flex gap-6 p-20"
+      >
         {/* Panel Izquierdo*/}
-        <aside className="w-1/3">
+        <motion.aside 
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 300 }}
+          className="w-1/3"
+        >
           {/* Foto de Usuario */}
-          <div className="  bg-white shadow-md rounded p-4 flex flex-col items-center">
-            <Image
-              src="/assets/profile_doc.png" // Cambiar esto por una imagen real
-              alt="Doctor Profile"
-              width={128}
-              height={128}
-              className="w-32 h-32 rounded-full mb-4"
-            />
+          <motion.div 
+            whileHover={{ y: -5 }}
+            className="bg-white shadow-md rounded p-4 flex flex-col items-center hover:shadow-xl transition-shadow duration-300"
+          >
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Image
+                src="/assets/profile_doc.png"
+                alt="Doctor Profile"
+                width={128}
+                height={128}
+                className="w-32 h-32 rounded-full mb-4 hover:ring-4 hover:ring-pink-300 transition-all duration-300"
+              />
+            </motion.div>
             <p className="text-pink-500 font-bold">@User-Name</p>
             <p className="text-sm text-gray-500">user@email.com</p>
-          </div>
+          </motion.div>
 
           {/* Información del Doctor */}
           <div className=" bg-white shadow-md rounded p-4 flex flex-col  mt-6">
@@ -237,18 +262,31 @@ export default function PerfilPage() {
           </div>
 
           {/* Botones */}
-          <div className="  bg-white shadow-md rounded p-4  mt-6 flex flex-col gap-4">
-            <button className="bg-blue-500 text-white py-2 rounded shadow">
+          <div className="bg-white shadow-md rounded p-4 mt-6 flex flex-col gap-4">
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-600 transition-colors duration-300"
+            >
               SOLICITUD DE ESTUDIO (Biología Molecular)
-            </button>
-            <button className="bg-blue-700 text-white py-2 rounded shadow">
+            </motion.button>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-800 transition-colors duration-300"
+            >
               AGREGAR ARTÍCULO
-            </button>
+            </motion.button>
           </div>
-        </aside>
+        </motion.aside>
 
         {/* Panel Derecho */}
-        <section className="w-2/3 bg-white shadow-md rounded p-6">
+        <motion.section 
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="w-2/3 bg-white shadow-md rounded p-6 hover:shadow-xl transition-shadow duration-300"
+        >
           <h2 className="text-lg font-bold text-gray-800 mb-4">
             Configuración de Usuario
           </h2>
@@ -295,12 +333,14 @@ export default function PerfilPage() {
               />
             </div>
           </div>
-          <button
-            className="bg-pink-500 text-white px-4 py-2 rounded shadow"
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-pink-500 text-white px-4 py-2 rounded shadow hover:bg-pink-600 transition-colors duration-300"
             onClick={handleProfileUpdate}
           >
             Guardar Cambios
-          </button>
+          </motion.button>
 
           {/* Sección de Contraseña */}
           <h3 className="mt-6 text-lg font-bold text-gray-800">Contraseña</h3>
@@ -363,9 +403,9 @@ export default function PerfilPage() {
           <p className="mt-4 text-sm text-pink-500 cursor-pointer">
             ¿Olvidaste tu contraseña?
           </p>
-        </section>
-      </div>
+        </motion.section>
+      </motion.div>
       <Footer />
-    </div>
+    </motion.div>
   );
 }

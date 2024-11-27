@@ -1,17 +1,17 @@
+'use client'
 // pages/contact.js
 import Header from '../components/Header/Index';
-import ContactBanner from '../components/Contacto/ContactBaner';
-import ContactOptions from '../components/Contacto/ContactOptions';
 import Footer from '../components/Footer/Footer';
 import Image from "next/image"
 import { useState } from "react"
+import { motion, HTMLMotionProps } from "framer-motion"
 
 // Type definitions
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = HTMLMotionProps<"button"> & {
   variant?: 'primary' | 'secondary'
 }
 
-type CardProps = React.HTMLAttributes<HTMLDivElement>
+type CardProps = HTMLMotionProps<"div">
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 
@@ -38,15 +38,27 @@ type SelectItemProps = {
 export default function ContactPage() {
   // Inline component definitions
   const Button = ({ children, className, variant, ...props }: ButtonProps) => (
-    <button className={`px-4 py-2 rounded ${className}`} {...props}>
+    <motion.button 
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className={`px-4 py-2 rounded ${className}`} 
+      {...props}
+    >
       {children}
-    </button>
+    </motion.button>
   )
 
   const Card = ({ children, className, ...props }: CardProps) => (
-    <div className={`p-4 ${className}`} {...props}>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ scale: 1.02 }}
+      className={`p-4 ${className}`} 
+      {...props}
+    >
       {children}
-    </div>
+    </motion.div>
   )
 
   const Input = ({ className, ...props }: InputProps) => (
@@ -61,8 +73,11 @@ export default function ContactPage() {
     <input type="checkbox" className={`form-checkbox ${className}`} {...props} />
   )
 
-  const Select = ({ children, ...props }: SelectProps) => (
-    <select className="w-full p-2" {...props}>
+  const Select = ({ children, className, ...props }: SelectProps) => (
+    <select 
+      className={`w-full p-2 rounded-xl border-gray-100 bg-white placeholder:text-gray-400 shadow-lg focus:border-[#547EED] focus:ring-[#547EED] ${className}`} 
+      {...props}
+    >
       {children}
     </select>
   )
@@ -91,11 +106,12 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Header />
       {/* Hero Section */}
       <div className="relative h-[400px] bg-gray-100">
         <div className="absolute inset-0">
           <Image
-            src="/placeholder.svg?height=400&width=1920"
+            src="/assets/contactB.png"
             alt="Hero background"
             width={1920}
             height={400}
@@ -104,10 +120,22 @@ export default function ContactPage() {
           <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-[#6A6A6A] sm:text-5xl">Contáctanos</h1>
-          <p className="mt-4 max-w-xl text-lg text-[#6A6A6A]">
+          <motion.h1 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl font-bold text-[#6A6A6A] sm:text-5xl"
+          >
+            Contáctanos
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-4 max-w-xl text-lg text-[#6A6A6A]"
+          >
             Envíanos cualquier pregunta sobre nuestros servicios a través de esta sección de contacto. Estamos aquí para ayudarte.
-          </p>
+          </motion.p>
         </div>
       </div>
 
@@ -124,7 +152,7 @@ export default function ContactPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <Image
-                      src="/placeholder.svg?height=60&width=60"
+                      src="/assets/Card1.png"
                       alt="Encuesta icon"
                       width={60}
                       height={60}
@@ -146,7 +174,7 @@ export default function ContactPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <Image
-                      src="/placeholder.svg?height=60&width=60"
+                      src="/assets/Card2.png"
                       alt="Peticiones icon"
                       width={60}
                       height={60}
@@ -168,7 +196,7 @@ export default function ContactPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <Image
-                      src="/placeholder.svg?height=60&width=60"
+                      src="/assets/Card3.png"
                       alt="Trabajo icon"
                       width={60}
                       height={60}
@@ -190,7 +218,12 @@ export default function ContactPage() {
 
           {/* Right Column - Contact Form */}
           <div className="flex justify-center items-center">
-            <form className="space-y-6 w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+            <motion.form 
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-6 w-full max-w-md bg-white p-8 rounded-2xl shadow-lg"
+            >
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Input 
@@ -216,13 +249,9 @@ export default function ContactPage() {
                 className="rounded-xl border-gray-100 placeholder:text-gray-400 shadow-lg focus:border-[#547EED] focus:ring-[#547EED]"
               />
               <Select>
-                <SelectTrigger className="w-full rounded-xl border-gray-100 bg-white placeholder:text-gray-400 shadow-lg focus:border-[#547EED] focus:ring-[#547EED]">
-                  <SelectValue placeholder="Tipo de persona" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="natural">Persona Natural</SelectItem>
-                  <SelectItem value="juridica">Persona Jurídica</SelectItem>
-                </SelectContent>
+                <option value="">Tipo de persona</option>
+                <option value="natural">Persona Natural</option>
+                <option value="juridica">Persona Jurídica</option>
               </Select>
               <Textarea 
                 placeholder="Mensaje" 
@@ -247,15 +276,11 @@ export default function ContactPage() {
                   Enviar
                 </Button>
               </div>
-            </form>
+            </motion.form>
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-[#0B1120] text-gray-300 py-16">
-        {/* Footer content remains unchanged */}
-      </footer>
+      <Footer />
     </div>
   )
 }
