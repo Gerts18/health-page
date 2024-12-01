@@ -84,7 +84,22 @@ const FormularioSolicitud = () => {
 
   return (
     <div className="bg-white p-8 pt-40 rounded-lg shadow-lg transform transition-all duration-300 hover:shadow-xl animate-fadeIn">
-      <h2 className="text-3xl font-bold text-blue-600 mb-4 text-center">Solicitud de estudio</h2>
+      <div className="mb-8">
+                <br />
+                <h2 className="text-3xl font-semibold text-blue-500 border-b-2 border-blue-500 pb-2">
+                Solicitud de estudio
+                </h2>
+      </div>
+
+      <div className="flex justify-center space-x-4 items-center">
+                <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">1</div>
+                <span className="w-12 border-t border-blue-600"></span>
+                <div className="w-6 h-6 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold">2</div>
+                <span className="w-12 border-t border-blue-600"></span>
+                <div className="w-6 h-6 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold">3</div>
+      </div>
+
+      <br />
 
       {/* Mensaje de error */}
       {errorMessage && (

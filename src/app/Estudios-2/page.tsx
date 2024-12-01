@@ -4,15 +4,20 @@ import Header from "../components/Header/Index";
 const SeleccionDeBiopsia = () => {
   return (
     <>
-    <div className="bg-gray-50 min-h-screen flex flex-col items-center px-2 mb-0">
+    <div className="bg-gray-50 min-h-screen flex flex-col items-center px-2 mb-0 mx-4">
       <Header />
       <main className="max-w-5xl pt-40 w-full mt-8">
-        <h1 className="text-2xl font-bold text-blue-600 mb-4">Solicitud de estudio</h1>
+            <div className="mb-8">
+                <br />
+                <h2 className="text-3xl font-semibold text-blue-500 border-b-2 border-blue-500 pb-2">
+                Solicitud de estudio
+                </h2>
+            </div>
         <div className="flex justify-center space-x-4 items-center">
           <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">1</div>
           <span className="w-12 border-t border-blue-600"></span>
           <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">2</div>
-          <span className="w-12 border-t border-gray-400"></span>
+          <span className="w-12 border-t border-blue-600"></span>
           <div className="w-6 h-6 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold">3</div>
         </div>
         <p className="text-center text-gray-600 mt-4">
