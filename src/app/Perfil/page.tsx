@@ -113,7 +113,9 @@ export default function PerfilPage() {
       ...prev,
       [name]: value
     }));
-  }; 
+
+  };
+
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -254,11 +256,13 @@ export default function PerfilPage() {
               Información del Doctor
             </h3>
             <p>
+
               <strong>Nombre:</strong> {userData.first_name} {userData.last_names}
             </p>
             <p>
               <strong>Email:</strong> {userData.email}
             </p>
+
           </div>
 
           {/* Botones */}
@@ -394,6 +398,7 @@ export default function PerfilPage() {
               />
             </div>
           </div>
+
           <button
             className="mt-4 bg-pink-500 text-white px-4 py-2 rounded shadow"
             onClick={handlePasswordUpdate}
@@ -407,5 +412,6 @@ export default function PerfilPage() {
       </motion.div>
       <Footer />
     </motion.div>
+
   );
 }

@@ -6,7 +6,7 @@ const SeleccionDeBiopsia = () => {
     <>
     <div className="bg-gray-50 min-h-screen flex flex-col items-center px-2 mb-0">
       <Header />
-      <main className="max-w-5xl w-full mt-8">
+      <main className="max-w-5xl pt-40 w-full mt-8">
         <h1 className="text-2xl font-bold text-blue-600 mb-4">Solicitud de estudio</h1>
         <div className="flex justify-center space-x-4 items-center">
           <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">1</div>
