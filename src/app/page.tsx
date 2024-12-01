@@ -18,9 +18,7 @@ import Footer from '@/app/components/Footer/Footer'
 const Home = () => {
   return (
     <div className="bg-[#F5F5F5] w-full h-svh">
-      {/* <Navbar /> */}
       <Header />
-
       <ImageSlider />
       <Statistics />
 

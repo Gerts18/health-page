@@ -85,6 +85,7 @@ export default function PerfilPage() {
       } catch (error) {
         console.error('Error:', error);
         router.push('/');
+
       }
     };
 
@@ -317,6 +318,7 @@ export default function PerfilPage() {
               <input
                 type="text"
                 value={"4432189619"}
+
                 className="w-full border rounded px-3 py-2 mt-1"
                 name="celular"
                 onChange={handleInputChange}
@@ -399,5 +401,6 @@ export default function PerfilPage() {
       </motion.div>
       <Footer />
     </motion.div>
+
   );
 }
