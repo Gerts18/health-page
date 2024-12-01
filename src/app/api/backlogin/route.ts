@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     // Query SQL para verificar las credenciales del usuario
     const query = `
-      SELECT email, first_name, last_names
+      SELECT email, first_name, last_names, category
       FROM users 
       WHERE email = $1 AND password = $2
     `;
@@ -55,27 +55,30 @@ export async function POST(request: NextRequest) {
     // Extraer los datos del usuario encontrado en la base de datos
     const user = responseDB.rows[0];
 
-    // Generar un token único (JWT) con los datos del usuario
-    const token = jwt.sign(
-      {
-        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24), // Tiempo de expiración del token (24 horas)
-        name: user['first_name'], // Nombre del usuario
-        email: user['email'], // Correo electrónico del usuario
-        last_names: user['last_names'], // Apellidos del usuario
-      },
-      'secretkey' // Clave secreta para firmar el token
-    );
+    //console.log(user['first_name'])
+
+    //Genera el token unico
+    const token = jwt.sign({
+      exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24), // Tiempo de expiracion de token, 1 hora de duración
+      name: user['first_name'], //Aqui se coloca el nombre del usuario
+      email: user['email'], //Aqui se coloca el email del usuario
+      last_names: user['last_names'], //Aqui se coloca el apellido del usuario
+      category: user['category'] // Agregar la categoría al token
+    }, 'secretkey')
 
     // Crear la respuesta exitosa en formato JSON
     const response = NextResponse.json(
       {
-        success: true, // Indica que la solicitud fue exitosa
-        status: 200, // Código de estado HTTP 200 (OK)
-        message: "Inicio de sesión exitoso", // Mensaje descriptivo
-        data: user, // Datos del usuario retornados al frontend
-        timestamp: Date.now(), // Marca de tiempo
-        api: "api/backlogin", // Identificación del endpoint
-        method: "POST", // Método HTTP utilizado
+        success: true,
+        status: 200,
+        message: "Inicio de sesión exitoso",
+        data: {
+          ...user,
+          redirectUrl: user['category'] === 1 ? '/Perfilpa' : '/Perfil' // Agregar URL de redirección
+        },
+        timestamp: Date.now(),
+        api: "api/backlogin",
+        method: "POST",
       },
       { status: 200 } // Código de estado HTTP para la respuesta
     );

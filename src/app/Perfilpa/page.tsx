@@ -1,170 +1,283 @@
 "use client";
 import { useEffect, useState } from "react";
-//import Footer from "../components/Footer/Footer"
+import { useRouter } from 'next/navigation';
+import Footer from "../components/Footer/Footer"
 import Header from "../components/Header/Index";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function PerfilPage() {
+  const router = useRouter();
+
   const [userData, setUserData] = useState({
-    nombre: "",
-    apellidos: "",
-    email: "",
-    celular: "",
-    username: "",
+    first_name: '',
+    last_names: '',
+    email: '',
   });
 
   const [passwords, setPasswords] = useState({
-    currentPassword: "",
-    confirmCurrentPassword: "",
-    newPassword: "",
-    confirmNewPassword: "",
+    currentPassword: '',
+    confirmCurrentPassword: '',
+    newPassword: '',
+    confirmNewPassword: '',
   });
+
+  const [toast, setToast] = useState({
+    visible: false,
+    message: '',
+    type: 'success' // o 'error'
+  });
+
+  const showToast = (message: string, type: 'success' | 'error') => {
+    console.log('Mostrando toast:', message, type);
+    setToast({ visible: true, message, type });
+    setTimeout(() => {
+      setToast(prev => ({ ...prev, visible: false }));
+    }, 5000);
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("/api/user/profile", {
-          credentials: "include", // Para incluir las cookies de sesión
+        const response = await fetch('/api/auth', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          credentials: 'include'
         });
-        if (response.ok) {
-          const data = await response.json();
-          setUserData(data);
+        
+        const responseData = await response.json();
+        
+        if (responseData.success && responseData.data) {
+          if (responseData.data.category !== 1) {
+            router.push('/Perfil');
+            return;
+          }
+          
+          const nombreCompleto = responseData.data.name?.split(' ') || [];
+          
+          // Tomamos los dos primeros elementos como nombre
+          const nombres = nombreCompleto.slice(0, 2).join(' ');
+          
+          // Tomamos el resto como apellidos
+          const apellidos = responseData.data.last_names;
+          
+          console.log('Nombres:', nombres);
+          console.log('Apellidos:', apellidos);
+          console.log(apellidos)
+          setUserData({
+            first_name: nombres || '',
+            last_names: apellidos || '',
+            email: responseData.data.email || ''
+          });
+
+          // Debug del estado final
+          console.log('userData actualizado:', {
+            first_name: nombres,
+            last_names: apellidos,
+            email: responseData.data.email
+          });
+        } else {
+          throw new Error('No se encontraron datos del usuario en la respuesta');
         }
       } catch (error) {
-        console.error("Error al cargar datos del usuario:", error);
+        console.error('Error:', error);
+        router.push('/');
+
       }
     };
 
     fetchUserData();
-  }, []);
+  }, [router]);
+
+  useEffect(() => {
+    // Agregar el event listener para el cierre de sesión
+    const handleLogout = () => {
+      router.push('/');
+    };
+
+    window.addEventListener('logout', handleLogout);
+
+    // Cleanup del event listener
+    return () => {
+      window.removeEventListener('logout', handleLogout);
+    };
+  }, [router]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUserData((prev) => ({
+    setUserData(prev => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }));
-  };
+  }; 
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setPasswords((prev) => ({
+    setPasswords(prev => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }));
   };
 
   const handleProfileUpdate = async () => {
     try {
-      const response = await fetch("/api/user/profile", {
-        method: "PUT",
+      const response = await fetch('/api/users', {
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        credentials: "include",
-        body: JSON.stringify(userData),
+        credentials: 'include',
+        body: JSON.stringify({
+          email: userData.email,
+          firstName: userData.first_name,
+          lastName: userData.last_names,
+          updateType: 'personalInfo'
+        })
       });
 
       if (response.ok) {
-        alert("Perfil actualizado exitosamente");
+        showToast('Perfil actualizado exitosamente', 'success');
       } else {
-        alert("Error al actualizar el perfil");
+        const errorData = await response.json();
+        showToast(errorData.message || 'Error al actualizar el perfil', 'error');
       }
     } catch (error) {
-      console.error("Error al actualizar perfil:", error);
-      alert("Error al actualizar el perfil");
+      console.error('Error al actualizar perfil:', error);
+      showToast('Error al actualizar el perfil', 'error');
     }
   };
 
   const handlePasswordUpdate = async () => {
     if (passwords.newPassword !== passwords.confirmNewPassword) {
-      alert("Las nuevas contraseñas no coinciden");
+      alert('Las nuevas contraseñas no coinciden');
       return;
     }
     if (passwords.currentPassword !== passwords.confirmCurrentPassword) {
-      alert("Las contraseñas actuales no coinciden");
+      alert('Las contraseñas actuales no coinciden');
       return;
     }
 
     try {
-      const response = await fetch("/api/user/password", {
-        method: "PUT",
+      const response = await fetch('/api/users', {
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify({
-          currentPassword: passwords.currentPassword,
-          newPassword: passwords.newPassword,
-        }),
+          email: userData.email,
+          password: passwords.newPassword,
+          updateType: 'password'
+        })
       });
 
       if (response.ok) {
-        alert("Contraseña actualizada exitosamente");
+        showToast('Contraseña actualizada exitosamente', 'success');
         setPasswords({
-          currentPassword: "",
-          confirmCurrentPassword: "",
-          newPassword: "",
-          confirmNewPassword: "",
+          currentPassword: '',
+          confirmCurrentPassword: '',
+          newPassword: '',
+          confirmNewPassword: '',
         });
       } else {
-        alert("Error al actualizar la contraseña");
+        const errorData = await response.json();
+        showToast(errorData.message || 'Error al actualizar la contraseña', 'error');
       }
     } catch (error) {
-      console.error("Error al actualizar contraseña:", error);
-      alert("Error al actualizar la contraseña");
+      console.error('Error al actualizar contraseña:', error);
+      showToast('Error al actualizar la contraseña', 'error');
     }
   };
 
   return (
-    <div className="min-h-screen bg-red-50 flex flex-col items-center">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="min-h-screen bg-blue-50 flex flex-col items-center"
+    >
       <Header />
-      {/* Contenido Main*/}
-      <div className="mt-8 w-full max-w-5xl flex gap-6 p-20">
-        {/* Panel Izquierdo*/}
-        <aside className="w-1/3">
-          {/* Foto de Usuario */}
-          <div className="  bg-white shadow-md rounded p-4 flex flex-col items-center">
-            <Image
-              src="/assets/profile_pac.png" // Cambiar esto por una imagen real
-              alt="Doctor Profile"
-              width={128}
-              height={128}
-              className="w-32 h-32 rounded-full mb-4"
-            />
-            <p className="text-pink-500 font-bold">@User-Name</p>
+      
+      {/* Toast con animación */}
+      {toast.visible && (
+        <motion.div 
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          className={`fixed top-4 right-4 p-4 rounded-md shadow-lg z-50 ${
+            toast.type === 'success' ? 'bg-green-500' : 'bg-red-500'
+          } text-white font-bold backdrop-blur-sm bg-opacity-90`}
+        >
+          {toast.message}
+        </motion.div>
+      )}
+
+      {/* Contenido Main con animación */}
+      <motion.div 
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="mt-8 w-full max-w-5xl flex gap-6 p-20"
+      >
+        {/* Panel Izquierdo */}
+        <motion.aside 
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="w-1/3"
+        >
+          {/* Foto de Usuario con hover effect */}
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            className="bg-white shadow-md rounded p-4 flex flex-col items-center transition-all duration-300 hover:shadow-xl"
+          >
+            <motion.div
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 1 }}
+            >
+              <Image
+                src="/assets/donationsMain.jpg"
+                alt="Paciente Profile"
+                width={128}
+                height={128}
+                className="w-32 h-32 rounded-full mb-4 border-4 border-pink-500 hover:border-blue-500 transition-colors duration-300"
+              />
+            </motion.div>
+            <p className="text-pink-500 font-bold hover:text-blue-500 transition-colors duration-300">@User-Name</p>
             <p className="text-sm text-gray-500">user@email.com</p>
-          </div>
+          </motion.div>
 
-          {/* Información del Doctor */}
-          <div className=" bg-white shadow-md rounded p-4 flex flex-col  mt-6">
-            <h3 className="font-semibold text-gray-700 mb-2">
-              Información del Paciente
-            </h3>
-            <p>
-              <strong>Nombre:</strong> {userData.nombre} {userData.apellidos}
-            </p>
-            <p>
-              <strong>Email:</strong> {userData.email}
-            </p>
-            <p>
-              <strong>Teléfono:</strong> {userData.celular}
-            </p>
-          </div>
-
-          {/* Botones */}
-          <div className="  bg-white shadow-md rounded p-4  mt-6 flex flex-col gap-4">
-            <button className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-800">
+          {/* Botones con efectos hover */}
+          <motion.div 
+            className="bg-white shadow-md rounded p-4 mt-6 flex flex-col gap-4"
+            whileHover={{ scale: 1.01 }}
+          >
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-800 transition-all duration-300"
+            >
               SOLICITUD DE ESTUDIO <br></br>(Biología Molecular)
-            </button>
-            <button className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-950">
+            </motion.button>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-950 transition-all duration-300"
+            >
               CONSULTAR RESULTADOS
-            </button>
-          </div>
-        </aside>
+            </motion.button>
+          </motion.div>
+        </motion.aside>
 
         {/* Panel Derecho */}
-        <section className="w-2/3 bg-white shadow-md rounded p-6">
+        <motion.section 
+          initial={{ x: 50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="w-2/3 bg-white shadow-md rounded p-6 hover:shadow-xl transition-shadow duration-300"
+        >
           <h2 className="text-lg font-bold text-gray-800 mb-4">
             Configuración de Usuario
           </h2>
@@ -174,9 +287,9 @@ export default function PerfilPage() {
               <label className="text-sm text-gray-500">Nombre:</label>
               <input
                 type="text"
-                value={userData.nombre}
+                value={userData.first_name}
                 className="w-full border rounded px-3 py-2 mt-1"
-                name="nombre"
+                name="first_name"
                 onChange={handleInputChange}
               />
             </div>
@@ -184,9 +297,9 @@ export default function PerfilPage() {
               <label className="text-sm text-gray-500">Apellidos:</label>
               <input
                 type="text"
-                value={userData.apellidos}
+                value={userData.last_names}
                 className="w-full border rounded px-3 py-2 mt-1"
-                name="apellidos"
+                name="last_names"
                 onChange={handleInputChange}
               />
             </div>
@@ -204,19 +317,22 @@ export default function PerfilPage() {
               <label className="text-sm text-gray-500">Celular:</label>
               <input
                 type="text"
-                value={userData.celular}
+                value={"4432189619"}
+
                 className="w-full border rounded px-3 py-2 mt-1"
                 name="celular"
                 onChange={handleInputChange}
               />
             </div>
           </div>
-          <button
-            className="bg-pink-500 text-white px-4 py-2 rounded shadow"
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-pink-500 text-white px-4 py-2 rounded shadow hover:bg-pink-600 transition-colors duration-300"
             onClick={handleProfileUpdate}
           >
             Guardar Cambios
-          </button>
+          </motion.button>
 
           {/* Sección de Contraseña */}
           <h3 className="mt-6 text-lg font-bold text-gray-800">Contraseña</h3>
@@ -281,8 +397,10 @@ export default function PerfilPage() {
               ¿Olvidaste tu contraseña?
             </p>
           </div>
-        </section>
-      </div>
-    </div>
+        </motion.section>
+      </motion.div>
+      <Footer />
+    </motion.div>
+
   );
 }
