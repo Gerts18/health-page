@@ -1,16 +1,23 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaUserCircle } from 'react-icons/fa';
 
 interface UserData {
   name: string;
+  image?: string;
+  category?: number;
+  redirectUrl?: string;
 }
 
 const Header: React.FC = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para controlar el menú desplegable
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -23,6 +30,10 @@ const Header: React.FC = () => {
 
         if (result.success) {
           setUserData(result.data as UserData);
+          
+          if (result.data.redirectUrl) {
+            router.push(result.data.redirectUrl);
+          }
         } else {
           setUserData(null);
         }
@@ -45,6 +56,7 @@ const Header: React.FC = () => {
 
       if (result.success) {
         setUserData(null);
+        router.push('/');
       }
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
@@ -52,7 +64,7 @@ const Header: React.FC = () => {
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev); // Cambia el estado entre abierto y cerrado
+    setIsMenuOpen((prev) => !prev);
   };
 
   return (
@@ -72,13 +84,13 @@ const Header: React.FC = () => {
           >
             Nosotros
           </button>
-          {isMenuOpen && ( // Solo muestra el menú si `isMenuOpen` es true
+          {isMenuOpen && (
             <ul className="absolute left-0 w-48 mt-2 bg-pink-500 text-white rounded-md shadow-md">
               <li>
                 <Link
                   href="/FAQ"
                   className="block px-4 py-2 hover:bg-pink-600"
-                  onClick={() => setIsMenuOpen(false)} // Cierra el menú al hacer clic
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Preguntas Frecuentes
                 </Link>
@@ -130,15 +142,52 @@ const Header: React.FC = () => {
       {/* Botones */}
       <div className="flex items-center space-x-4">
         {userData ? (
-          <>
-            <span>Hola, {userData.name}</span>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 text-red-500 border border-red-500 rounded-full hover:bg-red-500 hover:text-white"
-            >
-              Cerrar sesión
-            </button>
-          </>
+          <div className="relative">
+            <div className="flex items-center space-x-4">
+              <span>Hola, {userData.name}</span>
+              <button
+                onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                className="focus:outline-none"
+              >
+                {userData.image ? (
+                  <Image
+                    src={userData.image}
+                    alt="Perfil"
+                    width={40}
+                    height={40}
+                    className="rounded-full"
+                  />
+                ) : (
+                  <FaUserCircle className="w-8 h-8 text-gray-600" />
+                )}
+              </button>
+            </div>
+
+            {isProfileMenuOpen && (
+              <ul className="absolute right-0 w-48 mt-2 bg-white text-gray-700 rounded-md shadow-md">
+                <li>
+                  <Link
+                    href={userData?.category === 1 ? '/Perfilpa' : '/Perfil'}
+                    className="block px-4 py-2 hover:bg-pink-100"
+                    onClick={() => setIsProfileMenuOpen(false)}
+                  >
+                    Modificar Perfil
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsProfileMenuOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-2 text-red-500 hover:bg-pink-100"
+                  >
+                    Cerrar sesión
+                  </button>
+                </li>
+              </ul>
+            )}
+          </div>
         ) : (
           <>
             <Link href="/Login">

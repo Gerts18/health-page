@@ -10,6 +10,7 @@ interface Service {
   resumen: string;
   description: string;
   images: string[];
+  icon: string;
 }
 
 const services: Service[] = [
@@ -17,44 +18,63 @@ const services: Service[] = [
     title: 'Cáncer de cabeza y cuello',
     resumen: 'Grupo de cánceres que afecta diversas partes de la cabeza y el cuello',
     description: 'El cáncer de cabeza y cuello incluye tumores que se desarrollan en áreas como la boca, garganta, nariz y glándulas salivales. Estos cánceres suelen estar relacionados con el consumo de tabaco, alcohol y la infección por el virus del papiloma humano (VPH). El tratamiento incluye cirugía, radioterapia y quimioterapia, dependiendo de la localización y el estadio del cáncer',
-    images: ['/assets/cuello1.jpg', '/assets/cuello2.jpg']
+    images: ['/assets/cuello1.jpg', '/assets/cuello2.jpg'],
+    icon: '/assets/icons/Icon-1.png'
   },
   { title: 'Germinal', 
     resumen: 'Cáncer que se desarrolla a partir de células germinales.', 
     description: 'El cáncer germinal se origina en las células que forman los óvulos en mujeres o los espermatozoides en hombres. Se presenta comúnmente en los testículos o los ovarios, aunque también puede ocurrir en otras partes del cuerpo. Los tratamientos incluyen quimioterapia, radioterapia y cirugía, con altas tasas de éxito en estadios iniciales', 
-    images: ['/assets/germinal1.jpg'] },
+    images: ['/assets/germinal1.jpg'],
+    icon: '/assets/icons/Icon-2.png'
+  },
   { title: 'Cáncer de colon', 
     resumen: 'Cáncer que afecta el colon o el recto del sistema digestivo', 
     description: 'El cáncer de colon es una enfermedad en la que las células malignas se desarrollan en el revestimiento del colon o el recto. Los síntomas incluyen cambios en los hábitos intestinales, sangrado rectal y pérdida de peso inexplicada. Las pruebas de detección, como la colonoscopía, son esenciales para el diagnóstico temprano. El tratamiento incluye cirugía, quimioterapia y en algunos casos, terapia dirigida', 
-    images: ['/assets/colon1.jpg'] },
+    images: ['/assets/colon1.jpg'],
+    icon: '/assets/icons/Icon-3.png'
+  },
   { title: 'Cáncer de ovario', 
     resumen: 'Cáncer que afecta los ovarios en el sistema reproductivo femenino', 
     description: 'El cáncer de ovario es una de las principales causas de muerte por cáncer en mujeres debido a que se detecta a menudo en etapas avanzadas. Los síntomas incluyen hinchazón abdominal, dolor pélvico y dificultad para comer. Los tratamientos incluyen cirugía para extirpar los ovarios afectados y quimioterapia para reducir el tamaño del tumor', 
-    images: ['/assets/ovario1.jpg', '/assets/ovario2.png'] },
+    images: ['/assets/ovario1.jpg', '/assets/ovario2.png'],
+    icon: '/assets/icons/icon-4.png'
+  },
   { title: 'Cáncer de pulmón', 
     resumen: 'Cáncer que afecta los pulmones, a menudo relacionado con el tabaquismo', 
     description: 'El cáncer de pulmón es una de las principales causas de muerte por cáncer en todo el mundo. Se clasifica en dos tipos principales: cáncer de pulmón de células pequeñas y de células no pequeñas. Los síntomas incluyen tos persistente, dificultad para respirar y dolor torácico. El tratamiento puede incluir cirugía, quimioterapia, radioterapia y terapias dirigidas', 
-    images: ['/assets/pulmon1.png'] },
+    images: ['/assets/pulmon1.png'],
+    icon: '/assets/icons/Icon-5.png'
+  },
   { title: 'Melanoma', 
     resumen: 'El tipo más agresivo de cáncer de piel', 
     description: 'El melanoma se desarrolla en los melanocitos, las células que producen pigmento en la piel. Es causado principalmente por la exposición excesiva a los rayos UV del sol o camas de bronceado. Puede propagarse rápidamente a otras partes del cuerpo si no se detecta temprano. Los tratamientos incluyen cirugía, inmunoterapia y terapias dirigidas', 
-    images: ['/assets/melanoma1.png'] },
+    images: ['/assets/melanoma1.png'],
+    icon: '/assets/icons/Icon-6.png'
+  },
   { title: 'Tumores de sistema gastrointestinal', 
     resumen: 'Tumores que afectan órganos del sistema digestivo', 
     description: 'Los tumores del sistema gastrointestinal incluyen cánceres que afectan el estómago, el hígado, el páncreas, el esófago y los intestinos. Los síntomas varían según el órgano afectado, pero pueden incluir dolor abdominal, pérdida de peso y dificultad para tragar. El tratamiento suele implicar una combinación de cirugía, quimioterapia y radioterapia', 
-    images: ['/assets/gastro1.jpg', '/assets/gastro2.png'] },
+    images: ['/assets/gastro1.jpg', '/assets/gastro2.png'],
+    icon: '/assets/icons/Icon-7.png'
+  },
   { title: 'Cáncer de Seno', 
     resumen: 'Cáncer que se desarrolla en las células del tejido mamario', 
     description: 'El cáncer de seno es el tipo de cáncer más común en mujeres a nivel mundial. Puede presentarse como un bulto en el seno, cambios en la forma o tamaño del seno o secreción anormal del pezón. El tratamiento incluye cirugía, quimioterapia, radioterapia y terapias hormonales dependiendo del tipo y estadio del cáncer', 
-    images: ['/assets/seno1.png'] },
+    images: ['/assets/seno1.png'],
+    icon: '/assets/icons/Icon-8.png'
+  },
   { title: 'Parálisis NGS', 
     resumen: 'Una condición que afecta el movimiento voluntario de ciertas áreas del cuerpo', 
     description: 'La parálisis NGS (nombre genérico supuesto) describe una condición donde los músculos pierden su capacidad de movimiento debido a un daño en los nervios o el cerebro. Puede ser causada por traumas, infecciones o enfermedades neurodegenerativas. El tratamiento se enfoca en la rehabilitación y, en algunos casos, intervenciones quirúrgicas', 
-    images: ['/assets/páralisis.png', '/assets/parálisis1.png'] },
+    images: ['/assets/páralisis.png', '/assets/parálisis1.png'],
+    icon: '/assets/icons/Icon-9.png'
+  },
   { title: 'Tumores del sistema nervioso central', 
     resumen: 'Tumores que se desarrollan en el cerebro o la médula espinal', 
     description: 'Estos tumores pueden ser benignos o malignos y afectan funciones esenciales como el pensamiento, la memoria y el movimiento. Los síntomas dependen de la ubicación del tumor e incluyen dolores de cabeza persistentes, convulsiones y problemas de equilibrio. Los tratamientos incluyen cirugía, radioterapia y quimioterapia', 
-    images: ['/assets/nervioso1.png'] },
+    images: ['/assets/nervioso1.png'],
+    icon: '/assets/icons/Icon-10.png'
+  },
 ];
 
 function ServiceModal({ service, isOpen, onClose }: { 
@@ -109,7 +129,7 @@ export default function MedicalServices() {
   return (
     <>
     <Header />
-    <div className="max-w-7xl mx-auto px-4">
+    <div className="max-w-7xl mx-auto px-4 mt-16">
       {/* Hero Section */}
       <motion.section 
         initial={{ opacity: 0 }}
@@ -186,12 +206,13 @@ export default function MedicalServices() {
                 transition={{ duration: 0.3 }}
                 className="w-16 h-16 mb-6"
               >
-                <svg className="w-full h-full text-[#EB356E]" viewBox="0 0 24 24">
-                  <path 
-                    fill="currentColor" 
-                    d="M12 2l3 3 3-3 2 2-3 3 3 3-2 2-3-3-3 3-2-2 3-3-3-3z"
-                  />
-                </svg>
+                <Image
+                  src={service.icon}
+                  alt={`${service.title} icon`}
+                  width={64}
+                  height={64}
+                  className="w-full h-full"
+                />
               </motion.div>
               <h4 className="text-[#EB356E] font-bold mb-4">{service.title}</h4>
               <p className="text-gray-600 mb-6 leading-relaxed">
@@ -225,12 +246,13 @@ export default function MedicalServices() {
                 transition={{ duration: 0.3 }}
                 className="w-16 h-16 mb-6"
               >
-                <svg className="w-full h-full text-[#EB356E]" viewBox="0 0 24 24">
-                  <path 
-                    fill="currentColor" 
-                    d="M12 2l3 3 3-3 2 2-3 3 3 3-2 2-3-3-3 3-2-2 3-3-3-3z"
-                  />
-                </svg>
+                <Image
+                  src={service.icon}
+                  alt={`${service.title} icon`}
+                  width={64}
+                  height={64}
+                  className="w-full h-full"
+                />
               </motion.div>
               <h4 className="text-[#EB356E] font-bold mb-4">{service.title}</h4>
               <p className="text-gray-600 mb-6 leading-relaxed">

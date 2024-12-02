@@ -105,7 +105,7 @@ export default function ContactPage() {
   const [selectOpen, setSelectOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white pt-[64px]">
       <Header />
       {/* Hero Section */}
       <div className="relative h-[400px] bg-gray-100">
