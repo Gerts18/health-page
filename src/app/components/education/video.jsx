@@ -6,7 +6,7 @@ const FICMACSection = () => {
     <section className="ficmac-section">
       <div className="ficmac-video">
         <iframe
-          src="https://www.youtube.com/embed/tuVideoID" // Reemplaza "tuVideoID" con el ID del video real
+          src="https://www.youtube.com/embed/OrhhcTHXQi0" // Reemplaza "tuVideoID" con el ID del video real
           title="Video FICMAC"
           allowFullScreen
         ></iframe>
