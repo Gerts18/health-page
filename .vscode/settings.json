@@ -31,5 +31,10 @@
     "titleBar.border": "#ff3d00",
     "titleBar.inactiveBackground": "#ff3d0099"
   },
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.editor.decorations.colors": true,
+  "workbench.iconTheme": "vs-seti",
+  "workbench.preferredLightColorTheme": "Default Light Modern",
+  "workbench.preferredHighContrastLightColorTheme": "Default Dark+",
 
 }
