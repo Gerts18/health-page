@@ -10,9 +10,11 @@ import VideoListArea from "../components/education/videolist"
 const CarruselPage = () => {
   return (
         <StrictMode>
+        <Header />
         <CarruselArea />
         <VideoArea />
         <VideoListArea />
+        <Footer />
         </StrictMode>
   )
 }
