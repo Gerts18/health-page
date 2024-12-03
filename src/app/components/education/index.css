@@ -1,148 +1,133 @@
 /* Carrusel */
-.carrusel {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    color: #333;
-    margin: 20px 0;
-  }
-  
-  .carrusel h1 {
-    margin-top: 120px;
-    font-size: 2rem;
-    color: #4a90e2;
-    margin-bottom: 20px;
-  }
-  
-  .carrusel-slider {
-    position: relative;
-    width: 90%;
-    height: 250px; /* Altura fija del carrusel para acomodar todas las fichas */
-    margin: 0 auto;
-    overflow: hidden;
-  }
-  
-  .carrusel-track {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .slide {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%; /* Anchura reducida */
-    max-width: 600px;
-    height: 220px;
-    box-sizing: border-box;
-    border-radius: 15px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    transition: all 0.5s ease;
-    opacity: 0.6;
-    z-index: 1;
-  }
-  
-  .slide.active {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-    z-index: 3;
-  }
-  
-  .slide.previous {
-    transform: translateX(-60%) scale(0.9); /* Desplazamiento hacia la izquierda */
-    z-index: 2;
-    opacity: 0.8;
-  }
-  
-  .slide.next {
-    transform: translateX(-40%) scale(0.9); /* Desplazamiento hacia la derecha */
-    z-index: 2;
-    opacity: 0.8;
-  }
-  
-  .slide-header {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    color: #fff;
-  }
-  
-  .slide-header .icon {
-    font-size: 1.8rem;
-    margin-right: 10px;
-  }
-  
-  .slide-header .header-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  
-  .slide-content {
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .slide-content ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .slide-content ul li {
-    margin: 10px 0;
-  }
-  
-  .slide-content ul li a {
-    text-decoration: none;
-    color: #4a90e2;
-    font-weight: bold;
-  }
-  
-  .controls {
-    display: flex;
-    justify-content: center;
-    margin: 15px 0;
-  }
-  
-  .controls button {
-    background-color: #4a90e2;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    padding: 10px 15px;
-    margin: 0 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .controls button:hover {
-    background-color: #357abd;
-  }
-  
-  .progress-dots {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-  }
-  
-  .progress-dots .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ccc;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .progress-dots .dot.active {
-    background-color: #4a90e2;
-  }
-  
+.carrusel-slider {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Altura fija */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 100px;
+}
+
+.slide {
+  position: absolute;
+  width: 75%; /* Ancho reducido */
+  max-width: 500px;
+  height: 250px;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  transition: all 0.5s ease;
+  transform: scale(0.8);
+  opacity: 0.5;
+}
+
+/* Ajustar la posición y superposición de las fichas */
+.slide.active {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+  z-index: 3;
+}
+
+.slide.previous {
+  transform: scale(0.9) translateX(-50%); /* Más cerca */
+  z-index: 2;
+}
+
+.slide.next {
+  transform: scale(0.9) translateX(50%); /* Más cerca */
+  z-index: 2;
+}
+
+.slide.hidden {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Otros estilos */
+.slide-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.slide-header h2 {
+  font-size: 1.5rem;
+  color: white;
+  background-color: #00000055;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-header h3 {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.slide ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.slide ul li {
+  color: #333;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.controls button {
+  background-color: #4a90e2;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  padding: 10px 15px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.controls button:hover {
+  background-color: #357abd;
+}
+
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.progress-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.progress-dots .dot.active {
+  background-color: #4a90e2;
+}
+
   /* Video */
   .ficmac-section {
     display: flex;
@@ -155,6 +140,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     gap: 20%; /* Añade un pequeño espacio entre el video y el texto */
+    margin-top: 25px;
   }
   
   .ficmac-video iframe {

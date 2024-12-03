@@ -2,92 +2,67 @@ import React, { useState } from "react";
 import "./index.css";
 
 const Carrusel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   const slides = [
-    {
-      id: 1,
-      title: "Sostener una Señal proliferativa",
-      items: ["Ciclo celular", "Factores de crecimiento", "Factores de crecimiento"],
-      color: "#28C76F",
-      icon: "⚙️",
-    },
-    {
-      id: 2,
-      title: "Invasión y metástasis",
-      items: ["Migración celular", "Invasión tisular", "Metástasis"],
-      color: "#7367F0",
-      icon: "🧬",
-    },
-    {
-      id: 3,
-      title: "Resistencia a la muerte celular",
-      items: ["Evitar apoptosis", "Resistencia a fármacos"],
-      color: "#D65DB1",
-      icon: "🔒",
-    },
+    { id: 1, title: "Sostener una Señal proliferativa", content: ["Ciclo celular", "Factores de crecimiento", "Factores de crecimiento"], bgColor: "#2ecc71" },
+    { id: 2, title: "Inactivar supresores de tumores", content: ["Proteínas clave", "Vías reguladoras"], bgColor: "#3498db" },
+    { id: 3, title: "Habilitar inmortalidad replicativa", content: ["Telomerasa", "Ciclo de vida celular"], bgColor: "#9b59b6" },
+    { id: 4, title: "Sostener angiogénesis", content: ["Factores angiogénicos", "Vascularización"], bgColor: "#e67e22" },
   ];
 
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
   };
 
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length);
   };
 
   return (
-    <div className="carrusel">
-      <h1>Comprendiendo la complejidad del cáncer</h1>
+    <div className="carrusel-container">
+      <h1 className="carrusel-title">Comprendiendo la complejidad del cáncer</h1>
       <div className="carrusel-slider">
-        <div
-          className="carrusel-track"
-          style={{
-            transform: `translateX(-${currentIndex * 100}%)`,
-          }}
-        >
-          {slides.map((slide, index) => (
+        {slides.map((slide, index) => {
+          const position =
+            index === currentIndex
+              ? "active"
+              : index === (currentIndex - 1 + slides.length) % slides.length
+              ? "previous"
+              : index === (currentIndex + 1) % slides.length
+              ? "next"
+              : "hidden";
+
+          return (
             <div
-              className={`slide ${
-                index === currentIndex
-                  ? "active"
-                  : index < currentIndex
-                  ? "previous"
-                  : "next"
-              }`}
               key={slide.id}
+              className={`slide ${position}`}
+              style={{ backgroundColor: slide.bgColor }}
             >
-              <div
-                className="slide-header"
-                style={{ backgroundColor: slide.color }}
-              >
-                <span className="icon">{slide.icon}</span>
-                <span className="header-title">{slide.title}</span>
+              <div className="slide-header">
+                <h2>{index + 1}</h2>
+                <h3>{slide.title}</h3>
               </div>
-              <div className="slide-content">
-                <ul>
-                  {slide.items.map((item, i) => (
-                    <li key={i}>
-                      <a href="#">{item}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ul>
+                {slide.content.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
       <div className="controls">
-        <button onClick={handlePrev}>&#8592;</button>
-        <button onClick={handleNext}>&#8594;</button>
+        <button onClick={prevSlide}>&larr;</button>
+        <button onClick={nextSlide}>&rarr;</button>
       </div>
       <div className="progress-dots">
         {slides.map((_, index) => (
-          <span
+          <div
             key={index}
-            className={`dot ${index === currentIndex ? "active" : ""}`}
+            className={`dot ${currentIndex === index ? "active" : ""}`}
             onClick={() => setCurrentIndex(index)}
-          ></span>
+          ></div>
         ))}
       </div>
     </div>
