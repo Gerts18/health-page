@@ -1,9 +1,8 @@
 import React from "react";
 import MenuItem from "@mui/material/MenuItem";
-// import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-// import { useState } from "react";
 import { Checkbox, InputLabel } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 const RequestMedic = () => {
   const [gender, setGender] = React.useState("");
@@ -11,8 +10,19 @@ const RequestMedic = () => {
   const [test, setTest] = React.useState("");
   const [biopsy, setBiopsy] = React.useState("");
   const [blocks, setBlocks] = React.useState("");
+  const [institution, setInstitution] = React.useState("");
+  const [especiality, setEspeciality] = React.useState("");
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChangeInstitution = (event: SelectChangeEvent) => {
+    setInstitution(event.target.value as string);
+  };
+
+  const handleChangeEspeciality = (event: SelectChangeEvent) => {
+    setEspeciality(event.target.value as string);
+  };
+
+
+  const handleChangeGender = (event: SelectChangeEvent) => {
     setGender(event.target.value as string);
   };
 
@@ -32,9 +42,109 @@ const RequestMedic = () => {
     setBlocks(event.target.value as string);
   };
 
+  const { register, handleSubmit } = useForm();
+  const dataToJSON = (data) => {
+    console.log("Objeto JSON:", data); // El objeto tal cual
+    const jsonString = JSON.stringify(data);
+    console.log("JSON String:", jsonString); // Objeto convertido a string
+    //falta obtener las imágenes en base64 y enviarlas al backend
+  };
+
   return (
     <div className="m-4">
+        {/* Usé material UI para los inputs y selects */}
         
+        <form onSubmit={handleSubmit(data => {dataToJSON(data)})}>
+        <div className="bg-gray-50 w-full h-auto p-8 mb-16 rounded-lg shadow-md">
+        {/* Header */}
+        <div className="flex items-center mb-8">
+          <div className="bg-blue-500 p-4 rounded-full">
+            {/* ÍCONO DE DATOS DEL MÉDICO */}
+          </div>
+          <h2 className="ml-4 text-2xl font-bold text-gray-700">
+            Datos de médico
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 gap-6">
+          <div>
+            <input id="name" type="text" {...register("name")}
+              className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+              placeholder="NOMBRE AUTORRELLENADO"
+            />
+          </div>
+          <div>
+            <input id="lastName" type="text" {...register("lastName")}
+              className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+              placeholder="APELLIDOS AUTORRELLENADO"
+            />
+          </div>
+
+          <div>
+            <InputLabel id="institution">
+              NOMBRE DE INSTITUCIÓN REMISORA
+            </InputLabel>
+            <Select  {...register("institution")}
+              className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
+              labelId="institution"
+              id="institution"
+              value={institution}
+              label="Institución"
+              onChange={handleChangeInstitution}
+            >
+              <MenuItem value={"Institución_1"}>Institución 1</MenuItem>
+              <MenuItem value={"Institución_2"}>Institución 2</MenuItem>
+              <MenuItem value={"Institución_3"}>Institución 3</MenuItem>
+            </Select>
+          </div>
+
+          <div className="pt-6">
+            <input id="email" type="text" {...register("email")}
+              className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+              placeholder="EMAIL AUTORRELLENADO"
+            />
+          </div>
+
+          <div className="pt-6">
+            <input id="cedula" type="text" {...register("cedula")}
+              className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+              placeholder="CÉDULA PROFESIONAL AUTORRELLENADO"
+            />
+          </div>
+
+          <div>
+            <InputLabel id="especiality">
+              ESPECIALIDAD
+            </InputLabel>
+            <Select {...register("especiality")}
+              className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
+              labelId="especiality"
+              id="especiality"
+              value={especiality}
+              label="Especialidad"
+              onChange={handleChangeEspeciality}
+            >
+              <MenuItem value="Oncología_Médica">Oncología Médica</MenuItem>
+              <MenuItem value="Oncología_Quirúrgica">Oncología Quirúrgica</MenuItem>
+              <MenuItem value="Oncología_Pediátrica">Oncología Pediátrica</MenuItem>
+              <MenuItem value="Hematología_Oncológica">Hematología Oncológica</MenuItem>
+              <MenuItem value="Radioterapia_Oncológica">Radioterapia Oncológica</MenuItem>
+              <MenuItem value="Ginecología_Oncológica">Ginecología Oncológica</MenuItem>
+              <MenuItem value="Dermato-Oncología">Dermato-Oncología</MenuItem>
+              <MenuItem value="Neuro-Oncología">Neuro-Oncología</MenuItem>
+              <MenuItem value="Oncología_Pulmonar">Oncología Pulmonar</MenuItem>
+              <MenuItem value="Uro-Oncología">Uro-Oncología</MenuItem>
+              <MenuItem value="Ortopedia_Oncológica">Ortopedia Oncológica</MenuItem>
+              <MenuItem value="Cirugía_Torácica_Oncológica">Cirugía Torácica Oncológica</MenuItem>
+              <MenuItem value="Medicina_Paliativa_en_Oncología">Medicina Paliativa en Oncología</MenuItem>
+              <MenuItem value="Patología_Oncológica">Patología Oncológica</MenuItem>
+            </Select>
+          </div>
+        </div>
+      </div>
+
+
+
         <div className="bg-gray-50 w-full h-auto p-8 mb-8 rounded-lg shadow-md">
         {/* Header */}
         <div className="flex items-center mb-8">
@@ -50,42 +160,45 @@ const RequestMedic = () => {
         <div className="grid grid-cols-2 gap-6">
           {/* Form Items */}
           <div className="">
-            <input placeholder="NOMBRE DEL PACIENTE" className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"/>
-            
+            <input id="namePac" type="text" {...register("namePac")} 
+            placeholder="NOMBRE DEL PACIENTE" className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+            />
           </div>
-          <div className="">
-            <input placeholder="EDAD" className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"/>
+          <div>
+            <input id="edadPac" type="text" {...register("edadPac")}
+            placeholder="EDAD" className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"/>
           </div>
 
           <div>
-            <InputLabel id="institution">
+            <InputLabel id="gender">
               SEXO
             </InputLabel>
-            <Select
+            <Select {...register("gender")}
               className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
-              labelId="institution"
-              id="id_Institution"
+              labelId="gender"
+              id="gender"
               value={gender}
               label="Institución"
-              onChange={handleChange}
+              onChange={handleChangeGender}
             >
-              <MenuItem value={"Institución_1"}>Masculino</MenuItem>
-              <MenuItem value={"Institución_2"}>Femenino</MenuItem>
+              <MenuItem value={"Masculino"}>Masculino</MenuItem>
+              <MenuItem value={"Femenino"}>Femenino</MenuItem>
             </Select>
           </div>
 
           <div className="pt-6">
-            <input placeholder="CELULAR AUTORRELLENADO" className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"/>
+            <input id="phonePac" type="text" {...register("phonePac")}
+            placeholder="CELULAR AUTORRELLENADO" className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"/>
           </div>
           
           <div>
             <InputLabel id="cancerType">
               TIPO DE CÁNCER
             </InputLabel>
-            <Select
+            <Select {...register("cancerType")}
               className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
-              labelId="institution"
-              id="id_Institution"
+              labelId="cancerType"
+              id="cancerType"
               value={cancerType}
               label="Institución"
               onChange={handleChangeCancerType}
@@ -108,10 +221,10 @@ const RequestMedic = () => {
             <InputLabel id="test">
               PRUEBA
             </InputLabel>
-            <Select
+            <Select {...register("test")}
               className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
               labelId="test"
-              id="id_Test"
+              id="test"
               value={test}
               label="Test"
               onChange={handleChangeTest}
@@ -132,10 +245,10 @@ const RequestMedic = () => {
             <InputLabel id="biopsy">
               BIOPSIA REMETIDA
             </InputLabel>
-            <Select
+            <Select {...register("biopsy")}
               className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
               labelId="biopsy"
-              id="id_Biopsy"
+              id="biopsy"
               value={biopsy}
               label="Test"
               onChange={handleChangeBiopsy}
@@ -157,10 +270,10 @@ const RequestMedic = () => {
             <InputLabel id="blocks">
               BLOQUES Y/O LÁMINAS
             </InputLabel>
-            <Select
+            <Select {...register("blocks")}
               className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
               labelId="blocks"
-              id="id_Blocks"
+              id="blocks"
               value={blocks}
               label="Bloques"
               onChange={handleChangeBlocks}
@@ -177,7 +290,7 @@ const RequestMedic = () => {
           <div className="flex items-center justify-between mt-6 w-full h-auto border-2 border-gray-300 rounded-md bg-white p-8">
           <div>
             <p className="text-gray-700">IDENTIFICACIÓN (OPCIONAL)*</p>
-            <input type="file" className=""/>
+            <input type="file" id="ine" {...register("ine")}/>
           </div>
         </div>
 
@@ -186,7 +299,7 @@ const RequestMedic = () => {
             <p className="text-gray-700">Firmado y sellado</p>
             <p className="text-gray-700">Médico | Tamaño</p>
             <p className="text-gray-700">Máximo 3MB</p>
-            <input type="file" className=""/>
+            <input type="file" id="application" {...register("application")}/>
           </div>
         </div>
 
@@ -194,14 +307,14 @@ const RequestMedic = () => {
       </div>
 
       <div className="flex justify-center items-center">
-          <Checkbox/>
+          <Checkbox id="checkbox" {...register("checkbox")}/>
           <p>Autorizo la <span className="text-[#547EED] hover:underline hover:cursor-pointer">política y privacidad de datos</span></p>
       </div>
 
       <div className="flex justify-center items-center">
         <button className="w-auto h-auto px-16 py-2 bg-[#EB356E] rounded-full text-white mt-4 font-bold">ENVIAR</button>
       </div>
-
+      </form>
 
     </div>
   )

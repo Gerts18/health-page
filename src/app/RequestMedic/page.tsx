@@ -2,7 +2,6 @@
 import React from "react";
 import Header from "../components/Header/Index";
 import Footer from "../components/Footer/Footer";
-import MedicData from "../components/MedicData/MedicData";
 import RequestMedic from "../components/RequestMedic/RequestMedic";
 
 const Page = () => {
@@ -16,8 +15,6 @@ const Page = () => {
         </p>
         <div className="w-1/4 bg-[#547EED] h-2 rounded-full mr-36" />
       </div>
-
-      <MedicData />
 
       <RequestMedic />
 
