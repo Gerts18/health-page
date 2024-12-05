@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./index.css";
 
 const videos = [
   {
@@ -49,23 +48,22 @@ const videos = [
 const VideoList = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // Obtener categorías únicas
-  const allCategories = [
-    ...new Set(videos.flatMap((video) => video.categories)),
-  ];
+  const allCategories = [...new Set(videos.flatMap((video) => video.categories))];
 
-  // Filtrar videos según la categoría seleccionada
   const filteredVideos = selectedCategory
-    ? videos.filter((video) =>
-        video.categories.includes(selectedCategory)
-      )
+    ? videos.filter((video) => video.categories.includes(selectedCategory))
     : videos;
 
   return (
-    <div className="video-list-container">
+    <div className="w-11/12 max-w-screen-lg mx-auto mb-24 text-center">
+      <h1 className="">Comprendiendo la complejidad del cáncer</h1>
       {/* Filtro de categoría */}
-      <div className="category-filter">
-        <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+      <div className="mt-6 mb-8 text-left">
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="w-full md:w-1/3 p-2 border rounded-lg shadow-sm"
+        >
           <option value="">Todas las categorías</option>
           {allCategories.map((category) => (
             <option key={category} value={category}>
@@ -76,21 +74,23 @@ const VideoList = () => {
       </div>
 
       {/* Lista de videos */}
-      <div className="video-grid">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredVideos.map((video) => (
-          <div className="video-card" key={video.id}>
+          <div
+            key={video.id}
+            className="border border-gray-300 rounded-lg bg-white shadow-md p-4 flex flex-col justify-between h-80"
+          >
             <iframe
               src={video.videoUrl}
               title={video.title}
-              className="video-iframe"
+              className="w-full h-40 rounded-md"
               allowFullScreen
             ></iframe>
-            <h3>{video.title}</h3>
-            <p>{video.date}</p>
+            <h3 className="mt-4 text-lg font-semibold text-gray-800">{video.title}</h3>
+            <p className="text-sm text-gray-600">{video.date}</p>
           </div>
         ))}
       </div>
-
     </div>
   );
 };
