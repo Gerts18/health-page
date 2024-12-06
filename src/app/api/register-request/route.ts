@@ -25,8 +25,6 @@
 
 //     const cookies = cookie.parse(req.headers.get('cookie') || '');
 //     const email = cookies.email;
-//     const name = cookies.name;
-//     const lastNames = cookies.last_names;
 
 //     if (!email || !name || !lastNames) {
 //       return NextResponse.json(
@@ -143,10 +141,10 @@ export async function POST(req: Request) {
     }
 
     // Convertir archivos a Buffer si existen
-    const identificacionBuffer = identificacion_doc ? Buffer.from(await identificacion_doc.arrayBuffer()) : null;
-    const ordenMedicaBuffer = orden_medica_especialista_doc ? Buffer.from(await orden_medica_especialista_doc.arrayBuffer()) : null;
-    const comprobantePagoBuffer = comprobante_pago_doc ? Buffer.from(await comprobante_pago_doc.arrayBuffer()) : null;
-    const resumenHistoriaBuffer = resumen_historia_med_doc ? Buffer.from(await resumen_historia_med_doc.arrayBuffer()) : null;
+    const identificacionBuffer = identificacion_doc ? Buffer.from(await (identificacion_doc as Blob).arrayBuffer()) : null;
+    const ordenMedicaBuffer = orden_medica_especialista_doc ? Buffer.from(await (orden_medica_especialista_doc as Blob).arrayBuffer()) : null;
+    const comprobantePagoBuffer = comprobante_pago_doc ? Buffer.from(await (comprobante_pago_doc as Blob).arrayBuffer()) : null;
+    const resumenHistoriaBuffer = resumen_historia_med_doc ? Buffer.from(await (resumen_historia_med_doc as Blob).arrayBuffer()) : null;
 
     // Insertar los datos en la base de datos
     const result = await pool.query(
