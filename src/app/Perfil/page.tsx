@@ -211,7 +211,10 @@ export default function PerfilPage() {
             <button className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-800">
               SOLICITUD DE ESTUDIO <br></br>(Biología Molecular)
             </button>
-            <button className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-950">
+            <button 
+              className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-950"
+              onClick={() => router.push('/admin/news')}
+            >
               AGREGAR ARTÍCULO
             </button>
           </div>
