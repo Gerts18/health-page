@@ -2,322 +2,438 @@ import React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Checkbox, InputLabel } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+
 import { useForm } from "react-hook-form";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs, { Dayjs } from "dayjs";
+import { ArrowDropDownIcon } from "@mui/x-date-pickers/icons";
+
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 const RequestMedic = () => {
   const [gender, setGender] = React.useState("");
-  const [cancerType, setCancerType] = React.useState("");
-  const [test, setTest] = React.useState("");
-  const [biopsy, setBiopsy] = React.useState("");
-  const [blocks, setBlocks] = React.useState("");
-  const [institution, setInstitution] = React.useState("");
-  const [especiality, setEspeciality] = React.useState("");
+  const [institutionRem, setInstitutionRem] = React.useState("");
+  const [specialty, setSpecialty] = React.useState("");
+  const [typeTest, setTypeTest] = React.useState("");
 
-  const handleChangeInstitution = (event: SelectChangeEvent) => {
-    setInstitution(event.target.value as string);
+  const handleChangeInstitutionRem = (event: SelectChangeEvent) => {
+    setInstitutionRem(event.target.value as string);
   };
-
-  const handleChangeEspeciality = (event: SelectChangeEvent) => {
-    setEspeciality(event.target.value as string);
-  };
-
 
   const handleChangeGender = (event: SelectChangeEvent) => {
     setGender(event.target.value as string);
   };
 
-  const handleChangeCancerType = (event: SelectChangeEvent) => {
-    setCancerType(event.target.value as string);
+  const handleChangeSpecialty = (event: SelectChangeEvent) => {
+    setSpecialty(event.target.value as string);
   };
 
-  const handleChangeTest = (event: SelectChangeEvent) => {
-    setTest(event.target.value as string);
+  const handleChangeTypeTest = (event: SelectChangeEvent) => {
+    setTypeTest(event.target.value as string);
   };
 
-  const handleChangeBiopsy = (event: SelectChangeEvent) => {
-    setBiopsy(event.target.value as string);
-  };
+  const [dateData, setDateData] = React.useState<Dayjs | null>(dayjs());
 
-  const handleChangeBlocks = (event: SelectChangeEvent) => {
-    setBlocks(event.target.value as string);
-  };
-
-  const { register, handleSubmit } = useForm();
-  const dataToJSON = (data) => {
-    console.log("Objeto JSON:", data); // El objeto tal cual
-    const jsonString = JSON.stringify(data);
-    console.log("JSON String:", jsonString); // Objeto convertido a string
-    //falta obtener las imágenes en base64 y enviarlas al backend
+  const { register, handleSubmit, setValue } = useForm();
+  const dataForm = (data: object) => {
+    console.log(data);
   };
 
   return (
     <div className="m-4">
-        {/* Usé material UI para los inputs y selects */}
-        
-        <form onSubmit={handleSubmit(data => {dataToJSON(data)})}>
-        <div className="bg-gray-50 w-full h-auto p-8 mb-16 rounded-lg shadow-md">
-        {/* Header */}
-        <div className="flex items-center mb-8">
-          <div className="bg-blue-500 p-4 rounded-full">
-            {/* ÍCONO DE DATOS DEL MÉDICO */}
+      <Stack>
+        <Alert
+          variant="filled"
+          severity="success"
+          className="flex w-auto justify-center"
+        >
+          Se ha enviado correctamente.
+        </Alert>
+      </Stack>
+
+      <form
+        onSubmit={handleSubmit((data) => {
+          dataForm(data);
+        })}
+      >
+        <div className="bg-gray-50 w-full h-auto p-8 mb-8 rounded-lg shadow-md border">
+          {/* Header */}
+          <div className="items-center mb-8 grid grid-cols-2 gap-6">
+            <div className="flex">
+              <div className="bg-blue-500 p-4 rounded-full"></div>
+              <h2 className="ml-4 text-2xl font-bold text-gray-700">
+                Datos de médico
+              </h2>
+            </div>
+            <div>
+              <div>
+                <InputLabel id="institutionRem">
+                  NOMBRE DE INSTITUCIÓN REMISORA
+                </InputLabel>
+                <Select
+                  {...register("institutionRem")}
+                  className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
+                  labelId="institution"
+                  id="institution"
+                  value={institutionRem}
+                  label="Institución"
+                  onChange={handleChangeInstitutionRem}
+                >
+                  <MenuItem value={"Institución_1"}>Institución 1</MenuItem>
+                  <MenuItem value={"Institución_2"}>Institución 2</MenuItem>
+                  <MenuItem value={"Institución_3"}>Institución 3</MenuItem>
+                </Select>
+              </div>
+            </div>
           </div>
-          <h2 className="ml-4 text-2xl font-bold text-gray-700">
-            Datos de médico
-          </h2>
+
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <input
+                id="name"
+                type="text"
+                {...register("name")}
+                className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+                placeholder="NOMBRE(S)"
+              />
+            </div>
+            <div>
+              <input
+                id="lastName"
+                type="text"
+                {...register("lastName")}
+                className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+                placeholder="APELLIDOS"
+              />
+            </div>
+
+            <div>
+              <InputLabel id="gender">SEXO</InputLabel>
+              <Select
+                {...register("gender")}
+                className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
+                labelId="gender"
+                id="gender"
+                value={gender}
+                label="gender"
+                onChange={handleChangeGender}
+              >
+                <MenuItem value={"masculino"}>MASCULINO</MenuItem>
+                <MenuItem value={"femenino"}>FEMENINO</MenuItem>
+              </Select>
+            </div>
+
+            <div className="mt-4 shadow-md w-auto h-auto">
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={["DatePicker"]}>
+                  <DatePicker
+                    label="FECHA DE NACIMIENTO"
+                    className="w-full h-14 border border-gray-300 rounded-md bg-white"
+                    value={dateData}
+                    onChange={(newValue) => {
+                      setDateData(newValue); // Actualizamos el estado local
+                      setValue("dateOfBirth", newValue, {
+                        shouldValidate: true,
+                      }); // Sincronizamos con el formulario
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+            </div>
+
+            <div>
+              <input
+                id="phone"
+                type="text"
+                {...register("phone")}
+                className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+                placeholder="TELÉFONO"
+              />
+            </div>
+
+            <div>
+              <input
+                id="contactPhone"
+                type="text"
+                {...register("contactPhone")}
+                className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+                placeholder="TELÉFONO DE CONTACTO"
+              />
+            </div>
+
+            <div>
+              <input
+                id="email"
+                type="text"
+                {...register("email")}
+                className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+                placeholder="CORREO ELECTRÓNICO"
+              />
+            </div>
+
+            <div>
+              <input
+                id="address"
+                type="text"
+                {...register("address")}
+                className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+                placeholder="DIRECCIÓN"
+              />
+            </div>
+
+            <div>
+              <input
+                id="city"
+                type="text"
+                {...register("city")}
+                className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+                placeholder="CIUDAD"
+              />
+            </div>
+
+            <div className=" flex items-center w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md">
+              <p className="pr-2 text-gray-400">CREDENCIAL (OPCIONAL)</p>
+              <input
+                type="file"
+                id="ine"
+                {...register("ine")}
+                className="hover:cursor-pointer"
+              />
+            </div>
+          </div>
+
+          <div className="pt-5 mb-6 w-full justify-center">
+            <Accordion>
+              <AccordionSummary
+                className="shadow-md border-2 border-gray-300 rounded-md bg-white p-2"
+                expandIcon={<ArrowDropDownIcon />}
+                aria-controls="panel2-content"
+                id="panel2-header"
+              >
+                <Typography>¿TIENES CÉDULA PROFESIONAL?</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <input
+                      id="cedula"
+                      type="text"
+                      {...register("cedula")}
+                      className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+                      placeholder="CÉDULA PROFESIONAL"
+                    />
+                  </div>
+
+                  <div>
+                    <input
+                      id="institution"
+                      type="text"
+                      {...register("institution")}
+                      className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
+                      placeholder="INSTIUCIÓN"
+                    />
+                  </div>
+
+                  <div>
+                    <InputLabel id="specialty">ESPECIALIDAD</InputLabel>
+                    <Select
+                      {...register("specialty")}
+                      className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
+                      labelId="specialty"
+                      id="specialty"
+                      value={specialty}
+                      label="specialty"
+                      onChange={handleChangeSpecialty}
+                    >
+                      <MenuItem value={"oncologia_medica"}>
+                        ONCOLOGÍA MÉDICA
+                      </MenuItem>
+                      <MenuItem value={"oncologia_quirurgica"}>
+                        ONCOLOGÍA QUIRÚRGICA
+                      </MenuItem>
+                      <MenuItem value={"oncologia_pediatrica"}>
+                        ONCOLOGÍA PEDIÁTRICA
+                      </MenuItem>
+                      <MenuItem value={"hematologia_oncologica"}>
+                        HEMATOLOGÍA ONCOLÓGICA
+                      </MenuItem>
+                      <MenuItem value={"radioterapia_oncologica"}>
+                        RADIOTERAPIA ONCOLÓGICA
+                      </MenuItem>
+                      <MenuItem value={"ginecologia_oncologica"}>
+                        GINECOLOGÍA ONCOLÓGICA
+                      </MenuItem>
+                      <MenuItem value={"dermato_oncologia"}>
+                        DERMATO-ONCOLOGÍA
+                      </MenuItem>
+                      <MenuItem value={"neuro_oncologia"}>
+                        NEURO-ONCOLOGÍA
+                      </MenuItem>
+                      <MenuItem value={"oncologia_pulmonar"}>
+                        ONCOLOGÍA PULMONAR
+                      </MenuItem>
+                      <MenuItem value={"uro_oncologia"}>URO-ONCOLOGÍA</MenuItem>
+                      <MenuItem value={"ortopedia_oncologica"}>
+                        ORTOPEDIA ONCOLÓGICA
+                      </MenuItem>
+                      <MenuItem value={"cirugia_toracica_oncologica"}>
+                        CIRUGÍA TORÁCICA ONCOLÓGICA
+                      </MenuItem>
+                      <MenuItem value={"medicina_paliativa_oncologia"}>
+                        MEDICINA PALIATIVA EN ONCOLOGÍA
+                      </MenuItem>
+                      <MenuItem value={"patologia_oncologica"}>
+                        PATOLOGÍA ONCOLÓGICA
+                      </MenuItem>
+                    </Select>
+                  </div>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-6">
-          <div>
-            <input id="name" type="text" {...register("name")}
-              className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
-              placeholder="NOMBRE AUTORRELLENADO"
-            />
-          </div>
-          <div>
-            <input id="lastName" type="text" {...register("lastName")}
-              className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
-              placeholder="APELLIDOS AUTORRELLENADO"
-            />
-          </div>
-
-          <div>
-            <InputLabel id="institution">
-              NOMBRE DE INSTITUCIÓN REMISORA
-            </InputLabel>
-            <Select  {...register("institution")}
-              className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
-              labelId="institution"
-              id="institution"
-              value={institution}
-              label="Institución"
-              onChange={handleChangeInstitution}
-            >
-              <MenuItem value={"Institución_1"}>Institución 1</MenuItem>
-              <MenuItem value={"Institución_2"}>Institución 2</MenuItem>
-              <MenuItem value={"Institución_3"}>Institución 3</MenuItem>
-            </Select>
-          </div>
-
-          <div className="pt-6">
-            <input id="email" type="text" {...register("email")}
-              className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
-              placeholder="EMAIL AUTORRELLENADO"
-            />
-          </div>
-
-          <div className="pt-6">
-            <input id="cedula" type="text" {...register("cedula")}
-              className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
-              placeholder="CÉDULA PROFESIONAL AUTORRELLENADO"
-            />
-          </div>
-
-          <div>
-            <InputLabel id="especiality">
-              ESPECIALIDAD
-            </InputLabel>
-            <Select {...register("especiality")}
-              className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
-              labelId="especiality"
-              id="especiality"
-              value={especiality}
-              label="Especialidad"
-              onChange={handleChangeEspeciality}
-            >
-              <MenuItem value="Oncología_Médica">Oncología Médica</MenuItem>
-              <MenuItem value="Oncología_Quirúrgica">Oncología Quirúrgica</MenuItem>
-              <MenuItem value="Oncología_Pediátrica">Oncología Pediátrica</MenuItem>
-              <MenuItem value="Hematología_Oncológica">Hematología Oncológica</MenuItem>
-              <MenuItem value="Radioterapia_Oncológica">Radioterapia Oncológica</MenuItem>
-              <MenuItem value="Ginecología_Oncológica">Ginecología Oncológica</MenuItem>
-              <MenuItem value="Dermato-Oncología">Dermato-Oncología</MenuItem>
-              <MenuItem value="Neuro-Oncología">Neuro-Oncología</MenuItem>
-              <MenuItem value="Oncología_Pulmonar">Oncología Pulmonar</MenuItem>
-              <MenuItem value="Uro-Oncología">Uro-Oncología</MenuItem>
-              <MenuItem value="Ortopedia_Oncológica">Ortopedia Oncológica</MenuItem>
-              <MenuItem value="Cirugía_Torácica_Oncológica">Cirugía Torácica Oncológica</MenuItem>
-              <MenuItem value="Medicina_Paliativa_en_Oncología">Medicina Paliativa en Oncología</MenuItem>
-              <MenuItem value="Patología_Oncológica">Patología Oncológica</MenuItem>
-            </Select>
-          </div>
-        </div>
-      </div>
-
-
-
-        <div className="bg-gray-50 w-full h-auto p-8 mb-8 rounded-lg shadow-md">
-        {/* Header */}
-        <div className="flex items-center mb-8">
-          <div className="bg-blue-500 p-4 rounded-full">
-            {/* ÍCONO DE DATOS DEL MÉDICO */}
-          </div>
-          <h2 className="ml-4 text-2xl font-bold text-gray-700">
-            Solicitud de estudios
-          </h2>
-        </div>
-
-        {/* Form Grid */}
-        <div className="grid grid-cols-2 gap-6">
-          {/* Form Items */}
-          <div className="">
-            <input id="namePac" type="text" {...register("namePac")} 
-            placeholder="NOMBRE DEL PACIENTE" className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"
-            />
-          </div>
-          <div>
-            <input id="edadPac" type="text" {...register("edadPac")}
-            placeholder="EDAD" className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"/>
+        <div className="bg-gray-50 w-full h-auto p-8 mb-8 rounded-lg shadow-md border">
+          <div className="items-center mb-8 grid grid-cols-2 gap-6">
+            <div className="flex">
+              <div className="bg-blue-500 p-4 rounded-full"></div>
+              <h2 className="ml-4 text-2xl font-bold text-gray-700">
+                Solicitud de estudios
+              </h2>
+            </div>
+            <div>
+              <div>
+                <InputLabel id="typeTest">TIPO DE PRUEBA</InputLabel>
+                <Select
+                  {...register("typeTest")}
+                  className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
+                  labelId="typeTest"
+                  id="typeTest"
+                  value={typeTest}
+                  label="typeTest"
+                  onChange={handleChangeTypeTest}
+                >
+                  <MenuItem value={"Inmunohistoquímica (IHC)"}>
+                    Inmunohistoquímica (IHC)
+                  </MenuItem>
+                  <MenuItem value={"Secuenciación Genética (NGS)"}>
+                    Secuenciación Genética (NGS)
+                  </MenuItem>
+                  <MenuItem value={"Hibridación in situ (FISH)"}>
+                    Hibridación in situ (FISH)
+                  </MenuItem>
+                  <MenuItem value={"PCR en Tiempo Real"}>
+                    PCR en Tiempo Real
+                  </MenuItem>
+                  <MenuItem value={"Panel de Biomarcadores"}>
+                    Panel de Biomarcadores
+                  </MenuItem>
+                  <MenuItem value={"Citometría de Flujo"}>
+                    Citometría de Flujo
+                  </MenuItem>
+                  <MenuItem value={"Microscopía Electrónica"}>
+                    Microscopía Electrónica
+                  </MenuItem>
+                  <MenuItem value={"Estudios de Patología Molecular"}>
+                    Estudios de Patología Molecular
+                  </MenuItem>
+                  <MenuItem value={"Mutaciones Específicas"}>
+                    Mutaciones Específicas
+                  </MenuItem>
+                </Select>
+              </div>
+            </div>
           </div>
 
-          <div>
-            <InputLabel id="gender">
-              SEXO
-            </InputLabel>
-            <Select {...register("gender")}
-              className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
-              labelId="gender"
-              id="gender"
-              value={gender}
-              label="Institución"
-              onChange={handleChangeGender}
-            >
-              <MenuItem value={"Masculino"}>Masculino</MenuItem>
-              <MenuItem value={"Femenino"}>Femenino</MenuItem>
-            </Select>
+          <div className="grid grid-cols-2 gap-6 mb-12">
+            <div>
+              <p className="text-gray-500 font-bold text-xl">
+                Orden Médica del especialista que solicita el estudio o Formato
+                de Solicitud de Estudios
+              </p>
+            </div>
+            <div className="w-full h-auto border-2 border-gray-300 rounded-md bg-white p-2 py-4 shadow-md">
+              <p className="text-gray-400">Firmado y Sellado</p>
+              <p className="text-gray-400">Médico | Tamaño</p>
+              <p className="text-gray-400">Máximo 3MB</p>
+              <input
+                type="file"
+                id="medicOrder"
+                {...register("medicOrder")}
+                className="hover:cursor-pointer"
+              />
+            </div>
           </div>
 
-          <div className="pt-6">
-            <input id="phonePac" type="text" {...register("phonePac")}
-            placeholder="CELULAR AUTORRELLENADO" className="w-full h-14 border-2 border-gray-300 rounded-md bg-white p-2 shadow-md"/>
-          </div>
-          
-          <div>
-            <InputLabel id="cancerType">
-              TIPO DE CÁNCER
-            </InputLabel>
-            <Select {...register("cancerType")}
-              className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
-              labelId="cancerType"
-              id="cancerType"
-              value={cancerType}
-              label="Institución"
-              onChange={handleChangeCancerType}
-            >
-              <MenuItem value="Cáncer_de_Cabeza_y_Cuello">Cáncer de Cabeza y Cuello</MenuItem>
-              <MenuItem value="Germinal">Germinal</MenuItem>
-              <MenuItem value="Cáncer_de_Colon">Cáncer de Colon</MenuItem>
-              <MenuItem value="Cáncer_de_Ovario">Cáncer de Ovario</MenuItem>
-              <MenuItem value="Cáncer_de_Pulmón">Cáncer de Pulmón</MenuItem>
-              <MenuItem value="Cáncer_de_Seno">Cáncer de Seno</MenuItem>
-              <MenuItem value="Cáncer_de_Próstata">Cáncer de Próstata</MenuItem>
-              <MenuItem value="Melanoma">Melanoma</MenuItem>
-              <MenuItem value="Tumores_del_Estroma_Gastrointestinal">Tumores del Estroma Gastrointestinal</MenuItem>
-              <MenuItem value="Tumores_del_Sistema_Nervioso_Central">Tumores del Sistema Nervioso Central</MenuItem>
-              <MenuItem value="Paneles_NGS">Paneles NGS</MenuItem>
-            </Select>
+          <div className="flex w-full h-1 mb-12 rounded-full bg-blue-200" />
+
+          <div className="grid grid-cols-2 gap-6 mb-12">
+            <div>
+              <p className="text-gray-500 font-bold text-xl">
+                Voucher o Bono si fue emitido por su médico tratante.
+              </p>
+            </div>
+            <div className="w-full h-auto border-2 border-gray-300 rounded-md bg-white p-2 py-4 shadow-md">
+              <p className="text-gray-400">Firmado y Sellado</p>
+              <p className="text-gray-400">Médico | Tamaño</p>
+              <p className="text-gray-400">Máximo 3MB</p>
+              <input
+                type="file"
+                id="voucher"
+                {...register("voucher")}
+                className="hover:cursor-pointer"
+              />
+            </div>
           </div>
 
-          <div>
-            <InputLabel id="test">
-              PRUEBA
-            </InputLabel>
-            <Select {...register("test")}
-              className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
-              labelId="test"
-              id="test"
-              value={test}
-              label="Test"
-              onChange={handleChangeTest}
-            >
-              <MenuItem value="Inmunohistoquímica_IHC">Inmunohistoquímica (IHC)</MenuItem>
-              <MenuItem value="Secuenciación_Genética_NGS">Secuenciación Genética (NGS)</MenuItem>
-              <MenuItem value="Hibridación_in_situ_FISH">Hibridación in situ (FISH)</MenuItem>
-              <MenuItem value="PCR_en_Tiempo_Real">PCR en Tiempo Real</MenuItem>
-              <MenuItem value="Panel_de_Biomarcadores">Panel de Biomarcadores</MenuItem>
-              <MenuItem value="Citometría_de_Flujo">Citometría de Flujo</MenuItem>
-              <MenuItem value="Microscopía_Electrónica">Microscopía Electrónica</MenuItem>
-              <MenuItem value="Estudios_de_Patología_Molecular">Estudios de Patología Molecular</MenuItem>
-              <MenuItem value="Mutaciones_Específicas">Mutaciones Específicas (p.ej., EGFR, BRCA1/2)</MenuItem>
-            </Select>
-          </div>
+          <div className="flex w-full h-1 mb-12 rounded-full bg-blue-200" />
 
-          <div>
-            <InputLabel id="biopsy">
-              BIOPSIA REMETIDA
-            </InputLabel>
-            <Select {...register("biopsy")}
-              className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
-              labelId="biopsy"
-              id="biopsy"
-              value={biopsy}
-              label="Test"
-              onChange={handleChangeBiopsy}
-            >
-              <MenuItem value="Tejido_Sólido">Tejido Sólido</MenuItem>
-              <MenuItem value="Aspirado_de_Médula_Ósea">Aspirado de Médula Ósea</MenuItem>
-              <MenuItem value="Líquido_Pleural">Líquido Pleural</MenuItem>
-              <MenuItem value="Líquido_Peritoneal">Líquido Peritoneal</MenuItem>
-              <MenuItem value="Ganglio_Linfático">Ganglio Linfático</MenuItem>
-              <MenuItem value="Tejido_Tumoral">Tejido Tumoral</MenuItem>
-              <MenuItem value="Fragmento_Óseo">Fragmento Óseo</MenuItem>
-              <MenuItem value="Tejido_Pulmonar">Tejido Pulmonar</MenuItem>
-              <MenuItem value="Tejido_Mamario">Tejido Mamario</MenuItem>
-              <MenuItem value="Muestra_de_Piel">Muestra de Piel</MenuItem>
-            </Select>
-          </div>
-
-          <div>
-            <InputLabel id="blocks">
-              BLOQUES Y/O LÁMINAS
-            </InputLabel>
-            <Select {...register("blocks")}
-              className="w-full h-14 border border-gray-300 rounded-md bg-white shadow-md"
-              labelId="blocks"
-              id="blocks"
-              value={blocks}
-              label="Bloques"
-              onChange={handleChangeBlocks}
-            >
-              <MenuItem value="Bloques_en_Parafina">Bloques en Parafina</MenuItem>
-              <MenuItem value="Láminas_para_Microscopia">Láminas para Microscopia</MenuItem>
-              <MenuItem value="Láminas_con_Tinción_Hematoxilina_Eosina">Láminas con Tinción Hematoxilina-Eosina (H&E)</MenuItem>
-              <MenuItem value="Láminas_con_Tinción_Especial">Láminas con Tinción Especial</MenuItem>
-              <MenuItem value="Muestras_sin_Procesar">Muestras sin Procesar</MenuItem>
-              <MenuItem value="Muestras_Decalcificadas">Muestras Decalcificadas</MenuItem>
-            </Select>
-          </div>
-
-          <div className="flex items-center justify-between mt-6 w-full h-auto border-2 border-gray-300 rounded-md bg-white p-8">
-          <div>
-            <p className="text-gray-700">IDENTIFICACIÓN (OPCIONAL)*</p>
-            <input type="file" id="ine" {...register("ine")}/>
+          <div className="grid grid-cols-2 gap-6 mb-6">
+            <div>
+              <p className="text-gray-500 font-bold text-xl">
+                Resumen de Historia Clínica
+              </p>
+            </div>
+            <div className="w-full h-auto border-2 border-gray-300 rounded-md bg-white p-2 py-4 shadow-md">
+              <p className="text-gray-400">Firmado y Sellado</p>
+              <p className="text-gray-400">Médico | Tamaño</p>
+              <p className="text-gray-400">Máximo 3MB</p>
+              <input
+                type="file"
+                id="clinicalHistory"
+                {...register("clinicalHistory")}
+                className="hover:cursor-pointer"
+              />
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-6 w-full h-auto border-2 border-gray-300 rounded-md bg-white p-8">
-          <div>
-            <p className="text-gray-700">Firmado y sellado</p>
-            <p className="text-gray-700">Médico | Tamaño</p>
-            <p className="text-gray-700">Máximo 3MB</p>
-            <input type="file" id="application" {...register("application")}/>
-          </div>
+        <div className="flex justify-center items-center">
+          <Checkbox id="checkbox" {...register("checkbox")} />
+          <p>
+            Autorizo la{" "}
+            <span className="text-[#547EED] hover:underline hover:cursor-pointer">
+              política y privacidad de datos
+            </span>
+          </p>
         </div>
 
+        <div className="flex justify-center items-center">
+          <button className="w-auto h-auto px-16 py-2 bg-[#EB356E] rounded-full text-white mt-4 font-bold">
+            ENVIAR
+          </button>
         </div>
-      </div>
-
-      <div className="flex justify-center items-center">
-          <Checkbox id="checkbox" {...register("checkbox")}/>
-          <p>Autorizo la <span className="text-[#547EED] hover:underline hover:cursor-pointer">política y privacidad de datos</span></p>
-      </div>
-
-      <div className="flex justify-center items-center">
-        <button className="w-auto h-auto px-16 py-2 bg-[#EB356E] rounded-full text-white mt-4 font-bold">ENVIAR</button>
-      </div>
       </form>
-
     </div>
-  )
-}
+  );
+};
 
-export default RequestMedic
+export default RequestMedic;
