@@ -12,9 +12,15 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
-import { Result } from "postcss";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { useRouter } from 'next/navigation';
 
 const RequestMedic = () => {
+
+  const router = useRouter();
 
   const [gender, setGender] = useState("");
   const [institutionRem, setInstitutionRem] = useState("");
@@ -72,7 +78,7 @@ const RequestMedic = () => {
 
           //console.log(result.data);
 
-          if (result.data['professionalid'] != "") {
+          if (result.data['professionalid'] != "none") {
 
             //console.log('Cédula Profesional:', result.data['professionalid']);
             setIsCedulaEnabled(true);
@@ -110,6 +116,7 @@ const RequestMedic = () => {
     formData.append("cedula", data.cedula || "");
     formData.append("email", data.email || "");
 
+
     if (fileIne) formData.append("identificacion_doc", fileIne);
     if (fileMedicOrder) formData.append("orden_medica_especialista_doc", fileMedicOrder);
     if (fileVoucher) formData.append("comprobante_pago_doc", fileVoucher);
@@ -130,8 +137,10 @@ const RequestMedic = () => {
       });
 
       if (response.ok) {
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 3000);
+        toast.success("Solicitud exitosa!, redirigiendo ...");
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
       } else {
         const errorData = await response.json();
         console.error("Error al enviar el formulario:", errorData.message);
@@ -606,6 +615,7 @@ const RequestMedic = () => {
           </div>
         )}
       </form>
+      <ToastContainer />
     </div>
   );
 };

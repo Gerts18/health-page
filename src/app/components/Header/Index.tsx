@@ -63,9 +63,7 @@ const Header: React.FC = () => {
       {/* Logo */}
       <Link href={"/"}>
       <div className="flex items-center space-x-2">
-        <Link href="/">
           <Image src="/assets/Logo8.png" alt="FICMAC Logo" width={200} height={200} />
-        </Link>
       </div>
       </Link>
 
@@ -139,7 +137,7 @@ const Header: React.FC = () => {
           <>
             <span>Hola, {userData.name}</span>
             {/* Renderizamos el ícono según professionalid */}
-            {userData.professionalid ? (
+            {userData.professionalid && userData.professionalid !== "none" ?  (
               <FaUserDoctor className="text-gray-500" size={30} />
             ) : (
               <FaUser className="text-gray-500" size={30} />

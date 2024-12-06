@@ -7,6 +7,7 @@ export async function POST(request: NextRequest) {
 
     const { firstName, lastName, email, password, category, professionalId } = data;
 
+    console.log('Data:', data);
     // Validación de campos obligatorios
     if (!firstName || !lastName || !email || !password || !category) {
       return NextResponse.json(
@@ -54,10 +55,10 @@ export async function POST(request: NextRequest) {
       // Otras categorías
       query = `
         INSERT INTO users (first_name, last_names, email, password, category, professionalid) 
-        VALUES ($1, $2, $3, $4, $5, "")
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING first_name, last_names, email, category, professionalid
       `;
-      values = [firstName, lastName, email, password, category];
+      values = [firstName, lastName, email, password, category, "none"];
     }
 
     const responseDB = await conn.query(query, values);
