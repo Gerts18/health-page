@@ -53,9 +53,9 @@ export async function POST(request: NextRequest) {
     } else {
       // Otras categorías
       query = `
-        INSERT INTO users (first_name, last_names, email, password, category) 
-        VALUES ($1, $2, $3, $4, $5)
-        RETURNING first_name, last_names, email, category
+        INSERT INTO users (first_name, last_names, email, password, category, professionalid) 
+        VALUES ($1, $2, $3, $4, $5, "")
+        RETURNING first_name, last_names, email, category, professionalid
       `;
       values = [firstName, lastName, email, password, category];
     }

@@ -152,14 +152,14 @@ const Header: React.FC = () => {
           </>
         ) : (
           <>
-            <Link href="/Login">
+            <Link href="/login">
               <button className="px-4 py-2 text-blue-500 border border-blue-500 rounded-full hover:bg-blue-500 hover:text-white">
-                Log in
+                Iniciar Sesion
               </button>
             </Link>
             <Link href="/register">
               <button className="px-4 py-2 text-pink-500 border border-pink-500 rounded-full hover:bg-pink-500 hover:text-white">
-                Sign Up
+                Registrarse
               </button>
             </Link>
           </>
