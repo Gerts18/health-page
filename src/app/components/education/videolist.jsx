@@ -56,7 +56,6 @@ const VideoList = () => {
 
   return (
     <div className="w-11/12 max-w-screen-lg mx-auto mb-24 text-center">
-      <h1 className="">Comprendiendo la complejidad del cáncer</h1>
       {/* Filtro de categoría */}
       <div className="mt-6 mb-8 text-left">
         <select

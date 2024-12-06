@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 const Carrusel = () => {
   const slides = [
-    { id: 1, title: "Sostener una Señal proliferativa", content: ["Ciclo celular", "Factores de crecimiento", "Factores de crecimiento"], bgColor: "bg-green-500" },
-    { id: 2, title: "Inactivar supresores de tumores", content: ["Proteínas clave", "Vías reguladoras"], bgColor: "bg-blue-500" },
-    { id: 3, title: "Habilitar inmortalidad replicativa", content: ["Telomerasa", "Ciclo de vida celular"], bgColor: "bg-purple-500" },
-    { id: 4, title: "Sostener angiogénesis", content: ["Factores angiogénicos", "Vascularización"], bgColor: "bg-orange-500" },
+    { id: 1, title: "Sostener una Señal proliferativa", content: ["Ciclo celular", "Factores de crecimiento", "Factores de crecimiento"], bgColor: "bg-green-500", txtColor: "text-green-500" },
+    { id: 2, title: "Inactivar supresores de tumores", content: ["Proteínas clave", "Vías reguladoras"], bgColor: "bg-blue-500", txtColor: "text-blue-500" },
+    { id: 3, title: "Habilitar inmortalidad replicativa", content: ["Telomerasa", "Ciclo de vida celular"], bgColor: "bg-purple-500", txtColor: "text-purple-500" },
+    { id: 4, title: "Sostener angiogénesis", content: ["Factores angiogénicos", "Vascularización"], bgColor: "bg-orange-500", txtColor: "text-orange-500" },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,8 +20,8 @@ const Carrusel = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-2xl font-bold text-center mt-8">Comprendiendo la complejidad del cáncer</h1>
-      <div className="relative w-full h-80 flex justify-center items-center mt-12 overflow-hidden">
+      <h1 className="text-6xl font-bold text-center mt-12 pt-12 text-blue-600 underline">Comprendiendo la complejidad del cáncer</h1>
+      <div className="relative w-full h-80 flex justify-center items-center overflow-hidden">
         {slides.map((slide, index) => {
           const position =
             index === currentIndex
@@ -35,17 +35,25 @@ const Carrusel = () => {
           return (
             <div
               key={slide.id}
-              className={`absolute w-3/4 max-w-md h-64 rounded-lg shadow-lg p-5 transition-transform duration-500 ${slide.bgColor} ${position}`}
+              className={`absolute w-3/4 max-w-md h-64 rounded-2xl shadow-lg p-0 transition-transform duration-500 ${slide.bgColor} ${position}`}
             >
-              <div className="flex items-center gap-4 mb-4">
-                <h2 className="text-lg font-bold text-white bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center">
-                  {index + 1}
-                </h2>
-                <h3 className="text-white text-xl">{slide.title}</h3>
+              {/* Encabezado */}
+              <div className=" rounded-t-1xl px-5 py-3 flex items-center gap-2">
+                <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md">
+                  <span className={`${slide.txtColor} font-bold text-4xl`}>{index + 1}</span>
+                </div>
+                <h3 className="text-white text-2xl font-bold">
+                  {slide.title}
+                </h3>
               </div>
-              <ul className="list-none">
+
+              {/* Contenido de la lista */}
+              <ul className="bg-white rounded-b-2xl h-[calc(97%-56px)] flex flex-col justify-center">
                 {slide.content.map((item, i) => (
-                  <li key={i} className="text-gray-800 underline cursor-pointer">
+                  <li
+                    key={i}
+                    className="text-blue-600 text-2xl font-medium underline text-center"
+                  >
                     {item}
                   </li>
                 ))}
