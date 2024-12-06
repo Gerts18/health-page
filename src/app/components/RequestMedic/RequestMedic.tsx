@@ -19,12 +19,7 @@ const RequestMedic = () => {
   const [specialty, setSpecialty] = useState("");
   const [typeTest, setTypeTest] = useState("");
   const [dateData, setDateData] = useState<Dayjs | null>(dayjs());
-  const [showAlert, setShowAlert] = useState(false);
-  const [isCedulaEnabled, setIsCedulaEnabled] = useState(false);
-  const [fileIne, setFileIne] = useState<File | null>(null);
-  const [fileMedicOrder, setFileMedicOrder] = useState<File | null>(null);
-  const [fileVoucher, setFileVoucher] = useState<File | null>(null);
-  const [fileClinicalH, setFileClinicalH] = useState<File | null>(null);
+  const [showAlert, setShowAlert] = useState(false); // Estado para mostrar/ocultar la alerta
 
   const { register, handleSubmit, setValue } = useForm();
 
@@ -44,69 +39,98 @@ const RequestMedic = () => {
     setTypeTest(event.target.value as string);
   };
 
+  const [isCedulaEnabled, setIsCedulaEnabled] = useState(false); // Estado para controlar el checkbox
+
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsCedulaEnabled(event.target.checked);
+    setIsCedulaEnabled(event.target.checked); // Actualiza el estado según el checkbox
   };
 
-  const handleFileChange = (setFile: React.Dispatch<React.SetStateAction<File | null>>) => (
+  const handleClick = () => {
+    setTimeout(() => {
+      setShowAlert(true); // Mostrar la alerta
+    }, 500); // 500ms
+    setTimeout(() => {
+      setShowAlert(false); // Ocultar la alerta después de 3 segundos
+    }, 3000); // 3000ms
+  };
+
+  //guarda los nombres de los archivos para mostrarlos en la página
+  const [fileIne, setFileIne] = useState("");
+  const handleFileChangeIne = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFileIne(e.target.files[0].name); // Guarda el nombre del archivo
+    }
+  };
+
+  const [fileMedicOrder, setFileMedicOrder] = useState("");
+  const handleFileChangeMedicOrder = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
+      setFileMedicOrder(e.target.files[0].name); // Guarda el nombre del archivo
     }
   };
 
-  const onSubmit = async (data: any) => {
-    const formData = new FormData();
-
-    formData.append("name", data.name || "");
-    formData.append("lastName", data.lastName || "");
-    formData.append("dateOfBirth", dateData ? dateData.format("YYYY-MM-DD") : "");
-    formData.append("gender", gender || "");
-    formData.append("institutionRem", institutionRem || "");
-    formData.append("typeTest", typeTest || "");
-    formData.append("phone", data.phone || "");
-    formData.append("contactPhone", data.contactPhone || "");
-    formData.append("address", data.address || "");
-    formData.append("city", data.city || "");
-    formData.append("cedula", data.cedula || "");
-    formData.append("email", data.email || "");
-
-    if (fileIne) formData.append("identificacion_doc", fileIne);
-    if (fileMedicOrder) formData.append("orden_medica_especialista_doc", fileMedicOrder);
-    if (fileVoucher) formData.append("comprobante_pago_doc", fileVoucher);
-    if (fileClinicalH) formData.append("resumen_historia_med_doc", fileClinicalH);
-
-    try {
-      console.log("Sending form data...");
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-      }
-
-      const response = await fetch("/api/register-request", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: formData,
-      });
-
-      if (response.ok) {
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 3000);
-      } else {
-        const errorData = await response.json();
-        console.error("Error al enviar el formulario:", errorData.message);
-      }
-    } catch (error) {
-      console.error("Error al enviar el formulario:", error);
+  const [fileVoucher, setFileVoucher] = useState("");
+  const handleFileChangeVoucher = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFileVoucher(e.target.files[0].name); // Guarda el nombre del archivo
     }
+  };
+
+  const [fileClinicalH, setFileClinicalH] = useState("");
+  const handleFileChangeClinicalH = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFileClinicalH(e.target.files[0].name); // Guarda el nombre del archivo
+    }
+  };
+
+  //guarda los archivos
+  const [fileIneObject, setFileIneObject] = useState<File | null>(null);
+  const onChangeIneObject = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFileIneObject(e.target.files[0]); // Guarda el archivo
+    }
+  };
+
+  const [fileMedicOrderObject, setFileMedicOrderObject] = useState<File | null>(null);
+  const onChangeMedicOrder = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFileMedicOrderObject(e.target.files[0]); // Guarda el archivo
+    }
+  };
+
+  const [fileVoucherObject, setFileVoucherObject] = useState<File | null>(null);
+  const onChangeVoucher = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFileVoucherObject(e.target.files[0]); // Guarda el archivo
+    }
+  };
+
+  const [fileClinicalHistory, setFileClinicalHistory] = useState<File | null>(null);
+  const onChangeClinicalH = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFileClinicalHistory(e.target.files[0]); // Guarda el archivo
+    }
+  };
+
+  //guarda los datos del formulario para mandarlo al backend
+  const dataForm = (data: object) => {
+    const totalData = { data, fileIneObject, fileMedicOrderObject, fileVoucherObject, fileClinicalHistory };
+    console.log(totalData);
   };
 
   return (
     <div className="m-4 pb-4">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          dataForm(data);
+        })}
+      >
         <div className="bg-gray-50 w-full h-auto p-8 mb-8 rounded-lg shadow-md border">
+          {/* Header */}
           <div className="items-center mb-8 grid grid-cols-2 gap-6">
             <div className="flex">
               <div>
@@ -185,10 +209,10 @@ const RequestMedic = () => {
                     className="w-full h-14 border border-gray-300 rounded-md bg-white"
                     value={dateData}
                     onChange={(newValue) => {
-                      setDateData(newValue);
+                      setDateData(newValue); // Actualizamos el estado local
                       setValue("dateOfBirth", newValue, {
                         shouldValidate: true,
-                      });
+                      }); // Sincronizamos con el formulario
                     }}
                   />
                 </DemoContainer>
@@ -249,11 +273,15 @@ const RequestMedic = () => {
               <p className="pr-2 text-gray-400 mb-2">CREDENCIAL (OPCIONAL)</p>
               <input
                 type="file"
-                id="ine"
-                {...register("ine")}
+                // id="ine"
+                // {...register("ine")}
                 className="hover:cursor-pointer hidden"
-                onChange={handleFileChange(setFileIne)}
+                onChange={(e)=>{
+                  handleFileChangeIne(e);
+                  onChangeIneObject(e);
+                }}
               />
+              {/* Botón personalizado */}
               <label
                 htmlFor="ine"
                 className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg cursor-pointer transition-all duration-200"
@@ -262,7 +290,8 @@ const RequestMedic = () => {
               </label>
               {fileIne ? (
                 <p className="mt-2 text-sm text-gray-600">
-                  Archivo seleccionado: <span className="font-medium">{fileIne.name}</span>
+                  Archivo seleccionado:{" "}
+                  <span className="font-medium">{fileIne}</span>
                 </p>
               ) : (
                 <p className="mt-2 text-sm text-gray-400">
@@ -274,6 +303,7 @@ const RequestMedic = () => {
 
           <div className="pt-5 mb-6 w-full justify-center">
             <div className="flex items-center mb-6">
+              {/* Checkbox */}
               <Checkbox
                 id="checkboxCed"
                 {...register("checkboxCed")}
@@ -284,12 +314,13 @@ const RequestMedic = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
+              {/* Campo de Cédula Profesional */}
               <div>
                 <input
                   id="cedula"
                   type="text"
                   {...register("cedula")}
-                  disabled={!isCedulaEnabled}
+                  disabled={!isCedulaEnabled} // Campo habilitado/deshabilitado
                   className={`w-full h-14 border-2 rounded-md bg-white p-2 shadow-md ${
                     isCedulaEnabled
                       ? "border-gray-300"
@@ -299,12 +330,13 @@ const RequestMedic = () => {
                 />
               </div>
 
+              {/* Campo de Institución */}
               <div>
                 <input
                   id="institution"
                   type="text"
                   {...register("institution")}
-                  disabled={!isCedulaEnabled}
+                  disabled={!isCedulaEnabled} // Campo habilitado/deshabilitado
                   className={`w-full h-14 border-2 rounded-md bg-white p-2 shadow-md ${
                     isCedulaEnabled
                       ? "border-gray-300"
@@ -314,11 +346,12 @@ const RequestMedic = () => {
                 />
               </div>
 
+              {/* Select de Especialidad */}
               <div>
                 <InputLabel id="specialty">ESPECIALIDAD</InputLabel>
                 <Select
                   {...register("specialty")}
-                  disabled={!isCedulaEnabled}
+                  disabled={!isCedulaEnabled} // Select habilitado/deshabilitado
                   className={`w-full h-14 border rounded-md bg-white shadow-md ${
                     isCedulaEnabled
                       ? "border-gray-300"
@@ -442,11 +475,15 @@ const RequestMedic = () => {
               <p className="text-gray-400 mb-2">Máximo 3MB</p>
               <input
                 type="file"
-                id="medicOrder"
-                {...register("medicOrder")}
+                // id="medicOrder"
+                // {...register("medicOrder")}
                 className="hover:cursor-pointer hidden"
-                onChange={handleFileChange(setFileMedicOrder)}
+                onChange={(e)=>{
+                  handleFileChangeMedicOrder(e); 
+                  onChangeMedicOrder(e);
+                }}
               />
+              {/* Botón personalizado */}
               <label
                 htmlFor="medicOrder"
                 className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg cursor-pointer transition-all duration-200"
@@ -455,7 +492,8 @@ const RequestMedic = () => {
               </label>
               {fileMedicOrder ? (
                 <p className="mt-2 text-sm text-gray-600">
-                  Archivo seleccionado: <span className="font-medium">{fileMedicOrder.name}</span>
+                  Archivo seleccionado:{" "}
+                  <span className="font-medium">{fileMedicOrder}</span>
                 </p>
               ) : (
                 <p className="mt-2 text-sm text-gray-400">
@@ -477,13 +515,19 @@ const RequestMedic = () => {
               <p className="text-gray-400">Firmado y Sellado</p>
               <p className="text-gray-400">Médico | Tamaño</p>
               <p className="text-gray-400 mb-2">Máximo 3MB</p>
+              {/* Input de archivo oculto */}
               <input
                 type="file"
-                id="voucher"
-                {...register("voucher")}
+                // id="voucher"
+                // {...register("voucher")}
                 className="hidden"
-                onChange={handleFileChange(setFileVoucher)}
+                onChange={(e)=>{
+                  handleFileChangeVoucher(e); 
+                  onChangeVoucher(e);
+                }}
+
               />
+              {/* Botón personalizado */}
               <label
                 htmlFor="voucher"
                 className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg cursor-pointer transition-all duration-200"
@@ -492,7 +536,8 @@ const RequestMedic = () => {
               </label>
               {fileVoucher ? (
                 <p className="mt-2 text-sm text-gray-600">
-                  Archivo seleccionado: <span className="font-medium">{fileVoucher.name}</span>
+                  Archivo seleccionado:{" "}
+                  <span className="font-medium">{fileVoucher}</span>
                 </p>
               ) : (
                 <p className="mt-2 text-sm text-gray-400">
@@ -516,10 +561,13 @@ const RequestMedic = () => {
               <p className="text-gray-400 mb-2">Máximo 3MB</p>
               <input
                 type="file"
-                id="clinicalHistory"
-                {...register("clinicalHistory")}
+                // id="clinicalHistory"
+                // {...register("clinicalHistory")}
                 className="hover:cursor-pointer hidden"
-                onChange={handleFileChange(setFileClinicalH)}
+                onChange={(e) => {
+                  handleFileChangeClinicalH(e);
+                  onChangeClinicalH(e);
+                }}
               />
               <label
                 htmlFor="clinicalHistory"
@@ -530,7 +578,8 @@ const RequestMedic = () => {
 
               {fileClinicalH ? (
                 <p className="mt-2 text-sm text-gray-600">
-                  Archivo seleccionado: <span className="font-medium">{fileClinicalH.name}</span>
+                  Archivo seleccionado:{" "}
+                  <span className="font-medium">{fileClinicalH}</span>
                 </p>
               ) : (
                 <p className="mt-2 text-sm text-gray-400">
@@ -551,7 +600,7 @@ const RequestMedic = () => {
         </div>
         <div className="flex justify-center items-center mb-4">
           <button
-            type="submit"
+            onClick={handleClick}
             className="w-auto h-auto px-16 py-2 bg-[#EB356E] hover:bg-[#db839f] transition-all duration-200 rounded-full text-white mt-4 font-bold"
           >
             ENVIAR
@@ -570,6 +619,7 @@ const RequestMedic = () => {
             </Stack>
           </div>
         )}
+        ;
       </form>
     </div>
   );
