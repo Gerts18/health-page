@@ -63,13 +63,14 @@ const Header: React.FC = () => {
       {/* Logo */}
       <Link href={"/"}>
       <div className="flex items-center space-x-2">
-        <Image src="/assets/Logo8.png" alt="FICMAC Logo" width={200} height={200} />
+        <Link href="/">
+          <Image src="/assets/Logo8.png" alt="FICMAC Logo" width={200} height={200} />
+        </Link>
       </div>
       </Link>
 
       {/* Navegación */}
       <nav className="flex items-center space-x-6 text-gray-700">
-        {/* Menú desplegable de "Nosotros" */}
         <div className="relative">
           <button
             onClick={toggleMenu}
