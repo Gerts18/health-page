@@ -10,14 +10,14 @@ const FICMACSection = () => {
             src="https://www.youtube.com/embed/OrhhcTHXQi0"
             title="Video FICMAC"
             allowFullScreen
-            className="w-[400px] h-[225px] rounded-lg border-none"
+            className="w-[600px] h-[337px] rounded-lg border-none"
           ></iframe>
         </div>
         <div className="max-w-sm">
-          <h2 className="text-3xl font-bold text-white mb-3">
+          <h2 className="text-5xl font-bold text-white mb-3">
             Somos FICMAC | Laboratorio Colombiano
           </h2>
-          <p className="text-gray-50 text-base leading-relaxed">
+          <p className="text-gray-50 text-lg leading-relaxed">
             ¡Descubre la medicina de precisión contra el cáncer con FICMAC!
             Somos pioneros en investigación en Biología Molecular. Únete a este
             emocionante viaje hacia la esperanza en la lucha contra el cáncer.
