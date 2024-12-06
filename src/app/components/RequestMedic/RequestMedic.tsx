@@ -58,32 +58,31 @@ const RequestMedic = () => {
 
   const onSubmit = async (data: any) => {
     const formData = new FormData();
-  
-    // Append form data
-    formData.append("name", data.name);
-    formData.append("lastName", data.lastName);
+
+    formData.append("name", data.name || "");
+    formData.append("lastName", data.lastName || "");
     formData.append("dateOfBirth", dateData ? dateData.format("YYYY-MM-DD") : "");
-    formData.append("gender", gender);
+    formData.append("gender", gender || "");
     formData.append("institutionRem", institutionRem || "");
-    formData.append("typeTest", typeTest);
-    formData.append("phone", data.phone);
+    formData.append("typeTest", typeTest || "");
+    formData.append("phone", data.phone || "");
     formData.append("contactPhone", data.contactPhone || "");
-    formData.append("address", data.address);
-    formData.append("city", data.city);
+    formData.append("address", data.address || "");
+    formData.append("city", data.city || "");
     formData.append("cedula", data.cedula || "");
-  
+    formData.append("email", data.email || "");
+
     if (fileIne) formData.append("identificacion_doc", fileIne);
     if (fileMedicOrder) formData.append("orden_medica_especialista_doc", fileMedicOrder);
     if (fileVoucher) formData.append("comprobante_pago_doc", fileVoucher);
-    if (fileClinicalH) formData.append("resumen_historia_med_doc", fileClinicalH || "");
-  
+    if (fileClinicalH) formData.append("resumen_historia_med_doc", fileClinicalH);
+
     try {
       console.log("Sending form data...");
-      // Log form data for debugging
       for (let [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
       }
-  
+
       const response = await fetch("/api/register-request", {
         method: "POST",
         headers: {
@@ -91,7 +90,7 @@ const RequestMedic = () => {
         },
         body: formData,
       });
-  
+
       if (response.ok) {
         setShowAlert(true);
         setTimeout(() => setShowAlert(false), 3000);
@@ -101,16 +100,13 @@ const RequestMedic = () => {
       }
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
-      
     }
   };
-  
 
   return (
     <div className="m-4 pb-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-gray-50 w-full h-auto p-8 mb-8 rounded-lg shadow-md border">
-          {/* Header */}
           <div className="items-center mb-8 grid grid-cols-2 gap-6">
             <div className="flex">
               <div>
@@ -258,7 +254,6 @@ const RequestMedic = () => {
                 className="hover:cursor-pointer hidden"
                 onChange={handleFileChange(setFileIne)}
               />
-              {/* Botón personalizado */}
               <label
                 htmlFor="ine"
                 className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg cursor-pointer transition-all duration-200"
@@ -279,7 +274,6 @@ const RequestMedic = () => {
 
           <div className="pt-5 mb-6 w-full justify-center">
             <div className="flex items-center mb-6">
-              {/* Checkbox */}
               <Checkbox
                 id="checkboxCed"
                 {...register("checkboxCed")}
@@ -290,7 +284,6 @@ const RequestMedic = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              {/* Campo de Cédula Profesional */}
               <div>
                 <input
                   id="cedula"
@@ -306,7 +299,6 @@ const RequestMedic = () => {
                 />
               </div>
 
-              {/* Campo de Institución */}
               <div>
                 <input
                   id="institution"
@@ -322,7 +314,6 @@ const RequestMedic = () => {
                 />
               </div>
 
-              {/* Select de Especialidad */}
               <div>
                 <InputLabel id="specialty">ESPECIALIDAD</InputLabel>
                 <Select
@@ -456,7 +447,6 @@ const RequestMedic = () => {
                 className="hover:cursor-pointer hidden"
                 onChange={handleFileChange(setFileMedicOrder)}
               />
-              {/* Botón personalizado */}
               <label
                 htmlFor="medicOrder"
                 className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg cursor-pointer transition-all duration-200"
@@ -487,7 +477,6 @@ const RequestMedic = () => {
               <p className="text-gray-400">Firmado y Sellado</p>
               <p className="text-gray-400">Médico | Tamaño</p>
               <p className="text-gray-400 mb-2">Máximo 3MB</p>
-              {/* Input de archivo oculto */}
               <input
                 type="file"
                 id="voucher"
@@ -495,7 +484,6 @@ const RequestMedic = () => {
                 className="hidden"
                 onChange={handleFileChange(setFileVoucher)}
               />
-              {/* Botón personalizado */}
               <label
                 htmlFor="voucher"
                 className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg cursor-pointer transition-all duration-200"
