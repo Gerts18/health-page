@@ -19,7 +19,7 @@ const Carrusel = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center pt-12">
       <h1 className="text-6xl font-bold text-center mt-12 pt-12 text-blue-600 underline">Comprendiendo la complejidad del cáncer</h1>
       <div className="relative w-full h-80 flex justify-center items-center overflow-hidden">
         {slides.map((slide, index) => {
