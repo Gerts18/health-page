@@ -3,6 +3,7 @@ import { conn } from '@/libs/PostgDB';
 import jwt from 'jsonwebtoken';
 import {serialize} from 'cookie';
 
+// Iniciar sesión y carga los datos de los usuarios en las cookies
 export async function POST(request: NextRequest) {
   try {
     // Leer los datos enviados desde el frontend
@@ -26,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     // Query para verificar las credenciales
     const query = `
-      SELECT email, first_name, last_names
+      SELECT email, first_name, last_names, professionalid
       FROM users 
       WHERE email = $1 AND password = $2
     `;
@@ -54,7 +55,7 @@ export async function POST(request: NextRequest) {
     // Extraer los datos del usuario encontrado
     const user = responseDB.rows[0];
 
-    //console.log(user['first_name'])
+    //console.log(user)
 
     //Genera el token unico
     const token = jwt.sign({
@@ -62,6 +63,7 @@ export async function POST(request: NextRequest) {
       name: user['first_name'], //Aqui se coloca el nombre del usuario
       email: user['email'], //Aqui se coloca el email del usuario
       last_names: user['last_names'], //Aqui se coloca el apellido del usuario
+      professionalid: user['professionalid'] //Is del usuario si es un profesional, vacio si es otro tipo de usuario
     }, 'secretkey')
 
 

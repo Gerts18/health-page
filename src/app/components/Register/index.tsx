@@ -21,6 +21,7 @@ interface FormData {
   password: string;
   category: string;
   termsAccepted: boolean;
+  professionalId?: string;
 }
 
 interface FormErrors {
@@ -30,10 +31,10 @@ interface FormErrors {
   password?: string;
   category?: string;
   termsAccepted?: string;
+  professionalId?: string;
 }
 
 export default function RegistrationForm() {
-
   const router = useRouter();
 
   const categories = [
@@ -49,12 +50,12 @@ export default function RegistrationForm() {
     password: '',
     category: '',
     termsAccepted: false,
+    professionalId: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Función de validación para cada campo
   const validateField = (name: keyof FormData, value: any): string => {
     let error = "";
 
@@ -99,6 +100,11 @@ export default function RegistrationForm() {
           error = "Debes aceptar los términos y condiciones";
         }
         break;
+      case "professionalId":
+        if (formData.category === '2' && (!value.trim() || value.trim().length < 5)) {
+          error = "El ID de cédula profesional es obligatorio y debe tener al menos 5 caracteres";
+        }
+        break;
       default:
         break;
     }
@@ -106,7 +112,6 @@ export default function RegistrationForm() {
     return error;
   };
 
-  // Validar todo el formulario
   const validateForm = (): FormErrors => {
     const newErrors: FormErrors = {};
 
@@ -129,7 +134,6 @@ export default function RegistrationForm() {
       [name]: fieldValue,
     }));
 
-    // Validar el campo específico
     setErrors((prev) => ({
       ...prev,
       [name]: validateField(name as keyof FormData, fieldValue),
@@ -148,7 +152,6 @@ export default function RegistrationForm() {
       category: validateField('category', selectedValue),
     }));
   };
-
 
   const handleCheckboxChange = (isSelected: boolean) => {
     setFormData((prev) => ({
@@ -170,6 +173,7 @@ export default function RegistrationForm() {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
+      //console.log('Formulario válido:', formData);
       try {
         const response = await fetch('/api/users', {
           method: 'POST',
@@ -180,21 +184,18 @@ export default function RegistrationForm() {
         });
 
         if (!response.ok) {
-          // Manejo de errores del servidor
           const errorData = await response.json();
           console.error('Error:', errorData);
-          toast.error("Error al registrar. Por favor, intenta de nuevo."); // Notificación de error
+          toast.error("Error al registrar. Por favor, intenta de nuevo.");
         } else {
-          // Registro exitoso
-          toast.success("Registro exitoso!, redirigiendo ..."); // Notificación de éxito
-
+          toast.success("Registro exitoso!, redirigiendo ...");
           setTimeout(() => {
             router.push('/login');
           }, 2000);
         }
       } catch (error) {
         console.error('Error:', error);
-        toast.error("Ocurrió un error inesperado."); // Notificación de error inesperado
+        toast.error("Ocurrió un error inesperado.");
       } finally {
         setIsSubmitting(false);
       }
@@ -206,15 +207,15 @@ export default function RegistrationForm() {
         password: "",
         category: "",
         termsAccepted: false,
+        professionalId: "",
       });
       setIsSubmitting(false);
     } else {
       console.log("Hay errores en el formulario");
-      toast.error("Por favor, corrige los errores en el formulario."); // Notificación de errores en el formulario
+      toast.error("Por favor, corrige los errores en el formulario.");
       setIsSubmitting(false);
     }
   };
-
 
   return (
     <div
@@ -288,7 +289,6 @@ export default function RegistrationForm() {
               }
               isInvalid={!!errors.category}
               errorMessage={errors.category}
-
             >
               {categories.map((category) => (
                 <SelectItem key={category.value} value={category.value}>
@@ -296,6 +296,20 @@ export default function RegistrationForm() {
                 </SelectItem>
               ))}
             </Select>
+
+            {formData.category === '2' && (
+              <Input
+                label="Cédula Profesional"
+                type='text'
+                variant="bordered"
+                name="professionalId"
+                value={formData.professionalId}
+                onChange={handleInputChange}
+                errorMessage={errors.professionalId}
+                isInvalid={!!errors.professionalId}
+                isRequired
+              />
+            )}
 
             <Checkbox
               size="sm"
