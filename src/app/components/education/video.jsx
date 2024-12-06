@@ -2,7 +2,7 @@ import React from "react";
 
 const FICMACSection = () => {
   return (
-    <section className="flex items-center justify-center text-left bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg shadow-lg gap-8 mt-6">
+    <section className="flex items-center justify-center text-left bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg shadow-lg gap-8 mt-6 bg-gradient-to-t from-blue-400 to-#4e7ac7">
       <div className="flex-shrink-0">
         <iframe
           src="https://www.youtube.com/embed/OrhhcTHXQi0" // Reemplaza "tuVideoID" con el ID del video real
