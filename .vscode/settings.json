@@ -33,7 +33,7 @@
   },
   "workbench.colorTheme": "Default Dark Modern",
   "workbench.editor.decorations.colors": true,
-  "workbench.iconTheme": "vs-seti",
+  "workbench.iconTheme": "material-icon-theme",
   "workbench.preferredLightColorTheme": "Default Light Modern",
   "workbench.preferredHighContrastLightColorTheme": "Default Dark+",
 
