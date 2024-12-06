@@ -5,6 +5,8 @@ import Image from "next/image";
 import Header from "../components/Header/Index";
 import Footer from "../components/Footer/Footer";
 import NewsCard from "../components/News Card/";
+import { useRouter } from "next/navigation";
+import cookie from "cookie";
 
 interface NewsItem {
   id: number;
@@ -19,8 +21,28 @@ export default function NoticiasPage() {
   const [activeFilter, setActiveFilter] = useState<string>(""); // Filtro inicial vacío para mostrar todas las noticias
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [professionalId, setProfessionalId] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
+    async function fetchUserData() {
+      try {
+        const response = await fetch("/api/auth");
+        const responseData = await response.json();
+        if (responseData.success && responseData.data) {
+          console.log("User data from server response:", responseData.data); // Debugging: Verificar los datos del usuario obtenidos del servidor
+          if (responseData.data.professionalid && responseData.data.professionalid !== null) {
+            setProfessionalId(responseData.data.professionalid);
+            console.log("Professional ID set to:", responseData.data.professionalid); // Debugging: Verificar si se está estableciendo el professionalId
+          }
+        } else {
+          console.warn("No user data available or response not successful.");
+        }
+      } catch (error) {
+        console.error("Error fetching user data from server:", error);
+      }
+    }
+
     async function fetchNews() {
       try {
         const response = await fetch("/api/newsback");
@@ -32,6 +54,8 @@ export default function NoticiasPage() {
         setLoading(false);
       }
     }
+
+    fetchUserData();
     fetchNews();
   }, []);
 
@@ -106,7 +130,7 @@ export default function NoticiasPage() {
             <div className="flex gap-4 mb-6">
               {/* Botón para mostrar todas las noticias */}
               <button
-                onClick={() => setActiveFilter("")} // Al hacer clic, se muestra todo
+                onClick={() => setActiveFilter("")}
                 className={`${
                   activeFilter === "" ? "bg-blue-600" : "bg-blue-400"
                 } text-white px-4 py-1 rounded-full text-sm hover:bg-blue-500`}
@@ -162,6 +186,18 @@ export default function NoticiasPage() {
           </div>
         </div>
       </main>
+
+      {/* Botón para Registrar Noticias - Mover debajo del Footer */}
+      {professionalId && (
+        <div className="flex justify-center items-center px-4 py-8">
+          <button
+            onClick={() => router.push("/admin/news")}
+            className="bg-green-600 text-white px-6 py-2 rounded-full text-sm hover:bg-green-500"
+          >
+            Registrar Nueva Noticia
+          </button>
+        </div>
+      )}
 
       <Footer />
     </div>
