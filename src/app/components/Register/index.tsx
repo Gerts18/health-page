@@ -207,7 +207,7 @@ export default function RegistrationForm() {
           }, 2000);
         }
       } catch (error) {
-        //console.error('Error:', error);
+        console.error('Error:', error);
         toast.error("Ocurrió un error inesperado.");
       } finally {
         setIsSubmitting(false);

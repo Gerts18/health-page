@@ -140,7 +140,7 @@ const PreguntasFrecuentes = () => {
                 ) : index === 7 ? (
                   <div>
                     <ul className="list-disc pl-6">
-                      <li>Si el examen es en biopsia sólida, se requiere el tejido embebido en parafina (se conocen como "bloques de parafina")</li>
+                      <li>Si el examen es en biopsia sólida, se requiere el tejido embebido en parafina (se conocen como bloques de parafina)</li>
                       <li>Si el examen es en biopsia líquida, se requiere una muestra de sangre</li>
                       <li>Si el examen es para análisis masivo de genes, se requiere una muestra de sangre</li>
                     </ul>

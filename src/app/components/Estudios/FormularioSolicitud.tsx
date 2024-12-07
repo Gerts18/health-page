@@ -28,7 +28,8 @@ const FormularioSolicitud = () => {
   const router = useRouter(); // Hook para redirección
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type } = e.target as HTMLInputElement;
+    const checked = (e.target as HTMLInputElement).checked;
 
     // Manejo especial para los campos select
     if (e.target.tagName === "SELECT") {
