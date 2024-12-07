@@ -27,13 +27,13 @@ const services: Service[] = [
   { title: 'Germinal', 
     resumen: 'Cáncer que se desarrolla a partir de células germinales.', 
     description: 'El cáncer germinal se origina en las células que forman los óvulos en mujeres o los espermatozoides en hombres. Se presenta comúnmente en los testículos o los ovarios, aunque también puede ocurrir en otras partes del cuerpo. Los tratamientos incluyen quimioterapia, radioterapia y cirugía, con altas tasas de éxito en estadios iniciales.\n\nMedicamentos:\nLos medicamentos para el cáncer germinal incluyen quimioterapias como el cisplatino, etopósido y bleomicina, que ayudan a eliminar las células cancerígenas. Otros medicamentos como la vinblastina y la ifosfamida también se utilizan para detener el crecimiento de los tumores. Además, se puede emplear la cirugía y la radioterapia como parte del tratamiento para eliminar o reducir los tumores.', 
-    images: ['/assets/germinal1.jpg','/assets/germinalA.jpg'],
+    images: ['/assets/germinal1.jpg','/assets/germinalA.jpg','/assets/germinal2.jpg'],
     icon: '/assets/icons/Icon-2.png'
   },
   { title: 'Cáncer de colon', 
     resumen: 'Cáncer que afecta el colon o el recto del sistema digestivo', 
     description: 'El cáncer de colon es una enfermedad en la que las células malignas se desarrollan en el revestimiento del colon o el recto. Los síntomas incluyen cambios en los hábitos intestinales, sangrado rectal y pérdida de peso inexplicada. Las pruebas de detección, como la colonoscopía, son esenciales para el diagnóstico temprano. El tratamiento incluye cirugía, quimioterapia y en algunos casos, terapia dirigida.\n\nMedicamentos:\nLos medicamentos para el cáncer de colon incluyen quimioterapias como fluorouracilo, capecitabina y oxaliplatino, que frenan el crecimiento del cáncer. Terapias dirigidas como bevacizumab, cetuximab y panitumumab bloquean señales o vasos sanguíneos que ayudan al tumor a crecer. Inmunoterapias como pembrolizumab y nivolumab fortalecen el sistema inmunológico para combatir el cáncer.', 
-    images: ['/assets/colon1.jpg','/assets/colonA.jpg'],
+    images: ['/assets/colon1.jpg','/assets/colonA.jpg','/assets/colon2.jpg'],
     icon: '/assets/icons/Icon-3.png'
   },
   { title: 'Cáncer de ovario', 
@@ -45,13 +45,13 @@ const services: Service[] = [
   { title: 'Cáncer de pulmón', 
     resumen: 'Cáncer que afecta los pulmones, a menudo relacionado con el tabaquismo', 
     description: 'El cáncer de pulmón es una de las principales causas de muerte por cáncer en todo el mundo. Se clasifica en dos tipos principales: cáncer de pulmón de células pequeñas y de células no pequeñas. Los síntomas incluyen tos persistente, dificultad para respirar y dolor torácico. El tratamiento puede incluir cirugía, quimioterapia, radioterapia y terapias dirigidas.\n\nMedicamentos:\nLos medicamentos para el cáncer de pulmón incluyen quimioterapias como paclitaxel y gemcitabina, que detienen el crecimiento del cáncer. Las terapias dirigidas como osimertinib y gefitinib bloquean proteínas que ayudan al tumor a crecer. Las inmunoterapias como pembrolizumab y nivolumab refuerzan el sistema inmunológico para atacar el cáncer. Bevacizumab impide que el tumor forme nuevos vasos sanguíneos para alimentarse.', 
-    images: ['/assets/pulmon1.png','/assets/pulmonA.jpg'],
+    images: ['/assets/pulmon1.png','/assets/pulmonA.jpg', '/assets/pulmon2.jpg'],
     icon: '/assets/icons/Icon-5.png'
   },
   { title: 'Melanoma', 
     resumen: 'El tipo más agresivo de cáncer de piel', 
     description: 'El melanoma se desarrolla en los melanocitos, las células que producen pigmento en la piel. Es causado principalmente por la exposición excesiva a los rayos UV del sol o camas de bronceado. Puede propagarse rápidamente a otras partes del cuerpo si no se detecta temprano. Los tratamientos incluyen cirugía, inmunoterapia y terapias dirigidas.\n\nMedicamentos:\nLos medicamentos para el melanoma incluyen tratamientos como pembrolizumab y nivolumab, que ayudan al cuerpo a combatir el cáncer. Otros, como dabrafenib y vemurafenib, bloquean el crecimiento del melanoma. También se usan medicamentos como aldesleukin para activar el sistema inmunológico. Algunos tratamientos usan virus para atacar el cáncer, y otros detienen la división de las células cancerosas.', 
-    images: ['/assets/melanoma1.png','/assets/melanomaA.jpg'],
+    images: ['/assets/melanoma1.png','/assets/melanomaA.jpg','/assets/melanoma2.jpg'],
     icon: '/assets/icons/Icon-6.png'
   },
   { title: 'Tumores de sistema gastrointestinal', 
@@ -63,7 +63,7 @@ const services: Service[] = [
   { title: 'Cáncer de Seno', 
     resumen: 'Cáncer que se desarrolla en las células del tejido mamario', 
     description: 'El cáncer de seno es el tipo de cáncer más común en mujeres a nivel mundial. Puede presentarse como un bulto en el seno, cambios en la forma o tamaño del seno o secreción anormal del pezón. El tratamiento incluye cirugía, quimioterapia, radioterapia y terapias hormonales dependiendo del tipo y estadio del cáncer.\n\nMedicamentos:\nLos medicamentos para el cáncer de seno incluyen quimioterapias como paclitaxel y capecitabina, que eliminan las células cancerosas. Algunos medicamentos como trastuzumab y pertuzumab atacan proteínas en el tumor. Otros, como tamoxifeno y letrozol, reducen las hormonas que alimentan el cáncer. Además, tratamientos como olaparib y pembrolizumab ayudan al sistema inmunológico a luchar contra el cáncer.', 
-    images: ['/assets/seno1.png','/assets/senoA.jpg'],
+    images: ['/assets/seno1.png','/assets/senoA.jpg','/assets/seno2.jpg'],
     icon: '/assets/icons/Icon-8.png'
   },
   { title: 'Parálisis NGS', 
@@ -75,7 +75,7 @@ const services: Service[] = [
   { title: 'Tumores del sistema nervioso central', 
     resumen: 'Tumores que se desarrollan en el cerebro o la médula espinal', 
     description: 'Estos tumores pueden ser benignos o malignos y afectan funciones esenciales como el pensamiento, la memoria y el movimiento. Los síntomas dependen de la ubicación del tumor e incluyen dolores de cabeza persistentes, convulsiones y problemas de equilibrio. Los tratamientos incluyen cirugía, radioterapia y quimioterapia.\n\nMedicamentos:\nLos medicamentos para los tumores del sistema nervioso central incluyen quimioterapia como la temozolomida, que destruye las células tumorales. El bevacizumab bloquea el crecimiento de nuevos vasos sanguíneos que alimentan al tumor. Otros medicamentos, como el everolimus, detienen el crecimiento de las células tumorales. Los corticosteroides, como la dexametasona, ayudan a reducir la inflamación y aliviar los síntomas.', 
-    images: ['/assets/nervioso1.png','/assets/sncA.jpg'],
+    images: ['/assets/nervioso1.png','/assets/sncA.jpg','/assets/snc2.png'],
     icon: '/assets/icons/Icon-10.png'
   },
 ];
@@ -109,17 +109,13 @@ function ServiceModal({ service, isOpen, onClose }: {
         
         <div className="space-y-6">
           <div className="flex gap-4 pb-4 overflow-x-auto snap-x snap-mandatory">
-            {service.images.map((image, index) => (
-              <div key={index} className="snap-center shrink-0">
                 <Image
-                  src={image}
-                  alt={`${service.title} imagen ${index + 1}`}
+                  src={service.images[0]}
+                  alt={${service.title} imagen 1}
                   width={300}
                   height={200}
                   className="rounded-lg object-cover"
                 />
-              </div>
-            ))}
           </div>
 
           <div className="bg-blue-50 p-4 rounded-lg">
@@ -139,8 +135,8 @@ function ServiceModal({ service, isOpen, onClose }: {
                 <div className="bg-white p-4 rounded-lg shadow-sm">
                   <div className="aspect-video relative rounded-lg overflow-hidden mb-4">
                     <Image
-                      src="/assets/medicamento1.jpg"
-                      alt="Medicamento 1"
+                      src={service.images[1]}
+                      alt={${service.title} imagen 2}
                       fill
                       className="object-cover"
                     />
@@ -153,8 +149,8 @@ function ServiceModal({ service, isOpen, onClose }: {
                 <div className="bg-white p-4 rounded-lg shadow-sm">
                   <div className="aspect-video relative rounded-lg overflow-hidden mb-4">
                     <Image
-                      src="/assets/medicamento2.jpg"
-                      alt="Medicamento 2"
+                      src={service.images[2]}
+                      alt={${service.title} imagen 3}
                       fill
                       className="object-cover"
                     />
@@ -298,7 +294,7 @@ export default function MedicalServices() {
               >
                 <Image
                   src={service.icon}
-                  alt={`${service.title} icon`}
+                  alt={${service.title} icon}
                   width={64}
                   height={64}
                   className="w-full h-full"
@@ -338,7 +334,7 @@ export default function MedicalServices() {
               >
                 <Image
                   src={service.icon}
-                  alt={`${service.title} icon`}
+                  alt={${service.title} icon}
                   width={64}
                   height={64}
                   className="w-full h-full"
