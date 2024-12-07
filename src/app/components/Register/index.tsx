@@ -203,7 +203,7 @@ export default function RegistrationForm() {
         } else {
           toast.success("Registro exitoso!, redirigiendo ...");
           setTimeout(() => {
-            router.push('/login');
+            router.push('/Login');
           }, 2000);
         }
       } catch (error) {
