@@ -95,7 +95,7 @@ const Header: React.FC = () => {
             onClick={toggleMenu}
             className="focus:outline-none text-gray-700 hover:text-pink-500"
           >
-            Nosotros
+            Nuestros Servicios y Contacto
           </button>
           {isMenuOpen && (
             <ul className="absolute left-0 w-48 mt-2 bg-pink-500 text-white rounded-md shadow-md">
@@ -197,7 +197,7 @@ const Header: React.FC = () => {
         ) : (
           <>
             {/* Si no hay usuario autenticado, mostramos botones para iniciar sesión o registrarse */}
-            <Link href="/Login">
+            <Link href="/login">
               <button className="px-4 py-2 text-blue-500 border border-blue-500 rounded-full hover:bg-blue-500 hover:text-white">
                 Iniciar Sesion
               </button>
