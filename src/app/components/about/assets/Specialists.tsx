@@ -1,5 +1,4 @@
 import React from "react";
-import "./Specialists.css";
 
 const specialists = [
   {
@@ -31,18 +30,18 @@ const specialists = [
 
 const Specialists = () => {
   return (
-    <div className="specialists-container">
-      <h2 className="specialists-title">Nuestros Especialistas</h2>
-      <div className="specialists-grid">
+    <div className="text-center py-8 bg-pink-100">
+      <h2 className="text-pink-600 text-2xl font-bold mb-6">Nuestros Especialistas</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {specialists.map((specialist, index) => (
-          <div className="specialist-card" key={index}>
+          <div className="text-center transition-transform transform hover:-translate-y-2" key={index}>
             <img
               src={specialist.image}
               alt={specialist.name}
-              className="specialist-image"
+              className="w-full max-w-xs mx-auto rounded-xl"
             />
-            <h3 className="specialist-name">{specialist.name}</h3>
-            <p className="specialist-specialty">{specialist.specialty}</p>
+            <h3 className="text-lg font-bold text-gray-800 mt-3">{specialist.name}</h3>
+            <p className="text-blue-500 text-base mt-1">{specialist.specialty}</p>
           </div>
         ))}
       </div>

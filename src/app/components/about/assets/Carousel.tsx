@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from "react";
-import styles from "./Carousel.module.css";
 
 const Carousel = () => {
   const slides = [
@@ -37,19 +36,19 @@ const Carousel = () => {
   };
 
   return (
-    <div className={styles.carousel}>
+    <div className="relative w-full h-screen overflow-hidden mt-32">
       <div
-        className={styles.imageContainer}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
         style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
       ></div>
-      <div className={styles.textContainer}>
-        <h2 className={styles.title}>{slides[currentSlide].title}</h2>
-        <p className={styles.description}>{slides[currentSlide].description}</p>
+      <div className="absolute top-1/2 left-12 transform -translate-y-1/2 bg-white bg-opacity-80 p-8 rounded-lg shadow-lg max-w-lg z-10">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">{slides[currentSlide].title}</h2>
+        <p className="text-lg md:text-xl text-gray-600 leading-relaxed">{slides[currentSlide].description}</p>
       </div>
-      <button className={styles.prevButton} onClick={handlePrev}>
+      <button  className="absolute top-1/2 left-4 transform -translate-y-1/2 text-4xl text-white hover:text-pink-500 transition z-10" onClick={handlePrev}>
         &#10094;
       </button>
-      <button className={styles.nextButton} onClick={handleNext}>
+      <button className="absolute top-1/2 right-4 transform -translate-y-1/2 text-4xl text-white hover:text-pink-500 transition z-10" onClick={handleNext}>
         &#10095;
       </button>
     </div>
