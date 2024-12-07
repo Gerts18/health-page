@@ -35,7 +35,7 @@ const awards =[
   return (
     <div className="text-center p-8 bg-gray-100">
       {/* Título principal */}
-      <h1 className="text-black text-3xl font-bold mb-2">Premios y Reconocimientos</h1>
+      <h1 className="text-black text-4xl font-bold mb-2">Premios y Reconocimientos</h1>
       {/* Subtítulo */}
       <p className="text-pink-500 text-lg mb-8">
         Obtenga todas las actualizaciones aquí.
@@ -50,9 +50,9 @@ const awards =[
               alt="AACR logo"
               className="w-full h-44 object-contain rounded mb-4"
             />
-            <p className="text-sm text-gray-500 mb-2">{award.title}</p>
-            <a className="inline-block px-3 py-1 bg-pink-500 text-white rounded-full text-sm mb-2 hover:bg-pink-600 transition" href={award.video}>Ver video</a>
-            <a className="inline-block px-3 py-1 bg-pink-500 text-white rounded-full text-sm mb-2 hover:bg-pink-600 transition" href={award.article}>Ver artículo</a>
+            <p className=" text-sm text-gray-500 mb-2">{award.title}</p>
+            <a className="inline-block px-3 mx-1 py-1 bg-pink-500 text-white rounded-full text-sm mb-2 hover:bg-pink-600 transition" href={award.video}>Ver video</a>
+            <a className="inline-block px-3 mx-1 py-1 bg-pink-500 text-white rounded-full text-sm mb-2 hover:bg-pink-600 transition" href={award.article}>Ver artículo</a>
             <h3 className="text-lg font-bold text-black mb-2">{award.title}</h3>
             <p className="text-sm text-gray-600 leading-relaxed">
               {award.description}
