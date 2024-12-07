@@ -1,7 +1,10 @@
+import { Link } from 'lucide-react';
 import React, { useState } from 'react';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
+import { useRouter } from 'next/navigation';
 
 const ImageSlider = () => {
+  const router = useRouter();
   const slides = [
     {
       url: './assets/slider-main.png',
@@ -94,11 +97,11 @@ const ImageSlider = () => {
 
         {/* Botón */}
         <div className="absolute top-2/3 left-1/2 transform -translate-y-1/2">
-          <button
-            className={`w-44 shadow-md py-3 px-6 rounded-full transition duration-200 ${slides[currentIndex].buttonStyle}`}
-          >
-            {slides[currentIndex].buttonText}
-          </button>
+            <button
+              className={`w-44 shadow-md py-3 px-6 rounded-full transition duration-200 ${slides[currentIndex].buttonStyle}`}
+            >
+              {slides[currentIndex].buttonText}
+            </button>
         </div>
 
         {/* Flecha izquierda */}
