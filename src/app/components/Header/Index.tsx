@@ -13,6 +13,7 @@ interface UserData {
   image?: string;
   category?: number;
   redirectUrl?: string;
+  professionalid?: string;
 }
 
 const Header: React.FC = () => {
@@ -100,20 +101,11 @@ const Header: React.FC = () => {
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href="/Contacto"
                   className="block px-4 py-2 hover:bg-pink-600"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Contáctanos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/quote"
-                  className="block px-4 py-2 hover:bg-pink-600"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Cotización
                 </Link>
               </li>
               <li>
@@ -128,9 +120,6 @@ const Header: React.FC = () => {
             </ul>
           )}
         </div>
-        <Link href="/investigations" className="text-gray-700 hover:text-pink-500">
-          Investigaciones
-        </Link>
         <Link href="/education" className="text-gray-700 hover:text-pink-500">
           Educación
         </Link>
@@ -161,12 +150,11 @@ const Header: React.FC = () => {
                     className="rounded-full"
                   />
                 ) : (
-                  {/* Renderizamos el ícono según professionalid */}
-                  {userData.professionalid && userData.professionalid !== "none" ?  (
+                  userData.professionalid && userData.professionalid !== "none" ?  (
                     <FaUserDoctor className="text-gray-500" size={30} />
                   ) : (
                     <FaUser className="text-gray-500" size={30} />
-                  )}
+                  )
                 )}
               </button>
             </div>
