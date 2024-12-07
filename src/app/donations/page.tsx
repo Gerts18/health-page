@@ -6,6 +6,7 @@ import Footer from "../components/Footer/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { BiAccessibility, BiHeart, BiPhone } from "react-icons/bi";
+//import { url } from "inspector";
 
 const page = () => {
   return (
@@ -24,12 +25,12 @@ const page = () => {
             className="rounded-lg "
           />
           <div className="absolute top-0 left-0 w-1/2 h-full flex flex-col justify-center items-center p-6 pb-36">
-            <p className="text-[#6A6A6A] text-2xl text-center max-w-xl px-8">
+            <p className="text-[#6A6A6A] text-4xl text-center max-w-xl px-8">
               Brindarle calidad de vida a los pacientes es posible, gracias al
               proceso de transformación en la precisión del tratamiento del
               cáncer.
             </p>
-            <p className="text-[#6A6A6A] text-3xl font-bold text-center my-6 px-8">
+            <p className="text-[#6A6A6A] text-5xl font-bold text-center my-6 px-12">
               Sigamos sumando años de vida en la lucha contra el cáncer...
               <span className="text-[#6A6A6A]"> Apóyanos</span>
             </p>
@@ -81,40 +82,104 @@ const page = () => {
             para no detenernos en esta lucha, y seguir dando esperanza y
             posibilidades a miles de personas.
           </p>
-          <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 px-36 pb-14">
-            {[...Array(3)].map((_, index) => (
-              <div
-                key={index}
-                className="border rounded-lg overflow-hidden shadow-lg"
-              >
-                <div className="rounded-lg">
-                  <Image
-                    src="/assets/luchaCancer.png"
-                    alt="Description of image"
-                    layout="responsive"
-                    width={400}
-                    height={400}
-                    className="rounded-lg w-full h-48 px-4 pt-4"
-                    quality={100}
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-L font-bold mb-2">
-                    Título de testimonio
-                  </h3>
-                  <p className="text-gray-700 mb-3">
-                    Lorem ipsum dolor sit amet consectetur. Iaculis euismod eros
-                    risus donec cras massa in ut elementum. Sed facilisis
-                    pretium integer felis a.
-                  </p>
-                  <Link href="/pagoDonacion">
-                    <button className="text-white text-md bg-[#EB356E] hover:bg-[#de648b] transition w-auto p-2 rounded-3xl font-medium text-center ">
-                      CONOCE MÁS →
-                    </button>
-                  </Link>
-                </div>
+          <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10 px-36 pb-14">
+            <div className="border rounded-lg overflow-hidden shadow-lg p-4">
+              <div className="rounded-lg">
+                <Image
+                  src="/assets/teste_1.png"
+                  alt="Description of image"
+                  layout="responsive"
+                  width={400}
+                  height={400}
+                  className="rounded-lg w-full h-48 px-4 pt-4"
+                  quality={100}
+                />
               </div>
-            ))}
+              <div className=" p-4">
+                <h3 className="text-L font-bold mb-2">
+                  Testimonial Cáncer Cerebral
+                </h3>
+                <p className="text-gray-700 mb-3">
+                  &quot;Mamá yo se que algún día me voy a morir y quiero que
+                  estés preparada para eso.&quiot; Conoce el caso de Lesly
+                  Lopez. Apoya en la lucha contra el cáncery juntos ayudemos al
+                  tratamiento de niños y adultos.
+                </p>
+                <Link href="https://youtu.be/cVKHtluy3_w?si=oGgRqzkvPIWJMmre">
+                  <button className=" px-12 text-white text-md bg-[#EB356E] hover:bg-[#de648b] transition w-auto p-2 rounded-3xl font-medium text-center ">
+                    CONOCE MÁS →
+                  </button>
+                </Link>
+              </div>
+            </div>
+
+            <div className="border rounded-lg overflow-hidden shadow-lg pg-4">
+              <div className="rounded-lg">
+                <Image
+                  src="/assets/teste_3.png"
+                  alt="Description of image"
+                  layout="responsive"
+                  width={400}
+                  height={400}
+                  className="rounded-lg w-full h-48 px-4 pt-4"
+                  quality={100}
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="text-L font-bold mb-2">
+                  Testimonial Cáncer de Prostata
+                </h3>
+                <p className="text-gray-700 mb-3">
+                  Te invitamos a conocer la historia de Jaime Páez Gómez un
+                  sobreviviente de cáncer de próstata que hoy quiere darnos a
+                  conocer como le ha cambiado la vida después de recibir la
+                  noticia de que tiene cáncer de próstata. Conoce como enfrento
+                  la enfermedad el apoyo que recibió de su familia, su hija, su
+                  nieto, para agregarle calidad de vida a los años!
+                </p>
+                <Link href="https://youtu.be/jscbdWUwHu0?si=v4c7IFgMT1FKcFnr">
+                  <button className="px-12 text-white text-md bg-[#EB356E] hover:bg-[#de648b] transition w-auto p-2 rounded-3xl font-medium text-center ">
+                    CONOCE MÁS →
+                  </button>
+                </Link>
+              </div>
+            </div>
+
+            <div className="border rounded-lg overflow-hidden shadow-lg pg-4">
+              <div className="rounded-lg">
+                <Image
+                  src="/assets/teste_2.png"
+                  alt="Description of image"
+                  layout="responsive"
+                  width={400}
+                  height={400}
+                  className="rounded-lg w-full h-48 px-4 pt-4"
+                  quality={100}
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="text-L font-bold mb-2">
+                  Prevención cáncer cuello uterino
+                </h3>
+                <p className="text-gray-700 mb-3">
+                  Metrosalud y la Facultad de Salud Pública de la Universidad de
+                  Antioquia llevaron a cabo el proyecto “Estrategia audiovisual
+                  para la prevención del cáncer de cuello uterino Medellín
+                  2013”. Como resultado de dicho proyecto se elaboró un video
+                  educativo y testimonial en el que usuarias de Metrosalud
+                  relatan sus vivencias relacionadas con resultados de
+                  citologías anormales o experiencia de cáncer de cuello
+                  uterino, con el objetivo de motivar a las mujeres a realizarse
+                  la citología y los seguimientos, superando las barreras
+                  psicológicas y estructurales a las que se ven enfrentadas.
+                </p>
+                <Link href="https://youtu.be/Kba0jjaOhRE?si=R-aMQxjR_TMr9K5o">
+                  <button className="px-12 text-white text-md bg-[#EB356E] hover:bg-[#de648b] transition w-auto p-2 rounded-3xl font-medium text-center ">
+                    CONOCE MÁS →
+                  </button>
+                </Link>
+              </div>
+            </div>
           </section>
         </div>
       </section>
@@ -192,7 +257,7 @@ const page = () => {
       </section>
 
       <section className="pb-10">
-        <h1 className="text-center text-2xl font-bold pb-3">
+        <h1 className="text-center text-2xl font-bold pb-3 mb-8">
           Gracias a ti y a las donaciones hemos ayudado a:
         </h1>
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-28">
@@ -279,18 +344,21 @@ const page = () => {
                 title: "Grupo de Pacientes",
                 description:
                   "Conecta con la comunidad de pacientes  para pode compartir y aprender de sus experiencias.",
+                url: "https://chat.whatsapp.com/GSQngqoO7OL3EXp5ROKhCI",
               },
               {
                 icon: <BiHeart className="text-xl" />,
                 title: "Apoyo Familiar",
                 description:
                   "Grupo dedicado para familiaras y cuidadores para encontrar confort y recursos que los ayuden.",
+                url: "https://chat.whatsapp.com/HjA6Lhjc81PCg68QS0bFe0",
               },
               {
                 icon: <BiPhone className="text-xl" />,
                 title: "Comunidad Online",
                 description:
                   "Grupo de apoyo virtuan para aquellos que no tienen los medio para hacer reuniones en persona.",
+                url: "https://chat.whatsapp.com/CKxrA535d5R49Acneenimf",
               },
             ].map((card, index) => (
               <div
@@ -301,14 +369,16 @@ const page = () => {
                   backdropFilter: "blur(5px)",
                 }}
               >
-                <div className="flex items-center gap-2 mb-4">
+                <div className="flex items-center text-center gap-2 mb-4">
                   {card.icon}
                   <h3 className="text-lg font-bold">{card.title}</h3>
                 </div>
                 <p className=" mb-4">{card.description}</p>
-                <button className="mt-auto w-full border bg-[#17D183] border-gray-300 text-white font-bold rounded-full py-2 hover:bg-gray-100 hover:text-black transition">
-                  Únete al Grupo
-                </button>
+                <Link href={card.url}>
+                  <button className="mt-auto  px-8  border bg-[#17D183] border-gray-300 text-white font-bold rounded-full py-2 hover:bg-gray-100 hover:text-black transition">
+                    Únete al Grupo
+                  </button>
+                </Link>
               </div>
             ))}
           </div>
