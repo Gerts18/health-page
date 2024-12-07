@@ -142,7 +142,10 @@ export default function PerfilPage() {
       });
 
       if (response.ok) {
+        const updatedData = await response.json();
         showToast('Perfil actualizado exitosamente', 'success');
+        // Forzamos la recarga de los datos
+        window.location.reload();
       } else {
         const errorData = await response.json();
         showToast(errorData.message || 'Error al actualizar el perfil', 'error');
@@ -185,6 +188,29 @@ export default function PerfilPage() {
           newPassword: '',
           confirmNewPassword: '',
         });
+        
+        // Esperamos 5 segundos antes de cerrar sesión
+        setTimeout(async () => {
+          try {
+            const logoutResponse = await fetch('/api/auth/logout', {
+              method: 'POST',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+
+            if (logoutResponse.ok) {
+              // Limpiamos cualquier dato de sesión del cliente
+              localStorage.clear();
+              sessionStorage.clear();
+              // Redirigimos a la página principal
+              window.location.href = '/';
+            }
+          } catch (error) {
+            console.error('Error al cerrar sesión:', error);
+          }
+        }, 5000);
       } else {
         const errorData = await response.json();
         showToast(errorData.message || 'Error al actualizar la contraseña', 'error');
@@ -321,9 +347,9 @@ export default function PerfilPage() {
               <input
                 type="email"
                 value={userData.email}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border rounded px-3 py-2 mt-1 bg-gray-100"
                 name="email"
-                onChange={handleInputChange}
+                readOnly
               />
             </div>
             <div>
@@ -331,9 +357,9 @@ export default function PerfilPage() {
               <input
                 type="text"
                 value={'4432189619'}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border rounded px-3 py-2 mt-1 bg-gray-100"
                 name="celular"
-                onChange={handleInputChange}
+                readOnly
               />
             </div>
           </div>
