@@ -124,7 +124,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl font-bold text-[#6A6A6A] sm:text-5xl"
+            className="text-4xl font-bold sm:text-5xl text-white"
           >
             Contáctanos
           </motion.h1>
@@ -132,7 +132,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 max-w-xl text-lg text-[#6A6A6A]"
+            className="mt-4 max-w-xl text-lg text-white"
           >
             Envíanos cualquier pregunta sobre nuestros servicios a través de esta sección de contacto. Estamos aquí para ayudarte.
           </motion.p>

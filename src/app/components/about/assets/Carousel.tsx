@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from "react";
-import styles from "./Carousel.module.css";
 
 const Carousel = () => {
   const slides = [
@@ -8,22 +7,19 @@ const Carousel = () => {
       title: "Historia ONCOLGROUP",
       description:
         "El grupo se creó en el año 2012 dada la necesidad de promover y fortalecer la investigación básica, clínica y traslacional del cáncer en Colombia teniendo en cuenta la incipiente productividad científica mundial en publicaciones relacionadas con la oncología menor al 1%.",
-      buttonLabel: "Saber más",
       image: "/assets/img/about/carrousel.png", // Ruta de la imagen
     },
     {
       title: "Misión del grupo",
       description:
         "Fomentar la investigación en la biología del cáncer para generar avances significativos en el diagnóstico y tratamiento de esta enfermedad.",
-      buttonLabel: "Descubre más",
-      image: "/assets/images/cancer-research-slide2.jpg", // Ruta de la imagen
+      image: "/assets/img/about/carrousel2.png", // Ruta de la imagen
     },
     {
       title: "Nuestra visión",
       description:
         "Convertirnos en un referente internacional en la investigación traslacional del cáncer, mejorando la calidad de vida de los pacientes.",
-      buttonLabel: "Conócenos",
-      image: "/assets/images/cancer-research-slide3.jpg", // Ruta de la imagen
+      image: "/assets/img/about/carrousel3.png", // Ruta de la imagen
     },
   ];
 
@@ -40,22 +36,19 @@ const Carousel = () => {
   };
 
   return (
-    <div className={styles.carousel}>
+    <div className="relative w-full h-screen overflow-hidden mt-32">
       <div
-        className={styles.imageContainer}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
         style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
       ></div>
-      <div className={styles.textContainer}>
-        <h2 className={styles.title}>{slides[currentSlide].title}</h2>
-        <p className={styles.description}>{slides[currentSlide].description}</p>
-        <button className={styles.button}>
-          {slides[currentSlide].buttonLabel}
-        </button>
+      <div className="absolute top-1/2 left-12 transform -translate-y-1/2 bg-white bg-opacity-80 p-8 rounded-lg shadow-lg max-w-lg z-10">
+        <h2 className="text-4xl md:text-6xl font-bold mb-4 text-gray-800">{slides[currentSlide].title}</h2>
+        <p className="text-lg md:text-2xl text-gray-600 leading-relaxed">{slides[currentSlide].description}</p>
       </div>
-      <button className={styles.prevButton} onClick={handlePrev}>
+      <button  className="absolute top-1/2 left-4 transform -translate-y-1/2 text-4xl text-white hover:text-pink-500 transition z-10" onClick={handlePrev}>
         &#10094;
       </button>
-      <button className={styles.nextButton} onClick={handleNext}>
+      <button className="absolute top-1/2 right-4 transform -translate-y-1/2 text-4xl text-white hover:text-pink-500 transition z-10" onClick={handleNext}>
         &#10095;
       </button>
     </div>

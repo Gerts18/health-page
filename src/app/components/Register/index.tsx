@@ -184,9 +184,22 @@ export default function RegistrationForm() {
         });
 
         if (!response.ok) {
+
           const errorData = await response.json();
-          console.error('Error:', errorData);
-          toast.error("Error al registrar. Por favor, intenta de nuevo.");
+
+          console.error('Error encontrado:', errorData);
+
+          //console.log(errorData['error'])
+
+          if (errorData['error'].includes('unique_professionalid_except_none')) {
+            toast.error("La cédula profesional ya está registrada. Por favor, intenta con otra.");
+          } else if (errorData['error'].includes('users_pkey')){
+            toast.error("El correo ya está registrado. Por favor, intenta con otro.");
+          } else {
+            toast.error("Error al registrar. Por favor, intenta de nuevo.");
+          }
+
+
         } else {
           toast.success("Registro exitoso!, redirigiendo ...");
           setTimeout(() => {
@@ -194,7 +207,7 @@ export default function RegistrationForm() {
           }, 2000);
         }
       } catch (error) {
-        console.error('Error:', error);
+        //console.error('Error:', error);
         toast.error("Ocurrió un error inesperado.");
       } finally {
         setIsSubmitting(false);
@@ -211,7 +224,7 @@ export default function RegistrationForm() {
       });
       setIsSubmitting(false);
     } else {
-      console.log("Hay errores en el formulario");
+      //console.log("Hay errores en el formulario");
       toast.error("Por favor, corrige los errores en el formulario.");
       setIsSubmitting(false);
     }
@@ -219,7 +232,7 @@ export default function RegistrationForm() {
 
   return (
     <div
-      className="relative w-full h-screen mt-[76px] flex flex-col items-center justify-center p-4 gap-5 bg-cover bg-center bg-authImage"
+      className="relative w-full mt-[76px] flex flex-col items-center justify-center p-4 pt-10 gap-5 bg-cover bg-center bg-authImage"
     >
       <div className="flex flex-col gap-5">
         <h1 className="text-5xl font-bold text-center text-white">Registrar</h1>
@@ -228,7 +241,7 @@ export default function RegistrationForm() {
         </p>
       </div>
 
-      <Card className="w-full max-w-md p-6 shadow-lg">
+      <Card className="w-full max-w-md p-6 shadow-lg overflow-visible">
         <CardBody className="flex flex-col gap-4">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 

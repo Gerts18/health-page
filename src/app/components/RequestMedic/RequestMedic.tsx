@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Checkbox, InputLabel } from "@mui/material";
-import { set, useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -18,8 +18,31 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useRouter } from 'next/navigation';
 
-const RequestMedic = () => {
+// Definimos la interfaz para los datos del formulario
+interface FormInputs {
+  name: string;
+  lastName: string;
+  dateOfBirth: string;
+  gender: string;
+  institutionRem: string;
+  typeTest: string;
+  phone: string;
+  contactPhone: string;
+  address: string;
+  city: string;
+  cedula: string;
+  email: string;
+  ine?: FileList; // Para los archivos puedes poner opcional y tipo FileList si gustas
+  medicOrder?: FileList;
+  voucher?: FileList;
+  clinicalHistory?: FileList;
+  checkbox?: boolean;
+  checkboxCed?: boolean;
+  specialty?: string;
+  institution?: string;
+}
 
+const RequestMedic = () => {
   const router = useRouter();
 
   const [gender, setGender] = useState("");
@@ -27,14 +50,15 @@ const RequestMedic = () => {
   const [specialty, setSpecialty] = useState("");
   const [typeTest, setTypeTest] = useState("");
   const [dateData, setDateData] = useState<Dayjs | null>(dayjs());
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert] = useState(false);
   const [isCedulaEnabled, setIsCedulaEnabled] = useState(false);
   const [fileIne, setFileIne] = useState<File | null>(null);
   const [fileMedicOrder, setFileMedicOrder] = useState<File | null>(null);
   const [fileVoucher, setFileVoucher] = useState<File | null>(null);
   const [fileClinicalH, setFileClinicalH] = useState<File | null>(null);
 
-  const { register, handleSubmit, setValue } = useForm();
+  // Iniciamos useForm con el tipo definido
+  const { register, handleSubmit, setValue } = useForm<FormInputs>();
 
   const handleChangeInstitutionRem = (event: SelectChangeEvent) => {
     setInstitutionRem(event.target.value as string);
@@ -75,19 +99,11 @@ const RequestMedic = () => {
         const result = await response.json();
 
         if (result.success) {
-
-          //console.log(result.data);
-
           if (result.data['professionalid'] != "none") {
-
-            //console.log('Cédula Profesional:', result.data['professionalid']);
             setIsCedulaEnabled(true);
-            const cedula_from_cookie = result.data['professionalid']
+            const cedula_from_cookie = result.data['professionalid'];
             setValue("cedula", cedula_from_cookie);
-
           } else {
-
-            //console.log('email:', result.data['email']);
             const email_from_cookie = result.data['email'];
             setValue('email', email_from_cookie);
           }
@@ -98,9 +114,10 @@ const RequestMedic = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [setValue]);
 
-  const onSubmit = async (data: any) => {
+  // Definimos la función onSubmit con el tipo SubmitHandler<FormInputs>
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     const formData = new FormData();
 
     formData.append("name", data.name || "");
@@ -116,7 +133,6 @@ const RequestMedic = () => {
     formData.append("cedula", data.cedula || "");
     formData.append("email", data.email || "");
 
-
     if (fileIne) formData.append("identificacion_doc", fileIne);
     if (fileMedicOrder) formData.append("orden_medica_especialista_doc", fileMedicOrder);
     if (fileVoucher) formData.append("comprobante_pago_doc", fileVoucher);
@@ -124,7 +140,7 @@ const RequestMedic = () => {
 
     try {
       console.log("Sending form data...");
-      for (let [key, value] of formData.entries()) {
+      for (const [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
       }
 
@@ -233,7 +249,7 @@ const RequestMedic = () => {
                     value={dateData}
                     onChange={(newValue) => {
                       setDateData(newValue);
-                      setValue("dateOfBirth", newValue, {
+                      setValue("dateOfBirth", newValue ? newValue.format("YYYY-MM-DD") : "", {
                         shouldValidate: true,
                       });
                     }}
@@ -373,9 +389,7 @@ const RequestMedic = () => {
                   value={specialty}
                   onChange={handleChangeSpecialty}
                 >
-                  <MenuItem value={"oncologia_medica"}>
-                    ONCOLOGÍA MÉDICA
-                  </MenuItem>
+                  <MenuItem value={"oncologia_medica"}>ONCOLOGÍA MÉDICA</MenuItem>
                   <MenuItem value={"oncologia_quirurgica"}>
                     ONCOLOGÍA QUIRÚRGICA
                   </MenuItem>
@@ -615,6 +629,7 @@ const RequestMedic = () => {
           </div>
         )}
       </form>
+
       <ToastContainer />
     </div>
   );

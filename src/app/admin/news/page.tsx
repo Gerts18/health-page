@@ -7,6 +7,7 @@ import Header from '../../components/Header/Index';
 import Footer from '../../components/Footer/Footer';
 
 export default function SubirNoticias() {
+  // formData: Estado para almacenar los datos del formulario (título, contenido, imagen, link)
   const [formData, setFormData] = useState({
     titulo: "",
     contenido: "",
@@ -14,27 +15,35 @@ export default function SubirNoticias() {
     link: "",
   });
 
+  // handleChange: Actualiza el estado con el valor de cada campo del formulario cuando cambian
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+    // Creamos un nuevo estado con el valor actualizado del campo modificado
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // handleSubmit: Envía el formulario al backend para guardar la noticia
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
+      // Se envían los datos al endpoint /api/newsback/ por método POST
       const response = await fetch("/api/newsback/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
+      // Si la respuesta no es OK, lanzamos un error
       if (!response.ok) throw new Error("Error al guardar la noticia");
 
-      const noticia = await response.json();
+      // Si todo sale bien, mostramos un mensaje de éxito
+      await response.json();
       toast.success("Noticia subida con éxito");
+      
+      // Reiniciamos el formulario
       setFormData({ titulo: "", contenido: "", imagen: "", link: "" });
     } catch (error) {
       console.error(error);
@@ -56,6 +65,7 @@ export default function SubirNoticias() {
           <CardBody>
             <h2 className="text-2xl font-bold text-center mb-6">Subir Noticia</h2>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/* Campo para el título de la noticia */}
               <Input
                 label="Título"
                 name="titulo"
@@ -64,6 +74,7 @@ export default function SubirNoticias() {
                 placeholder="Escribe el título aquí"
                 required
               />
+              {/* Campo para el contenido de la noticia (textarea) */}
               <textarea
                 name="contenido"
                 value={formData.contenido}
@@ -73,6 +84,7 @@ export default function SubirNoticias() {
                 required
                 className="border rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
+              {/* Campo para la URL de la imagen */}
               <Input
                 label="URL de la Imagen"
                 name="imagen"
@@ -81,6 +93,7 @@ export default function SubirNoticias() {
                 placeholder="Ejemplo: /assets/imagen.jpg"
                 required
               />
+              {/* Campo para el link de la noticia */}
               <Input
                 label="Link de la Noticia"
                 name="link"
@@ -89,6 +102,7 @@ export default function SubirNoticias() {
                 placeholder="https://example.com"
                 required
               />
+              {/* Botón para enviar el formulario */}
               <Button
                 type="submit"
                 className="bg-blue-500 text-white hover:bg-blue-600"
@@ -102,6 +116,8 @@ export default function SubirNoticias() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Contenedor de notificaciones */}
       <ToastContainer />
     </div>
   );
