@@ -118,6 +118,17 @@ function ServiceModal({ service, isOpen, onClose }: {
         </div>
 
         <p className="text-gray-600 text-justify">{service.description}</p>
+
+        <div className="mt-6">
+          <Image
+            src={service.images[service.images.length - 1]}
+            alt={`${service.title} imagen adicional`}
+            width={400}
+            height={300}
+            className="rounded-lg object-cover mx-auto"
+          />
+        </div>
+        
       </motion.div>
     </div>
   );
