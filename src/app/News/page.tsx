@@ -214,7 +214,7 @@ export default function NoticiasPage() {
       </main>
 
       {/* Si el usuario tiene un professionalId, se muestra el botón para registrar nuevas noticias */}
-      {professionalId != 'none' && (
+      {professionalId != 'none' && professionalId !=undefined && (
         <div className="flex justify-center items-center px-4 py-8">
           <button
             onClick={() => router.push("/admin/news")}
