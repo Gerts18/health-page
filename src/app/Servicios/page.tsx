@@ -111,7 +111,7 @@ function ServiceModal({ service, isOpen, onClose }: {
           <div className="flex gap-4 pb-4 overflow-x-auto snap-x snap-mandatory">
                 <Image
                   src={service.images[0]}
-                  alt={${service.title} imagen 1}
+                  alt={`${service.title} imagen 1`}
                   width={300}
                   height={200}
                   className="rounded-lg object-cover"
@@ -136,7 +136,7 @@ function ServiceModal({ service, isOpen, onClose }: {
                   <div className="aspect-video relative rounded-lg overflow-hidden mb-4">
                     <Image
                       src={service.images[1]}
-                      alt={${service.title} imagen 2}
+                      alt={`${service.title} imagen 2`}
                       fill
                       className="object-cover"
                     />
@@ -150,7 +150,7 @@ function ServiceModal({ service, isOpen, onClose }: {
                   <div className="aspect-video relative rounded-lg overflow-hidden mb-4">
                     <Image
                       src={service.images[2]}
-                      alt={${service.title} imagen 3}
+                      alt={`${service.title} imagen 3`}
                       fill
                       className="object-cover"
                     />
@@ -294,7 +294,7 @@ export default function MedicalServices() {
               >
                 <Image
                   src={service.icon}
-                  alt={${service.title} icon}
+                  alt={`${service.title} icon`}
                   width={64}
                   height={64}
                   className="w-full h-full"
@@ -334,7 +334,7 @@ export default function MedicalServices() {
               >
                 <Image
                   src={service.icon}
-                  alt={${service.title} icon}
+                  alt={`${service.title} icon`}
                   width={64}
                   height={64}
                   className="w-full h-full"
