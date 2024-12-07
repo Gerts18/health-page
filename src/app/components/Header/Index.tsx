@@ -123,9 +123,6 @@ const Header: React.FC = () => {
         <Link href="/education" className="text-gray-700 hover:text-pink-500">
           Educación
         </Link>
-        <Link href="/doctors" className="text-gray-700 hover:text-pink-500">
-          Médicos
-        </Link>
         <Link href="/News" className="text-gray-700 hover:text-pink-500">
           Noticias
         </Link>
