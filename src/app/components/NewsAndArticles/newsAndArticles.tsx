@@ -123,7 +123,7 @@ const newsAndArticles = () => {
       </div>
 
       <div className="flex justify-center items-center mt-8">
-        <button className="bg-[#547EED] hover:bg-[#3457b8] text-white py-2 px-6 rounded-full text-lg font-semibold h-auto p-1">
+        <button className="bg-[#547EED] hover:bg-[#3457b8] transition duration-100 text-white py-2 px-6 rounded-full text-lg font-semibold h-auto p-1">
           <Link href="/News">Lee nuestras noticias y artículos</Link>
         </button>
       </div>

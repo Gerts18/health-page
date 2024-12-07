@@ -59,16 +59,16 @@ const Home = () => {
       <Header />
       <ImageSlider />
       <Statistics />
-  
-      { userData ? (
+
+      {userData ? (
         <div className="flex flex-col items-center justify-center py-16 bg-white">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Bienvenido, {userData.name}
           </h1>
           <p className="text-lg text-gray-700 mb-8 text-center">
-            Estás conectado como {userData.category === 2 ? 'Profesional' : 'Usuario'}.
+            Estás conectado como{" "}
+            {userData.category === 2 ? "Profesional" : "Usuario"}.
           </p>
-        
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-16 bg-white">
@@ -79,19 +79,18 @@ const Home = () => {
             Completa el formulario para unirte a nuestra comunidad en línea y
             seguir sumando años de vida en la lucha contra el cáncer.
           </p>
-          <Link
-            href="/register"
-            className="bg-[#547EED] w-auto text-white p-2 rounded-full hover:bg-blue-600 transition duration-300"
-          >
-            ¡Regístrate aquí!
-          </Link>
+          <button className="px-6 py-3 w-52 bg-[#547EED] text-white rounded-full font-semibold hover:bg-blue-600 transition duration-100">
+            <Link href="/register">
+              ¡Regístrate aquí!
+            </Link>
+          </button>
         </div>
       )}
-  
+
       <BannerPrecisionMedicine />
       <BannerUniqueTreatment />
       <NewsAndArticles />
-  
+
       <Footer />
     </div>
   );
