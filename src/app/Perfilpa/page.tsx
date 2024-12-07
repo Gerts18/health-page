@@ -51,7 +51,7 @@ export default function PerfilPage() {
         const responseData = await response.json();
         
         if (responseData.success && responseData.data) {
-          if (responseData.data.category !== 1) {
+          if (responseData.data.category == 2) {
             router.push('/Perfil');
             return;
           }
