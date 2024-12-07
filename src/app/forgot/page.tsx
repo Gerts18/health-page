@@ -2,7 +2,6 @@
 
 import Footer from '@/app/components/Footer/Footer'
 import Header from '@/app/components/Header/Index'
-import '../components/Login/login.css'
 import { StrictMode } from "react"
 import ForgotArea from "@/app/components/Forgot"
 

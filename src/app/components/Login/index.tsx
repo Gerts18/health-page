@@ -86,17 +86,14 @@ const LoginArea = () => {
             <p className="text-red-500 text-sm">{errors.password?.message}</p>
           </div>
 
-          {/* Checkbox */}
+          {/* Enlace a recuperación de contraseña */}
           <div className="flex items-center justify-between mb-6">
-            <label className="flex items-center text-gray-600 text-sm">
-              <input
-                id="remember"
-                type="checkbox"
-                disabled={isSubmitting}
-                className="mr-2"
-              />
+            <a
+              href="/forgot"
+              className="text-blue-500 hover:underline text-sm"
+            >
               He olvidado mi contraseña
-            </label>
+            </a>
           </div>
 
           {/* Botón de envío */}
