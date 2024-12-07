@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Checkbox, InputLabel } from "@mui/material";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -100,7 +100,22 @@ const RequestMedic = () => {
     fetchUserData();
   }, []);
 
-  const onSubmit = async (data: any) => {
+  interface FormData {
+    name: string;
+    lastName: string;
+    dateOfBirth: string;
+    gender: string;
+    institutionRem: string;
+    typeTest: string;
+    phone: string;
+    contactPhone: string;
+    address: string;
+    city: string;
+    cedula: string;
+    email: string;
+  }
+
+  const onSubmit = async (data: FormData) => {
     const formData = new FormData();
 
     formData.append("name", data.name || "");
@@ -124,7 +139,7 @@ const RequestMedic = () => {
 
     try {
       console.log("Sending form data...");
-      for (let [key, value] of formData.entries()) {
+      for (const [key, value] of formData.entries()) {
         console.log(`${key}: ${value}`);
       }
 

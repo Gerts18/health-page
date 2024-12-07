@@ -197,7 +197,7 @@ const Header: React.FC = () => {
         ) : (
           <>
             {/* Si no hay usuario autenticado, mostramos botones para iniciar sesión o registrarse */}
-            <Link href="/login">
+            <Link href="/Login">
               <button className="px-4 py-2 text-blue-500 border border-blue-500 rounded-full hover:bg-blue-500 hover:text-white">
                 Iniciar Sesion
               </button>

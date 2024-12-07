@@ -271,6 +271,7 @@ export default function PerfilPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-600 transition-colors duration-300"
+              onClick={() => window.location.href = 'http://localhost:3000/RequestMedic'}
             >
               SOLICITUD DE ESTUDIO (Biología Molecular)
             </motion.button>

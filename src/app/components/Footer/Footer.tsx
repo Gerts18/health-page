@@ -1,11 +1,17 @@
 import Link from 'next/link';
 import { FaTwitter, FaFacebook, FaInstagram, FaGithub } from 'react-icons/fa'; // Asegúrate de instalar react-icons
 
+// Este componente representa el footer del sitio web.
+// Aquí se muestra el horario de atención, información de contacto, un mapa del sitio con enlaces internos
+// y secciones legales con enlaces a páginas de política de datos, privacidad, etc.
+// Además, incluye una sección inferior con derechos de autor e íconos sociales.
+
 const Footer: React.FC = () => {
   return (
     <footer className="bg-[#0a0f1c] text-white py-12">
       <div className="max-w-screen-xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Horario Section */}
+        {/* Esta sección muestra el horario de atención en diferentes modalidades. */}
         <div>
           <h2 className="text-xl font-bold mb-4">Horario</h2>
           <div className="space-y-2 text-sm">
@@ -25,6 +31,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Contacto Section */}
+        {/* Aquí se proporciona la dirección física de la sede, el número de contacto y el correo electrónico. */}
         <div>
           <h2 className="text-xl font-bold mb-4">Contacto</h2>
           <div className="space-y-4 text-sm">
@@ -41,6 +48,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Mapa del sitio Section */}
+        {/* Sección con enlaces a las diferentes páginas del sitio para facilitar la navegación. */}
         <div>
           <h2 className="text-xl font-bold mb-4">Mapa del sitio</h2>
           <div className="grid gap-2 text-sm">
@@ -57,6 +65,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Legal Section */}
+        {/* Información legal y enlaces a políticas de privacidad y tratamiento de datos. */}
         <div>
           <h2 className="text-xl font-bold mb-4">Legal</h2>
           <div className="grid gap-2 text-sm">
@@ -68,11 +77,14 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom Section with Copyright and Social Icons */}
+      {/* Sección inferior del footer con derechos de autor y enlaces a redes sociales */}
       <div className="max-w-screen-xl mx-auto px-4 mt-12 flex flex-col md:flex-row justify-between items-center">
+        {/* Texto de derechos de autor */}
         <p className="text-sm text-gray-400 mb-4 md:mb-0">
           © Copyright 2022, All Rights Reserved by ClarityUI
         </p>
+
+        {/* Íconos de redes sociales con enlaces externos */}
         <div className="flex space-x-4">
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
             <FaTwitter size={20} />
