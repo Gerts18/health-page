@@ -60,10 +60,8 @@ const Footer: React.FC = () => {
         <div>
           <h2 className="text-xl font-bold mb-4">Legal</h2>
           <div className="grid gap-2 text-sm">
-            <Link href="/politica" className="hover:text-gray-300">Política de tratamiento de datos</Link>
-            <Link href="/personales" className="hover:text-gray-300">Personales FICMAC</Link>
-            <Link href="/privacidad" className="hover:text-gray-300">Aviso de privacidad</Link>
-            <Link href="/pqrsf" className="hover:text-gray-300">PQRSF</Link>
+            <Link href="/Legal/Politica" className="hover:text-gray-300">Política de tratamiento de datos</Link>
+            <Link href="/Legal/Aviso" className="hover:text-gray-300">Aviso de privacidad</Link>
           </div>
         </div>
       </div>
