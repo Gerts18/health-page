@@ -23,6 +23,11 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.editor.decorations.colors": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.preferredLightColorTheme": "Default Light Modern",
+  "workbench.preferredHighContrastLightColorTheme": "Default Dark+",
   "peacock.color": "#282C34",
 
 }

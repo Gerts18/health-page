@@ -18,6 +18,7 @@ export default {
       },
       backgroundImage: {
         'authImage': "url('/assets/bg.svg')",
+        adn: "url('/assets/adn.png')",
       }
     },
   },

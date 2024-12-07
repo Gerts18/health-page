@@ -173,7 +173,7 @@ export default function RegistrationForm() {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      //console.log('Formulario válido:', formData);
+      console.log('Formulario válido:', formData);
       try {
         const response = await fetch('/api/users', {
           method: 'POST',

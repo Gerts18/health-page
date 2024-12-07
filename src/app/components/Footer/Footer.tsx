@@ -44,16 +44,15 @@ const Footer: React.FC = () => {
         <div>
           <h2 className="text-xl font-bold mb-4">Mapa del sitio</h2>
           <div className="grid gap-2 text-sm">
-            <Link href="/inicio" className="hover:text-gray-300">Inicio</Link>
-            <Link href="/nosotros" className="hover:text-gray-300">Nosotros</Link>
-            <Link href="/investigacion" className="hover:text-gray-300">Investigación</Link>
-            <Link href="/educacion" className="hover:text-gray-300">Educación</Link>
+            <Link href="/" className="hover:text-gray-300">Inicio</Link>
+            <Link href="/about" className="hover:text-gray-300">Nosotros</Link>
+            <Link href="/education" className="hover:text-gray-300">Educación</Link>
             <Link href="/medicos" className="hover:text-gray-300">Médicos</Link>
             <Link href="/pacientes" className="hover:text-gray-300">Pacientes</Link>
             <Link href="/transparencia" className="hover:text-gray-300">Transparencia</Link>
-            <Link href="/blog" className="hover:text-gray-300">Blog y noticias</Link>
-            <Link href="/donaciones" className="hover:text-gray-300">Donaciones</Link>
-            <Link href="/trabaja" className="hover:text-gray-300">Trabaja con nosotros</Link>
+            <Link href="/News" className="hover:text-gray-300">Noticias</Link>
+            <Link href="/donations" className="hover:text-gray-300">Donaciones</Link>
+            <Link href="/Contacto" className="hover:text-gray-300">Trabaja con nosotros</Link>
           </div>
         </div>
 
@@ -61,10 +60,8 @@ const Footer: React.FC = () => {
         <div>
           <h2 className="text-xl font-bold mb-4">Legal</h2>
           <div className="grid gap-2 text-sm">
-            <Link href="/politica" className="hover:text-gray-300">Política de tratamiento de datos</Link>
-            <Link href="/personales" className="hover:text-gray-300">Personales FICMAC</Link>
-            <Link href="/privacidad" className="hover:text-gray-300">Aviso de privacidad</Link>
-            <Link href="/pqrsf" className="hover:text-gray-300">PQRSF</Link>
+            <Link href="/Legal/Politica" className="hover:text-gray-300">Política de tratamiento de datos</Link>
+            <Link href="/Legal/Aviso" className="hover:text-gray-300">Aviso de privacidad</Link>
           </div>
         </div>
       </div>

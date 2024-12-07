@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Checkbox, InputLabel } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -13,7 +13,15 @@ import Stack from "@mui/material/Stack";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { useRouter } from 'next/navigation';
+
 const RequestMedic = () => {
+
+  const router = useRouter();
+
   const [gender, setGender] = useState("");
   const [institutionRem, setInstitutionRem] = useState("");
   const [specialty, setSpecialty] = useState("");
@@ -56,6 +64,42 @@ const RequestMedic = () => {
     }
   };
 
+  //Obtener datos de la cookie
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('/api/auth', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const result = await response.json();
+
+        if (result.success) {
+
+          //console.log(result.data);
+
+          if (result.data['professionalid'] != "none") {
+
+            //console.log('Cédula Profesional:', result.data['professionalid']);
+            setIsCedulaEnabled(true);
+            const cedula_from_cookie = result.data['professionalid']
+            setValue("cedula", cedula_from_cookie);
+
+          } else {
+
+            //console.log('email:', result.data['email']);
+            const email_from_cookie = result.data['email'];
+            setValue('email', email_from_cookie);
+          }
+        }
+      } catch (error) {
+        console.error('Error al obtener datos del usuario:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   const onSubmit = async (data: any) => {
     const formData = new FormData();
 
@@ -71,6 +115,7 @@ const RequestMedic = () => {
     formData.append("city", data.city || "");
     formData.append("cedula", data.cedula || "");
     formData.append("email", data.email || "");
+
 
     if (fileIne) formData.append("identificacion_doc", fileIne);
     if (fileMedicOrder) formData.append("orden_medica_especialista_doc", fileMedicOrder);
@@ -92,8 +137,10 @@ const RequestMedic = () => {
       });
 
       if (response.ok) {
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 3000);
+        toast.success("Solicitud exitosa!, redirigiendo ...");
+        setTimeout(() => {
+          router.push('/');
+        }, 2000);
       } else {
         const errorData = await response.json();
         console.error("Error al enviar el formulario:", errorData.message);
@@ -290,11 +337,10 @@ const RequestMedic = () => {
                   type="text"
                   {...register("cedula")}
                   disabled={!isCedulaEnabled}
-                  className={`w-full h-14 border-2 rounded-md bg-white p-2 shadow-md ${
-                    isCedulaEnabled
-                      ? "border-gray-300"
-                      : "border-gray-200 bg-gray-100"
-                  }`}
+                  className={`w-full h-14 border-2 rounded-md bg-white p-2 shadow-md ${isCedulaEnabled
+                    ? "border-gray-300"
+                    : "border-gray-200 bg-gray-100"
+                    }`}
                   placeholder="CÉDULA PROFESIONAL"
                 />
               </div>
@@ -305,11 +351,10 @@ const RequestMedic = () => {
                   type="text"
                   {...register("institution")}
                   disabled={!isCedulaEnabled}
-                  className={`w-full h-14 border-2 rounded-md bg-white p-2 shadow-md ${
-                    isCedulaEnabled
-                      ? "border-gray-300"
-                      : "border-gray-200 bg-gray-100"
-                  }`}
+                  className={`w-full h-14 border-2 rounded-md bg-white p-2 shadow-md ${isCedulaEnabled
+                    ? "border-gray-300"
+                    : "border-gray-200 bg-gray-100"
+                    }`}
                   placeholder="INSTITUCIÓN"
                 />
               </div>
@@ -319,11 +364,10 @@ const RequestMedic = () => {
                 <Select
                   {...register("specialty")}
                   disabled={!isCedulaEnabled}
-                  className={`w-full h-14 border rounded-md bg-white shadow-md ${
-                    isCedulaEnabled
-                      ? "border-gray-300"
-                      : "border-gray-200 bg-gray-100"
-                  }`}
+                  className={`w-full h-14 border rounded-md bg-white shadow-md ${isCedulaEnabled
+                    ? "border-gray-300"
+                    : "border-gray-200 bg-gray-100"
+                    }`}
                   labelId="specialty"
                   id="specialty"
                   value={specialty}
@@ -571,6 +615,7 @@ const RequestMedic = () => {
           </div>
         )}
       </form>
+      <ToastContainer />
     </div>
   );
 };
