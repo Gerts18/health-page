@@ -1,10 +1,10 @@
-import { Link } from 'lucide-react';
+
 import React, { useState } from 'react';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import { useRouter } from 'next/navigation';
+//import { useRouter } from 'next/navigation';
 
 const ImageSlider = () => {
-  const router = useRouter();
+ // const router = useRouter();
   const slides = [
     {
       url: './assets/slider-main.png',

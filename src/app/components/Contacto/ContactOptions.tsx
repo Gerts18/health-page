@@ -1,6 +1,6 @@
 
 import Image from 'next/image'
-import { useState } from 'react'
+
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary'
@@ -30,7 +30,7 @@ type SelectItemProps = {
   value: string
 }
 
-const Button = ({ children, className, variant, ...props }: ButtonProps) => (
+const Button = ({ children, className, ...props }: ButtonProps) => (
   <button className={`px-4 py-2 rounded ${className}`} {...props}>
     {children}
   </button>
@@ -81,7 +81,7 @@ const SelectItem = ({ children, value }: SelectItemProps) => (
 )
 
 const ContactOptions = () => {
-  const [selectOpen, setSelectOpen] = useState(false)
+ // const [selectOpen] = useState(false)
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
