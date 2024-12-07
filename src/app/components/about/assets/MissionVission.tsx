@@ -1,28 +1,37 @@
 'use client'
 import React, { useState } from 'react';
-import './MissionVision.css';
 
 const MissionVision: React.FC = () => {
   const [activeTab, setActiveTab] = useState('mission');
 
   return (
-    <div className="mission-vision-container">
-      <div className="tabs">
-        <span
-          className={`tab ${activeTab === 'mission' ? 'active blue-line' : ''}`}
+    <div className="flex flex-col items-stretch bg-[#A0B8FFCC] p-12 px-16 font-sans w-full h-auto mx-auto">
+      <div className="flex justify-start w-full mb-5 pl-[9.5%]">
+      <span
+          className={`text-2xl font-bold mx-2 cursor-pointer relative ${
+            activeTab === 'mission' ? 'text-white opacity-100' : 'text-white opacity-60'
+          }`}
           onClick={() => setActiveTab('mission')}
         >
           Misión
+          {activeTab === 'mission' && (
+            <span className="absolute bottom-[-8px] left-0 w-full h-[3px] bg-[#007bff]" />
+          )}
         </span>
         <span
-          className={`tab ${activeTab === 'vision' ? 'active pink-line' : ''}`}
+          className={`text-2xl font-bold mx-2 cursor-pointer relative ${
+            activeTab === 'vision' ? 'text-white opacity-100' : 'text-white opacity-60'
+          }`}
           onClick={() => setActiveTab('vision')}
         >
           Visión
+          {activeTab === 'vision' && (
+            <span className="absolute bottom-[-8px] left-0 w-full h-[3px] bg-[#ff4da6]" />
+          )}
         </span>
       </div>
-      <div className="content">
-        <div className="text-section">
+      <div className="flex items-center justify-center gap-1 w-full px-10">
+        <div className="flex-1 text-2xl text-white text-justify leading-8">
           {activeTab === 'mission' && (
             <p>
               Promover, fomentar y desarrollar actividades de investigación traslacional en el campo de la biología
@@ -37,10 +46,11 @@ const MissionVision: React.FC = () => {
             </p>
           )}
         </div>
-        <div className="image-container">
+        <div className="flex-1 flex justify-center">
           <img
             src="/assets/img/about/missionVission.png"
             alt="Laboratorio"
+            className="max-w-full h-auto rounded-lg"
           />
         </div>
       </div>

@@ -42,8 +42,8 @@ const Carousel = () => {
         style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
       ></div>
       <div className="absolute top-1/2 left-12 transform -translate-y-1/2 bg-white bg-opacity-80 p-8 rounded-lg shadow-lg max-w-lg z-10">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">{slides[currentSlide].title}</h2>
-        <p className="text-lg md:text-xl text-gray-600 leading-relaxed">{slides[currentSlide].description}</p>
+        <h2 className="text-4xl md:text-6xl font-bold mb-4 text-gray-800">{slides[currentSlide].title}</h2>
+        <p className="text-lg md:text-2xl text-gray-600 leading-relaxed">{slides[currentSlide].description}</p>
       </div>
       <button  className="absolute top-1/2 left-4 transform -translate-y-1/2 text-4xl text-white hover:text-pink-500 transition z-10" onClick={handlePrev}>
         &#10094;

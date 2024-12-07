@@ -32,7 +32,7 @@ const Specialists = () => {
   return (
     <div className="text-center py-8 bg-pink-100">
       <h2 className="text-pink-600 text-2xl font-bold mb-6">Nuestros Especialistas</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="flex flex-wrap gap-6 justify-center">
         {specialists.map((specialist, index) => (
           <div className="text-center transition-transform transform hover:-translate-y-2" key={index}>
             <img

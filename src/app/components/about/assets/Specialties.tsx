@@ -1,6 +1,5 @@
 
 import React from 'react';
-import styles from "./Specialties.module.css";
 
 const Specialties = () => {
   const specialties = [
@@ -28,17 +27,17 @@ const Specialties = () => {
   ];
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Nuestras especialidades Líneas de investigación</h2>
-      <div className={styles.cardContainer}>
+    <div className="px-8 py-8 text-center bg-gray-50">
+      <h2 className="text-3xl font-bold text-pink-600 mb-8">Nuestras especialidades Líneas de investigación</h2>
+      <div className="flex flex-wrap justify-center gap-16">
         {specialties.map((specialty, index) => (
-          <div className={styles.card} key={index}>
-            <div className={styles.iconContainer}>
-              <img src={specialty.icon} alt={specialty.title} className={styles.icon} />
+          <div className="bg-white border border-gray-100 rounded-lg shadow-lg w-72 p-6 text-left transition-transform transform hover:translate-y-1 hover:shadow-xl" key={index}>
+            <div className="bg-[#F58DAD] p-4 rounded-t-lg flex justify-center items-center mb-4">
+              <img src={specialty.icon} alt={specialty.title} className="h-12 w-12" />
             </div>
-            <h3 className={styles.cardTitle}>{specialty.title}</h3>
-            <p className={styles.cardDescription}>{specialty.description}</p>
-            <a href={specialty.link} className={styles.link}>
+            <h3 className="text-xl font-bold text-gray-800 mb-3">{specialty.title}</h3>
+            <p className="text-gray-600 text-sm mb-4">{specialty.description}</p>
+            <a href={specialty.link} className="text-blue-500 text-sm font-semibold hover:underline">
               Ver más.
             </a>
           </div>

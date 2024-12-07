@@ -41,7 +41,7 @@ const awards =[
         Obtenga todas las actualizaciones aquí.
       </p>
       {/* Contenedor de tarjetas */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center">
+      <div className="flex flex-wrap justify-center gap-2">
         {/* Tarjeta individual */}
         {awards.map((award, index) => (
           <div className="bg-white border border-gray-300 rounded-lg p-4 shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition-all max-w-xs mx-auto" key={index}>
