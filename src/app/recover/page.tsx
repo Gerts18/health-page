@@ -3,16 +3,16 @@
 import Footer from '@/app/components/Footer/Footer'
 import Header from '@/app/components/Header/Index'
 import { StrictMode } from "react"
-import ForgotArea from "@/app/components/Forgot"
+import RecoverArea from "@/app/components/Recover"
 
-const ForgotPage = () => {
+const RecoverPage = () => {
   return (
         <StrictMode>
         <Header />
-        <ForgotArea />
+        <RecoverArea />
         <Footer />
         </StrictMode>
   )
 }
 
-export default ForgotPage
+export default RecoverPage

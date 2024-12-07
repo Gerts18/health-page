@@ -1,7 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { conn } from '@/libs/PostgDB';
-import jwt from 'jsonwebtoken';
-import { Resend } from 'resend';
+import { setUserEmail } from '@/libs/sharedData';
 
 // Recuperar contraseña olvidada
 export async function POST(request: NextRequest) {
@@ -29,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     // Query para verificar el correo
     const query = `
-      SELECT email, password
+      SELECT email
       FROM users 
       WHERE email = $1
     `;
@@ -57,41 +56,17 @@ export async function POST(request: NextRequest) {
     // Extraer los datos del usuario encontrado
     const user = responseDB.rows[0];
 
-    //console.log(user)
-    console.log(user.email);
-    console.log(user.password);
-    
-    // Envio de correo
-    try{
-    const resend = new Resend('re_o1mPkmKX_KXGKHfM3sieUYL3ykweD3dn4');
+    setUserEmail(user.email);
 
-    resend.emails.send({
-        from: 'onboarding@resend.dev',
-        to: user.email,
-        subject: 'Recuperación de contraseña Ficmac',
-        html: `<p>Su contraseña es: <strong>${user.password}</strong></p>`
-      });
-    }catch(error){
-        return NextResponse.json(
-            {
-              success: false,
-              status: 401,
-              message: "Correo no registrado",
-              data: null,
-              timestamp: Date.now(),
-              api: "api/forgotten",
-              method: "POST",
-            },
-            { status: 401 }
-          );
-    }
+    //console.log(user)
+    console.log(`Correo ${user.email} guardado en sharedData`);
   
     // Crear la respuesta
     const response = NextResponse.json(
       {
         success: true,
         status: 200,
-        message: "Envío de contraseña exitoso",
+        message: "Identificación de correo exitoso",
         data: user,
         timestamp: Date.now(),
         api: "api/forgotten",
@@ -110,8 +85,8 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         status: 500,
-        message: "Error al procesar el envio de contraseña",
-        error: error instanceof Error ? error.message : "Error desconocido al enviar la contraseña",
+        message: "Error al procesar la identificación de la cuenta",
+        error: error instanceof Error ? error.message : "Error desconocido al identificar la cuenta",
         timestamp: Date.now(),
         api: "api/forgotten",
         method: "POST",

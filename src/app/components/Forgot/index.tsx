@@ -36,13 +36,13 @@ const ForgotArea = () => {
       const result = await response.json();
 
       if (result.success) {
-        toast.success("¡Correo enviado de forma exitosa!");
+        toast.success("¡Correo identificado de forma exitosa!");
         reset();
         setTimeout(() => {
-          //window.location.href = "/login";
+          window.location.href = "/recover";
         }, 2000);
       } else {
-        toast.error(result.message || "Error al enviar correo.");
+        toast.error(result.message || "Error al identificar el correo.");
       }
     } catch (error: any) {
       console.error("Error en la solicitud:", error);
@@ -77,7 +77,7 @@ const ForgotArea = () => {
             type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Enviando..." : "Enviar"}
+            {isSubmitting ? "Identificando..." : "Aceptar"}
           </button>
         </form>
         <ToastContainer />
