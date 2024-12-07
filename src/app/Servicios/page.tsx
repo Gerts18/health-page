@@ -11,6 +11,9 @@ interface Service {
   description: string;
   images: string[];
   icon: string;
+  tratamientos?: string[];
+  contraindicaciones?: string;
+  testimonios?: Array<{ autor: string, texto: string }>;
 }
 
 const services: Service[] = [
@@ -90,9 +93,9 @@ function ServiceModal({ service, isOpen, onClose }: {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
-        className="bg-white rounded-xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
       >
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4 sticky top-0 bg-white pt-2 pb-4 border-b">
           <h3 className="text-2xl font-bold text-[#547EED]">{service.title}</h3>
           <button 
             onClick={onClose}
@@ -104,31 +107,107 @@ function ServiceModal({ service, isOpen, onClose }: {
           </button>
         </div>
         
-        <div className="flex gap-4 mb-6 overflow-x-auto justify-center">
-          {service.images.map((image, index) => (
-            <Image
-              key={index}
-              src={image}
-              alt={`${service.title} imagen ${index + 1}`}
-              width={200}
-              height={150}
-              className="rounded-lg object-cover"
-            />
-          ))}
-        </div>
+        <div className="space-y-6">
+          <div className="flex gap-4 pb-4 overflow-x-auto snap-x snap-mandatory">
+            {service.images.map((image, index) => (
+              <div key={index} className="snap-center shrink-0">
+                <Image
+                  src={image}
+                  alt={`${service.title} imagen ${index + 1}`}
+                  width={300}
+                  height={200}
+                  className="rounded-lg object-cover"
+                />
+              </div>
+            ))}
+          </div>
 
-        <p className="text-gray-600 text-justify">{service.description}</p>
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <h4 className="font-bold text-lg text-[#547EED] mb-2">Resumen</h4>
+            <p className="text-gray-700">{service.resumen}</p>
+          </div>
 
-        <div className="mt-6">
-          <Image
-            src={service.images[service.images.length - 1]}
-            alt={`${service.title} imagen adicional`}
-            width={400}
-            height={300}
-            className="rounded-lg object-cover mx-auto"
-          />
+          <div className="space-y-4">
+            <h4 className="font-bold text-lg text-[#547EED]">Descripción detallada</h4>
+            <div className="text-gray-600 text-justify whitespace-pre-line">
+              {service.description}
+            </div>
+            
+            <div className="mt-8 bg-gradient-to-r from-blue-50 to-pink-50 p-6 rounded-xl">
+              <h4 className="font-bold text-lg text-[#547EED] mb-4">Medicamentos relacionados</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <div className="aspect-video relative rounded-lg overflow-hidden mb-4">
+                    <Image
+                      src="/assets/medicamento1.jpg"
+                      alt="Medicamento 1"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <h5 className="font-semibold text-[#EB356E] mb-2">Medicamento Principal</h5>
+                  <p className="text-sm text-gray-600">
+                    Tratamiento primario recomendado para esta condición.
+                  </p>
+                </div>
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <div className="aspect-video relative rounded-lg overflow-hidden mb-4">
+                    <Image
+                      src="/assets/medicamento2.jpg"
+                      alt="Medicamento 2"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <h5 className="font-semibold text-[#EB356E] mb-2">Medicamento Complementario</h5>
+                  <p className="text-sm text-gray-600">
+                    Tratamiento de apoyo para mejorar la eficacia del tratamiento principal.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {service.tratamientos && (
+              <div className="mt-6">
+                <h4 className="font-bold text-lg text-[#547EED] mb-2">Tratamientos disponibles</h4>
+                <ul className="list-disc pl-5 space-y-2">
+                  {service.tratamientos.map((tratamiento, index) => (
+                    <li key={index} className="text-gray-600">{tratamiento}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {service.contraindicaciones && (
+              <div className="bg-red-50 p-4 rounded-lg mt-4">
+                <h4 className="font-bold text-lg text-red-600 mb-2">Contraindicaciones</h4>
+                <p className="text-gray-700">{service.contraindicaciones}</p>
+              </div>
+            )}
+
+            {service.testimonios && service.testimonios.length > 0 && (
+              <div className="mt-6">
+                <h4 className="font-bold text-lg text-[#547EED] mb-4">Testimonios</h4>
+                <div className="space-y-4">
+                  {service.testimonios.map((testimonio, index) => (
+                    <div key={index} className="bg-gray-50 p-4 rounded-lg">
+                      <p className="text-gray-600 italic">"{testimonio.texto}"</p>
+                      <p className="text-gray-500 mt-2">- {testimonio.autor}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="bg-pink-50 p-4 rounded-lg">
+            <h4 className="font-bold text-lg text-[#EB356E] mb-2">Información adicional</h4>
+            <p className="text-gray-700">
+              Para más información sobre este tratamiento o para agendar una cita, 
+              por favor contacte a nuestro equipo médico.
+            </p>
+          </div>
         </div>
-        
       </motion.div>
     </div>
   );
