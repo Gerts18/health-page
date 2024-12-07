@@ -16,6 +16,8 @@ export default function TableComponent() {
   const [requests, setRequests] = useState<Request[]>([]);
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterBy, setFilterBy] = useState('nombre');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +47,24 @@ export default function TableComponent() {
     fetchData();
   }, []);
 
+  const filteredRequests = requests.filter((item) => {
+    const searchValue = searchTerm.toLowerCase();
+    switch (filterBy) {
+      case 'nombre':
+        return item.nombre.toLowerCase().includes(searchValue);
+      case 'apellido':
+        return item.apellido.toLowerCase().includes(searchValue);
+      case 'telefono':
+        return item.telefono.toLowerCase().includes(searchValue);
+      case 'correo':
+        return item.correo_electronico.toLowerCase().includes(searchValue);
+      case 'tipo_prueba':
+        return item.tipo_prueba.toLowerCase().includes(searchValue);
+      default:
+        return true;
+    }
+  });
+
   if (loading) {
     return <div className="flex justify-center items-center min-h-screen">
       <div className="text-lg">Cargando datos...</div>
@@ -58,28 +78,48 @@ export default function TableComponent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
-      {/* Barra de búsqueda */}
-      <div className="w-full max-w-4xl flex items-center justify-between bg-white rounded-lg shadow p-4">
-        <input
-          type="text"
-          placeholder="Buscar..."
-          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <select
-          className="ml-4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none [&>option]:py-2"
-        >
-          <option value="Categoria">Categoría</option>
-          <option value="nombre">Nombre</option>
-          <option value="apellido">Apellido</option>
-          <option value="telefono">Teléfono</option>
-          <option value="correo">Correo</option>
-          <option value="estado">Estado</option>
-        </select>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 pt-24">
+      {/* Sección de búsqueda y filtrado mejorada */}
+      <div className="w-full max-w-4xl mb-6 mt-8">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Búsqueda de Registros</h2>
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">
+                Buscar
+              </label>
+              <input
+                id="search"
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Ingrese término de búsqueda..."
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="md:w-1/4">
+              <label htmlFor="filter" className="block text-sm font-medium text-gray-700 mb-2">
+                Filtrar por
+              </label>
+              <select
+                id="filter"
+                value={filterBy}
+                onChange={(e) => setFilterBy(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="nombre">Nombre</option>
+                <option value="apellido">Apellido</option>
+                <option value="telefono">Teléfono</option>
+                <option value="correo">Correo</option>
+                <option value="tipo_prueba">Tipo de Prueba</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Tabla */}
-      <div className="w-full max-w-4xl mt-6 bg-white rounded-lg shadow overflow-x-auto">
+      {/* Resto de la tabla */}
+      <div className="w-full max-w-4xl bg-white rounded-lg shadow overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-blue-500 text-white">
@@ -94,7 +134,7 @@ export default function TableComponent() {
             </tr>
           </thead>
           <tbody>
-            {requests.map((item, index) => (
+            {filteredRequests.map((item, index) => (
               <motion.tr
                 key={index}
                 initial={{ opacity: 0 }}
