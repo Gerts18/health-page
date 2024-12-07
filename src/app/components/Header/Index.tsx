@@ -139,9 +139,13 @@ const Header: React.FC = () => {
             <span>Hola, {userData.name}</span>
             {/* Renderizamos el ícono según professionalid */}
             {userData.professionalid ? (
-              <FaUserDoctor className="text-gray-500" size={30} />
+              <Link href="/Perfil">
+                <FaUserDoctor className="text-gray-500" size={30} />
+              </Link>
             ) : (
-              <FaUser className="text-gray-500" size={30} />
+              <Link href="/Perfil">
+                <FaUser className="text-gray-500" size={30} />
+              </Link>
             )}
             <button
               onClick={handleLogout}
