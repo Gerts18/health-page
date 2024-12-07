@@ -109,7 +109,7 @@ export async function GET() {
   try {
     const result = await pool.query('SELECT * FROM requests ORDER BY created_at DESC');
 
-    // Formatear los datos para devolverlos al frontend
+    // Formatear los datos para que coincidan con los nombres de columnas esperados
     const formattedRequests = result.rows.map((item) => ({
       id: item.id,
       first_name: item.first_name,

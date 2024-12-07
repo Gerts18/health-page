@@ -1,19 +1,61 @@
 "use client";
 import { motion } from "framer-motion";
 import { EyeIcon, DownloadIcon } from '@heroicons/react/outline';
+import { useEffect, useState } from 'react';
+
+interface Request {
+  nombre: string;
+  apellido: string;
+  telefono: string;
+  correo_electronico: string;
+  celular_contacto: string;
+  tipo_prueba: string;
+}
 
 export default function TableComponent() {
-  const data = [
-    {
-      nombre: "Miguel",
-      apellido: "Merlos",
-      telefono: "4434713086",
-      correo: "mike@gmail.com",
-      telefonoFamiliar: "4432279733",
-      tipoPrueba: "PCR en tiempo Real",
-      estado: "Listo",
-    },
-  ];
+  const [requests, setRequests] = useState<Request[]>([]);
+  const [error, setError] = useState<string>('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/tabla');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const jsonData = await response.json();
+        
+        if (jsonData.success && Array.isArray(jsonData.data)) {
+          setRequests(jsonData.data);
+        } else {
+          throw new Error('Formato de datos inválido');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setError(error instanceof Error ? error.message : 'Error desconocido');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div className="flex justify-center items-center min-h-screen">
+      <div className="text-lg">Cargando datos...</div>
+    </div>;
+  }
+
+  if (error) {
+    return <div className="flex justify-center items-center min-h-screen">
+      <div className="text-red-500">Error: {error}</div>
+    </div>;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
@@ -52,7 +94,7 @@ export default function TableComponent() {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => (
+            {requests.map((item, index) => (
               <motion.tr
                 key={index}
                 initial={{ opacity: 0 }}
@@ -63,10 +105,10 @@ export default function TableComponent() {
                 <td className="border px-4 py-2">{item.nombre}</td>
                 <td className="border px-4 py-2">{item.apellido}</td>
                 <td className="border px-4 py-2">{item.telefono}</td>
-                <td className="border px-4 py-2">{item.correo}</td>
-                <td className="border px-4 py-2">{item.telefonoFamiliar}</td>
-                <td className="border px-4 py-2">{item.tipoPrueba}</td>
-                <td className="border px-4 py-2">{item.estado}</td>
+                <td className="border px-4 py-2">{item.correo_electronico}</td>
+                <td className="border px-4 py-2">{item.celular_contacto}</td>
+                <td className="border px-4 py-2">{item.tipo_prueba || 'PCR'}</td>
+                <td className="border px-4 py-2">Visto</td>
                 <td className="border px-4 py-2">
                   <div className="flex flex-col items-center gap-2">
                     <button className="text-blue-500 hover:underline flex items-center">
@@ -85,7 +127,6 @@ export default function TableComponent() {
         </table>
       </div>
 
-      {/* Botón regresar */}
       <button className="mt-6 px-6 py-2 bg-pink-500 text-white font-semibold rounded-lg shadow hover:bg-pink-400">
         Volver
       </button>
