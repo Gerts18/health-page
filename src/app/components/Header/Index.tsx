@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaUser } from "react-icons/fa6";
+import { FaUserDoctor } from "react-icons/fa6";
 import { FaUserCircle } from 'react-icons/fa';
 
 interface UserData {
@@ -70,13 +72,14 @@ const Header: React.FC = () => {
   return (
     <header className="fixed top-0 left-0 right-0 flex items-center justify-between px-8 py-4 bg-white shadow-md z-50">
       {/* Logo */}
+      <Link href={"/"}>
       <div className="flex items-center space-x-2">
-        <Image src="/assets/Logo8.png" alt="FICMAC Logo" width={200} height={200} />
+          <Image src="/assets/Logo8.png" alt="FICMAC Logo" width={200} height={200} />
       </div>
+      </Link>
 
       {/* Navegación */}
       <nav className="flex items-center space-x-6 text-gray-700">
-        {/* Menú desplegable de "Nosotros" */}
         <div className="relative">
           <button
             onClick={toggleMenu}
@@ -158,7 +161,12 @@ const Header: React.FC = () => {
                     className="rounded-full"
                   />
                 ) : (
-                  <FaUserCircle className="w-8 h-8 text-gray-600" />
+                  {/* Renderizamos el ícono según professionalid */}
+                  {userData.professionalid && userData.professionalid !== "none" ?  (
+                    <FaUserDoctor className="text-gray-500" size={30} />
+                  ) : (
+                    <FaUser className="text-gray-500" size={30} />
+                  )}
                 )}
               </button>
             </div>
@@ -190,14 +198,14 @@ const Header: React.FC = () => {
           </div>
         ) : (
           <>
-            <Link href="/Login">
+            <Link href="/login">
               <button className="px-4 py-2 text-blue-500 border border-blue-500 rounded-full hover:bg-blue-500 hover:text-white">
-                Log in
+                Iniciar Sesion
               </button>
             </Link>
             <Link href="/register">
               <button className="px-4 py-2 text-pink-500 border border-pink-500 rounded-full hover:bg-pink-500 hover:text-white">
-                Sign Up
+                Registrarse
               </button>
             </Link>
           </>

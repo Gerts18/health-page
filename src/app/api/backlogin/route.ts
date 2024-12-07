@@ -3,7 +3,7 @@ import { NextResponse, NextRequest } from "next/server"; // Manejo de solicitude
 import { conn } from '@/libs/PostgDB'; // Conexión a la base de datos PostgreSQL
 import jwt from 'jsonwebtoken'; // Librería para crear y verificar tokens JWT
 
-// Controlador para manejar el inicio de sesión (método POST)
+// Iniciar sesión y carga los datos de los usuarios en las cookies
 export async function POST(request: NextRequest) {
   try {
     // Leer y parsear los datos enviados desde el frontend en formato JSON
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     // Query SQL para verificar las credenciales del usuario
     const query = `
-      SELECT email, first_name, last_names, category
+      SELECT email, first_name, last_names, professionalid, category
       FROM users 
       WHERE email = $1 AND password = $2
     `;
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     // Extraer los datos del usuario encontrado en la base de datos
     const user = responseDB.rows[0];
 
-    //console.log(user['first_name'])
+    //console.log(user)
 
     //Genera el token unico
     const token = jwt.sign({
@@ -63,7 +63,8 @@ export async function POST(request: NextRequest) {
       name: user['first_name'], //Aqui se coloca el nombre del usuario
       email: user['email'], //Aqui se coloca el email del usuario
       last_names: user['last_names'], //Aqui se coloca el apellido del usuario
-      category: user['category'] // Agregar la categoría al token
+      category: user['category'], // Agregar la categoría al token
+      professionalid: user['professionalid'] //Is del usuario si es un profesional, vacio si es otro tipo de usuario
     }, 'secretkey')
 
     // Crear la respuesta exitosa en formato JSON
