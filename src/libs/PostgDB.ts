@@ -1,14 +1,4 @@
-// db.ts
 import { Pool } from 'pg';
-
-// Extender la interfaz global de NodeJS
-declare global {
-  namespace NodeJS {
-    interface Global {
-      pgPool: Pool;
-    }
-  }
-}
 
 // Configuración de la conexión utilizando variables de entorno
 const conn = new Pool({
@@ -22,6 +12,4 @@ const conn = new Pool({
   }
 }); 
 
-
 export { conn };
-
