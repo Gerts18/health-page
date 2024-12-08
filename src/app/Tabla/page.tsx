@@ -1,16 +1,15 @@
 import Header from "../components/Header/Index";
 import Footer from "../components/Footer/Footer";
-import TablaComponent from "../components/Tabla-Front/page";
+import TableComponent from "../components/Tabla-Front";
 
 const TablaBack = () => {
   return (
     <>
     <Header />
-    <TablaComponent />
+    <TableComponent />
     <Footer />
     </>
   );
 };
 
 export default TablaBack;
-

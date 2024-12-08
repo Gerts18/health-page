@@ -1,18 +1,18 @@
 import { NextResponse } from 'next/server';
-import { Pool } from 'pg';
+import { conn } from '@/libs/PostgDB';
 
 // Configuración de la base de datos
 // Aquí creamos un pool de conexiones a la base de datos Postgres.
 // El objeto pool nos permite realizar consultas a la base de datos sin 
 // tener que abrir y cerrar una conexión en cada operación.
-const pool = new Pool({
+/* const pool = new Pool({
   user: 'admin',
   host: 'dpg-csqq4vij1k6c73c10au0-a.oregon-postgres.render.com',
   database: 'healtpage',
   password: '1PZI32W2PRAoL2PAeaUuNROc2pIrQwgl',
   port: 5432,
   ssl: { rejectUnauthorized: false }, // Solo si tu base usa SSL, este parámetro desactiva la verificación del certificado.
-});
+}); */
 
 // Manejo de solicitudes POST
 export async function POST(req: Request) {
@@ -70,7 +70,7 @@ export async function POST(req: Request) {
 
     // Insertamos los datos en la tabla 'requests' utilizando una consulta parametrizada.
     // RETURNING * nos devuelve la fila insertada.
-    const result = await pool.query(
+    const result = await conn.query(
       `INSERT INTO requests (
         first_name, last_name, document_type, document_number, birth_date, age, 
         city_of_residence, residence_address, nationality, phone, email, 
@@ -115,7 +115,7 @@ export async function POST(req: Request) {
 export async function GET() {
   try {
     // Obtenemos todas las filas de la tabla 'requests', ordenadas por fecha de creación descendente
-    const result = await pool.query('SELECT * FROM requests ORDER BY created_at DESC');
+    const result = await conn.query('SELECT * FROM requests ORDER BY created_at DESC');
 
     // Formatear los datos para que coincidan con los nombres de columnas esperados
     const formattedRequests = result.rows.map((item) => ({

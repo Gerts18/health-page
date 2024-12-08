@@ -44,9 +44,10 @@ const ForgotArea = () => {
       } else {
         toast.error(result.message || "Error al identificar el correo.");
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error en la solicitud:", error);
-      toast.error(error.message || "Ocurrió un error en el servidor.");
+      const errorMessage = error instanceof Error ? error.message : "Ocurrió un error en el servidor.";
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }

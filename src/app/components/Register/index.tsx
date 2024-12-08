@@ -56,53 +56,67 @@ export default function RegistrationForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateField = (name: keyof FormData, value: any): string => {
+  const validateField = (name: keyof FormData, value: FormData[keyof FormData]): string => {
     let error = "";
 
     switch (name) {
       case "firstName":
-        if (!value.trim()) {
-          error = "El nombre es obligatorio";
-        } else if (value.trim().length < 3) {
-          error = "El nombre debe tener al menos 3 caracteres";
+        if (typeof value === 'string') {
+          if (!value.trim()) {
+            error = "El nombre es obligatorio";
+          } else if (value.trim().length < 3) {
+            error = "El nombre debe tener al menos 3 caracteres";
+          }
         }
         break;
       case "lastName":
-        if (!value.trim()) {
-          error = "Los apellidos son obligatorios";
-        } else if (value.trim().length < 3) {
-          error = "Los apellidos deben tener al menos 3 caracteres";
+        if (typeof value === 'string') {
+          if (!value.trim()) {
+            error = "Los apellidos son obligatorios";
+          } else if (value.trim().length < 3) {
+            error = "Los apellidos deben tener al menos 3 caracteres";
+          }
         }
         break;
       case "email":
-        if (!value.trim()) {
-          error = "El correo electrónico es obligatorio";
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-        ) {
-          error = "Por favor, ingresa un correo válido";
+        if (typeof value === 'string') {
+          if (!value.trim()) {
+            error = "El correo electrónico es obligatorio";
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+          ) {
+            error = "Por favor, ingresa un correo válido";
+          }
         }
         break;
       case "password":
-        if (!value) {
-          error = "La contraseña es obligatoria";
-        } else if (value.length < 6) {
-          error = "La contraseña debe tener al menos 6 caracteres";
+        if (typeof value === 'string') {
+          if (!value) {
+            error = "La contraseña es obligatoria";
+          } else if (value.length < 6) {
+            error = "La contraseña debe tener al menos 6 caracteres";
+          }
         }
         break;
       case "category":
-        if (!value) {
-          error = "Por favor, selecciona una categoría";
+        if (typeof value === 'string') {
+          if (!value) {
+            error = "Por favor, selecciona una categoría";
+          }
         }
         break;
       case "termsAccepted":
-        if (!value) {
-          error = "Debes aceptar los términos y condiciones";
+        if (typeof value === 'boolean') {
+          if (!value) {
+            error = "Debes aceptar los términos y condiciones";
+          }
         }
         break;
       case "professionalId":
-        if (formData.category === '2' && (!value.trim() || value.trim().length < 5)) {
-          error = "El ID de cédula profesional es obligatorio y debe tener al menos 5 caracteres";
+        if (typeof value === 'string') {
+          if (formData.category === '2' && (!value.trim() || value.trim().length < 5)) {
+            error = "El ID de cédula profesional es obligatorio y debe tener al menos 5 caracteres";
+          }
         }
         break;
       default:
@@ -127,7 +141,7 @@ export default function RegistrationForm() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    const fieldValue = type === 'checkbox' ? checked : value;
+    const fieldValue: FormData[keyof FormData] = type === 'checkbox' ? checked : value;
 
     setFormData((prev) => ({
       ...prev,
@@ -189,8 +203,7 @@ export default function RegistrationForm() {
 
           console.error('Error encontrado:', errorData);
 
-          //console.log(errorData['error'])
-
+          // Manejo de errores específico
           if (errorData['error'].includes('unique_professionalid_except_none')) {
             toast.error("La cédula profesional ya está registrada. Por favor, intenta con otra.");
           } else if (errorData['error'].includes('users_pkey')){
@@ -199,14 +212,13 @@ export default function RegistrationForm() {
             toast.error("Error al registrar. Por favor, intenta de nuevo.");
           }
 
-
         } else {
           toast.success("Registro exitoso!, redirigiendo ...");
           setTimeout(() => {
             router.push('/Login');
           }, 2000);
         }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error('Error:', error);
         toast.error("Ocurrió un error inesperado.");
       } finally {

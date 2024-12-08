@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const Awards = () => {
@@ -45,11 +46,7 @@ const awards =[
         {/* Tarjeta individual */}
         {awards.map((award, index) => (
           <div className="bg-white border border-gray-300 rounded-lg p-4 shadow-lg hover:shadow-xl transform hover:translate-y-[-5px] transition-all max-w-xs mx-auto" key={index}>
-            <img
-              src={award.icon}
-              alt="AACR logo"
-              className="w-full h-44 object-contain rounded mb-4"
-            />
+            <Image src={award.icon} alt="award" width={200} height={200} className="w-full h-44 object-contain rounded mb-4"/>
             <p className=" text-sm text-gray-500 mb-2">{award.title}</p>
             <a className="inline-block px-3 mx-1 py-1 bg-pink-500 text-white rounded-full text-sm mb-2 hover:bg-pink-600 transition" href={award.video}>Ver video</a>
             <a className="inline-block px-3 mx-1 py-1 bg-pink-500 text-white rounded-full text-sm mb-2 hover:bg-pink-600 transition" href={award.article}>Ver artículo</a>

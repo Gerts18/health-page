@@ -1,18 +1,13 @@
-import {Pool} from 'pg'
+import { Pool } from 'pg';
 
-let conn: any
+// Configuración de la conexión utilizando variables de entorno
+const conn = new Pool({
+  user: 'admin',
+  host: 'dpg-csqq4vij1k6c73c10au0-a.oregon-postgres.render.com',
+  database: 'healtpage',
+  password: '1PZI32W2PRAoL2PAeaUuNROc2pIrQwgl',
+  port: 5432,
+  ssl: { rejectUnauthorized: false },
+}); 
 
-if (!conn){
-    conn = new Pool({
-        user: 'admin',
-        password: '1PZI32W2PRAoL2PAeaUuNROc2pIrQwgl',
-        host: 'dpg-csqq4vij1k6c73c10au0-a.oregon-postgres.render.com',
-        port: 5432,
-        database: 'healtpage',
-        ssl: {
-            rejectUnauthorized: false
-        }
-    });
-}
-
-export {conn};
+export { conn };

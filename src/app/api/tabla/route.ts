@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Pool } from 'pg';
 
-const pool = new Pool({
+const conn = new Pool({
   user: 'admin',
   host: 'dpg-csqq4vij1k6c73c10au0-a.oregon-postgres.render.com',
   database: 'healtpage',
@@ -13,7 +13,7 @@ const pool = new Pool({
 export async function GET() {
   try {
     console.log('Intentando conectar a la base de datos...');
-    const client = await pool.connect();
+    const client = await conn.connect();
     console.log('Conexión exitosa');
 
     try {

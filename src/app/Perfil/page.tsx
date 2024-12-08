@@ -5,6 +5,8 @@ import Footer from "../components/Footer/Footer"
 import Header from "../components/Header/Index"
 import Image from "next/image";
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import doctorImage from './doctor.png'
 
 export default function PerfilPage() {
   const router = useRouter();
@@ -142,7 +144,7 @@ export default function PerfilPage() {
       });
 
       if (response.ok) {
-        const updatedData = await response.json();
+        //const updatedData = await response.json();
         showToast('Perfil actualizado exitosamente', 'success');
         // Forzamos la recarga de los datos
         window.location.reload();
@@ -225,7 +227,7 @@ export default function PerfilPage() {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-blue-50 flex flex-col"
+      className="min-h-screen bg-blue-50 flex flex-col mt-10"
     >
       <Header />
       
@@ -266,15 +268,15 @@ export default function PerfilPage() {
                 whileTap={{ scale: 0.9 }}
               >
                 <Image
-                  src="/assets/profile_doc.png"
+                  src={doctorImage}
                   alt="Doctor Profile"
                   width={128}
                   height={128}
-                  className="w-32 h-32 rounded-full mb-4 hover:ring-4 hover:ring-pink-300 transition-all duration-300"
+                  className="w-32 h-32 mb-4 hover:ring-4 hover:ring-pink-300 transition-all duration-300"
                 />
               </motion.div>
-              <p className="text-pink-500 font-bold">@User-Name</p>
-              <p className="text-sm text-gray-500">user@email.com</p>
+              {/* <p className="text-pink-500 font-bold">@User-Name</p>
+              <p className="text-sm text-gray-500">user@email.com</p> */}
             </motion.div>
 
             {/* Información del Doctor */}
@@ -294,20 +296,26 @@ export default function PerfilPage() {
 
             {/* Botones */}
             <div className="bg-white shadow-md rounded p-4 mt-6 flex flex-col gap-4">
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-600 transition-colors duration-300"
-              >
-                SOLICITUD DE ESTUDIO (Biología Molecular)
-              </motion.button>
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-800 transition-colors duration-300"
-              >
-                AGREGAR ARTÍCULO
-              </motion.button>
+              <Link href={'/RequestMedic'}>
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-600 transition-colors duration-300"
+                >
+                  SOLICITUD DE ESTUDIO (Biología Molecular)
+                </motion.button>
+              </Link>
+              <Link href={'/admin/news'} 
+              className="bg-blue-700 text-white py-2 rounded shadow hover:bg-blue-800 transition-colors duration-300 flex flex-row justify-center ">
+                <motion.button 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    
+                  >
+                    AGREGAR ARTÍCULO
+                  </motion.button>
+              </Link>
+              
             </div>
           </motion.aside>
           {/* Panel Derecho */}

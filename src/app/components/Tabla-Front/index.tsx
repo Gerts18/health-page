@@ -1,8 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
-import { EyeIcon, DownloadIcon } from '@heroicons/react/outline';
+import { EyeIcon } from '@heroicons/react/outline';
 import { useEffect, useState } from 'react';
-import PDFPage from '../paginasPDF/page';
+import PDFPage from '../paginasPDF';
 import { PDFViewer } from '@react-pdf/renderer';
 
 interface Request {

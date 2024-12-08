@@ -104,14 +104,14 @@ import { Pool } from 'pg';
 // Configuración de la base de datos
 // Aquí se crea un pool de conexiones a la base de datos Postgres.
 // Esto permite ejecutar consultas sin tener que abrir y cerrar conexiones constantemente.
-const pool = new Pool({
+const conn = new Pool({
   user: 'admin',
   host: 'dpg-csqq4vij1k6c73c10au0-a.oregon-postgres.render.com',
   database: 'healtpage',
   password: '1PZI32W2PRAoL2PAeaUuNROc2pIrQwgl',
   port: 5432,
   ssl: { rejectUnauthorized: false }, // Si la base usa SSL, esta opción deshabilita la verificación estricta del certificado.
-});
+}); 
 
 // Manejo de solicitudes POST
 // Esta función se ejecuta al recibir una petición POST a la ruta donde esté definido este handler.
@@ -157,7 +157,7 @@ export async function POST(req: Request) {
 
     // Ejecutamos la consulta para insertar los datos en la tabla 'requests'.
     // Utilizamos parámetros ($1, $2, ...) para prevenir inyecciones SQL.
-    const result = await pool.query(
+    const result = await conn.query(
       `INSERT INTO requests (
         fecha_nac, nombre, apellido, sexo, identificacion_doc, direccion, ciudad, telefono, correo_electronico,
         celular_contacto, institucion, tipo_prueba, orden_medica_especialista_doc, comprobante_pago_doc,

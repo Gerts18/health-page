@@ -5,6 +5,8 @@ import Footer from "../components/Footer/Footer"
 import Header from "../components/Header/Index";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import PatientIcon from './patient.png'
+import Link from "next/link";
 
 export default function PerfilPage() {
   const router = useRouter();
@@ -239,28 +241,30 @@ export default function PerfilPage() {
                 transition={{ duration: 1 }}
               >
                 <Image
-                  src="/assets/profile_pac.png"
+                  src={PatientIcon}
                   alt="Paciente Profile"
                   width={128}
                   height={128}
-                  className="w-32 h-32 rounded-full mb-4 border-4 border-pink-500 hover:border-blue-500 transition-colors duration-300"
+                  className="w-32 h-32 mb-4 hover:border-blue-500 transition-colors duration-300"
                 />
               </motion.div>
-              <p className="text-pink-500 font-bold hover:text-blue-500 transition-colors duration-300">@User-Name</p>
-              <p className="text-sm text-gray-500">user@email.com</p>
+              {/* <p className="text-pink-500 font-bold hover:text-blue-500 transition-colors duration-300">@User-Name</p>
+              <p className="text-sm text-gray-500">user@email.com</p> */}
             </motion.div>
             {/* Botones con efectos hover */}
             <motion.div 
               className="bg-white shadow-md rounded p-4 mt-6 flex flex-col gap-4"
               whileHover={{ scale: 1.01 }}
             >
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-800 transition-all duration-300"
-              >
-                SOLICITUD DE ESTUDIO <br></br>(Biología Molecular)
-              </motion.button>
+             <Link href={'/RequestMedic'}>
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-600 transition-colors duration-300"
+                >
+                  SOLICITUD DE ESTUDIO (Biología Molecular)
+                </motion.button>
+              </Link>
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

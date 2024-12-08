@@ -6,7 +6,7 @@ import{
     StyleSheet,
     Image
 } from '@react-pdf/renderer'
-import { StyleRegistry } from 'styled-jsx';
+
 
 // Añadir interfaz para props
 interface PDFPageProps {
