@@ -1,19 +1,20 @@
 import { NextResponse } from 'next/server';
-import { Pool } from 'pg';
+//import { Pool } from 'pg';
+import { conn } from '@/libs/PostgDB';
 
-const pool = new Pool({
+/* const pool = new Pool({
   user: 'admin',
   host: 'dpg-csqq4vij1k6c73c10au0-a.oregon-postgres.render.com',
   database: 'healtpage',
   password: '1PZI32W2PRAoL2PAeaUuNROc2pIrQwgl',
   port: 5432,
   ssl: { rejectUnauthorized: false },
-});
+}); */
 
 export async function GET() {
   try {
     console.log('Intentando conectar a la base de datos...');
-    const client = await pool.connect();
+    const client = await conn.connect();
     console.log('Conexión exitosa');
 
     try {

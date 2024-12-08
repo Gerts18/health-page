@@ -3,10 +3,11 @@ import{
     Page,
     Text,
     View,
-    StyleSheet,
-    Image
+    StyleSheet
 } from '@react-pdf/renderer'
-import { StyleRegistry } from 'styled-jsx';
+
+import Image from 'next/image';
+
 
 // Añadir interfaz para props
 interface PDFPageProps {
@@ -588,6 +589,7 @@ function PDFPage({ data }: PDFPageProps) {
           <Image 
             src="../assets/logo.png"
             style={styles.logoImage}
+            alt=''
           />
         </View>
 

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const specialists = [
@@ -35,11 +36,7 @@ const Specialists = () => {
       <div className="flex flex-wrap gap-6 justify-center">
         {specialists.map((specialist, index) => (
           <div className="text-center transition-transform transform hover:-translate-y-2" key={index}>
-            <img
-              src={specialist.image}
-              alt={specialist.name}
-              className="w-full max-w-xs mx-auto rounded-xl"
-            />
+            <Image src={specialist.image} alt={specialist.name} width={200} height={200} className="w-full h-44 object-contain rounded mb-4"/>
             <h3 className="text-lg font-bold text-gray-800 mt-3">{specialist.name}</h3>
             <p className="text-blue-500 text-base mt-1">{specialist.specialty}</p>
           </div>

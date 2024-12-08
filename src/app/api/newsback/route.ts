@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
-import { Pool } from 'pg';
+import { conn } from '@/libs/PostgDB';
 
 // Configuración de la base de datos
-const pool = new Pool({
+/* const pool = new Pool({
   user: 'admin',
   host: 'dpg-csqq4vij1k6c73c10au0-a.oregon-postgres.render.com',
   database: 'healtpage',
   password: '1PZI32W2PRAoL2PAeaUuNROc2pIrQwgl',
   port: 5432,
   ssl: { rejectUnauthorized: false }, // Solo si tu base usa SSL
-});
+}); */
 
 // Manejo de POST
 export async function POST(req: Request) {
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const result = await pool.query(
+    const result = await conn.query(
       'INSERT INTO news (titulo, contenido, imagen, link) VALUES ($1, $2, $3, $4) RETURNING *',
       [titulo, contenido, imagen, link]
     );
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
 // Manejo de GET
 export async function GET() {
     try {
-      const result = await pool.query('SELECT * FROM news ORDER BY fecha DESC');
+      const result = await conn.query('SELECT * FROM news ORDER BY fecha DESC');
   
       // Mapear los datos de la base de datos al formato esperado por el frontend
       const formattedNews = result.rows.map((item) => ({

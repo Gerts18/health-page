@@ -1,4 +1,5 @@
 
+import Image from 'next/image';
 import React from 'react';
 
 const Specialties = () => {
@@ -33,7 +34,7 @@ const Specialties = () => {
         {specialties.map((specialty, index) => (
           <div className="bg-white border border-gray-100 rounded-lg shadow-lg w-72 p-6 text-left transition-transform transform hover:translate-y-1 hover:shadow-xl" key={index}>
             <div className="bg-[#F58DAD] p-4 rounded-t-lg flex justify-center items-center mb-4">
-              <img src={specialty.icon} alt={specialty.title} className="h-12 w-12" />
+              <Image src={specialty.icon} alt={specialty.title} width={50} height={50}/>
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-3">{specialty.title}</h3>
             <p className="text-gray-600 text-sm mb-4">{specialty.description}</p>
