@@ -3,16 +3,16 @@
 import Footer from '@/app/components/Footer/Footer'
 import Header from '@/app/components/Header/Index'
 import { StrictMode } from "react"
-import LoginArea from "@/app/components/Login"
+import ForgotArea from "@/app/components/Forgot"
 
-const LoginPage = () => {
+const ForgotPage = () => {
   return (
         <StrictMode>
         <Header />
-        <LoginArea />
+        <ForgotArea />
         <Footer />
         </StrictMode>
   )
 }
 
-export default LoginPage
+export default ForgotPage

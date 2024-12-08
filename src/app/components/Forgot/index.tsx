@@ -5,19 +5,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import './index.css';
+import '../Login/index.css';
 
 interface FormData {
   email: string;
-  password: string;
 }
 
 const schema = yup.object({
   email: yup.string().required("El correo electrónico es obligatorio").email("Debe ser un correo electrónico válido"),
-  password: yup.string().required("La contraseña es obligatoria").min(6, "La contraseña debe tener al menos 6 caracteres"),
 }).required();
 
-const LoginArea = () => {
+const ForgotArea = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
@@ -27,7 +25,7 @@ const LoginArea = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch('/api/backlogin', {
+      const response = await fetch('/api/forgotten', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,15 +36,15 @@ const LoginArea = () => {
       const result = await response.json();
 
       if (result.success) {
-        toast.success("¡Inicio de sesión exitoso!");
+        toast.success("¡Correo identificado de forma exitosa!");
         reset();
         setTimeout(() => {
-          window.location.href = result.data.redirectUrl;
+          window.location.href = "/recover";
         }, 2000);
       } else {
-        toast.error(result.message || "Error al iniciar sesión.");
+        toast.error(result.message || "Error al identificar el correo.");
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error("Error en la solicitud:", error);
       toast.error(error.message || "Ocurrió un error en el servidor.");
     } finally {
@@ -57,8 +55,8 @@ const LoginArea = () => {
   return (
     <div className="min-h-screen flex items-center justify-center" id='fondo'>
       <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h3 className="text-2xl font-bold text-gray-700 mb-2 text-center">INICIAR SESIÓN</h3>
-        <p className="text-gray-500 text-center mb-4">Inicie sesión con los datos de su cuenta</p>
+        <h3 className="text-2xl font-bold text-gray-700 mb-2 text-center">RECUPERAR CONTRASEÑA</h3>
+        <p className="text-gray-500 text-center mb-4">Ingrese el correo electrónico de su cuenta</p>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Campo Email */}
           <div className="mb-4">
@@ -73,36 +71,13 @@ const LoginArea = () => {
             <p className="text-red-500 text-sm">{errors.email?.message}</p>
           </div>
 
-          {/* Campo Password */}
-          <div className="mb-4">
-            <input
-              id="password"
-              type="password"
-              {...register("password")}
-              placeholder="Contraseña"
-              disabled={isSubmitting}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <p className="text-red-500 text-sm">{errors.password?.message}</p>
-          </div>
-
-          {/* Enlace a recuperación de contraseña */}
-          <div className="flex items-center justify-between mb-6">
-            <a
-              href="/forgot"
-              className="text-blue-500 hover:underline text-sm"
-            >
-              He olvidado mi contraseña
-            </a>
-          </div>
-
           {/* Botón de envío */}
           <button
             className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
             type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Iniciando..." : "Iniciar"}
+            {isSubmitting ? "Identificando..." : "Aceptar"}
           </button>
         </form>
         <ToastContainer />
@@ -111,4 +86,4 @@ const LoginArea = () => {
   );
 };
 
-export default LoginArea;
+export default ForgotArea;
