@@ -67,7 +67,12 @@ const Header: React.FC = () => {
       // Si se logra cerrar sesión correctamente, se limpia la info del usuario y se redirige al inicio
       if (result.success) {
         setUserData(null);
-        router.push('/');
+        
+        if (window.location.pathname === '/') {
+          window.location.reload();
+        } else {
+          router.push('/');
+        }
       }
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
