@@ -51,7 +51,7 @@ export default function PerfilPage() {
         const responseData = await response.json();
         
         if (responseData.success && responseData.data) {
-          if (responseData.data.category !== 1) {
+          if (responseData.data.category == 2) {
             router.push('/Perfil');
             return;
           }
@@ -249,7 +249,6 @@ export default function PerfilPage() {
               <p className="text-pink-500 font-bold hover:text-blue-500 transition-colors duration-300">@User-Name</p>
               <p className="text-sm text-gray-500">user@email.com</p>
             </motion.div>
-
             {/* Botones con efectos hover */}
             <motion.div 
               className="bg-white shadow-md rounded p-4 mt-6 flex flex-col gap-4"

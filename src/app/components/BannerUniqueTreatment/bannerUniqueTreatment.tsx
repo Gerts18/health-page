@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const BannerUniqueTreatment: React.FC = () => {
@@ -29,9 +30,11 @@ const BannerUniqueTreatment: React.FC = () => {
           La medicina de precisión es el camino del futuro en el cuidado de la salud.
           Descubre más sobre este emocionante enfoque visitando nuestro canal de YouTube.
         </p>
-        <button className="px-6 py-3 w-48 bg-[#EB356E] text-white rounded-3xl font-semibold hover:bg-pink-600 transition">
-          Saber más
-        </button>
+        <Link href='/about' >
+          <button className="px-6 py-3 w-48 bg-[#EB356E] text-white rounded-3xl font-semibold hover:bg-pink-600 transition">
+            Saber más
+          </button>
+        </Link>
       </div>
     </div>
   );

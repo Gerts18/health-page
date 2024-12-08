@@ -1,12 +1,17 @@
 "use client";
 
+/**
+ * Este componente representa la página de Noticias, donde se listan noticias obtenidas desde un endpoint.
+ * Muestra una noticia destacada, un listado filtrable de noticias, y además integra un sidebar izquierdo y derecho.
+ * También, si el usuario tiene un professionalId, muestra un botón para registrar nuevas noticias.
+ */
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Header from "../components/Header/Index";
 import Footer from "../components/Footer/Footer";
 import NewsCard from "../components/News Card/";
 import { useRouter } from "next/navigation";
-import cookie from "cookie";
 
 interface NewsItem {
   id: number;
@@ -18,22 +23,35 @@ interface NewsItem {
 }
 
 export default function NoticiasPage() {
-  const [activeFilter, setActiveFilter] = useState<string>(""); // Filtro inicial vacío para mostrar todas las noticias
+  // activeFilter: string que indica cuál filtro está activo. Si está vacío, se muestran todas las noticias.
+  const [activeFilter, setActiveFilter] = useState<string>("");
+  
+  // news: array de noticias obtenidas del servidor.
   const [news, setNews] = useState<NewsItem[]>([]);
+  
+  // loading: estado para controlar si se está cargando la data.
   const [loading, setLoading] = useState(true);
+  
+  // professionalId: almacena el ID profesional del usuario autenticado (si aplica).
   const [professionalId, setProfessionalId] = useState<string | null>(null);
+  
+  // router: Hook de Next.js para navegación.
   const router = useRouter();
 
+  // Efecto para obtener datos del usuario y luego noticias al montar el componente.
   useEffect(() => {
     async function fetchUserData() {
       try {
         const response = await fetch("/api/auth");
         const responseData = await response.json();
+
         if (responseData.success && responseData.data) {
-          console.log("User data from server response:", responseData.data); // Debugging: Verificar los datos del usuario obtenidos del servidor
+          console.log("User data from server response:", responseData.data);
+          
+          // Si el usuario tiene un professionalid, lo guardamos en el estado.
           if (responseData.data.professionalid && responseData.data.professionalid !== null) {
             setProfessionalId(responseData.data.professionalid);
-            console.log("Professional ID set to:", responseData.data.professionalid); // Debugging: Verificar si se está estableciendo el professionalId
+            console.log("Professional ID set to:", responseData.data.professionalid);
           }
         } else {
           console.warn("No user data available or response not successful.");
@@ -45,8 +63,11 @@ export default function NoticiasPage() {
 
     async function fetchNews() {
       try {
+        // Obtenemos las noticias desde el endpoint /api/newsback
         const response = await fetch("/api/newsback");
         const data = await response.json();
+        
+        // Guardamos las noticias en el estado y quitamos el estado de carga
         setNews(data);
         setLoading(false);
       } catch (error) {
@@ -59,19 +80,24 @@ export default function NoticiasPage() {
     fetchNews();
   }, []);
 
-  // Filtrar las noticias según el botón activo
+  /**
+   * Filtramos las noticias según el filtro activo.
+   * Si activeFilter está vacío, se muestran todas las noticias.
+   * Si tiene un valor, se filtran las noticias por su ID (adaptando el formato del filtro).
+   */
   const filteredNews = activeFilter
     ? news.filter(
         (item) =>
-          item.id.toString() === activeFilter.replace("#Noticia", "") // Filtra según el ID si hay un filtro
+          item.id.toString() === activeFilter.replace("#Noticia", "")
       )
-    : news; // Si el filtro está vacío, muestra todas las noticias
+    : news;
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      {/* Header de la página */}
       <Header />
 
-      {/* Banner */}
+      {/* Banner Principal */}
       <div className="relative h-[600px] mb-8 w-full overflow-hidden">
         <Image
           src="/assets/NoticiasBanner.jpeg"
@@ -88,7 +114,7 @@ export default function NoticiasPage() {
 
       <main className="flex-1 container mx-auto px-4 py-8 mt-[76px]">
         <div className="grid grid-cols-12 gap-8">
-          {/* Sidebar Izquierdo */}
+          {/* Sidebar Izquierdo: Muestra las primeras 5 noticias como "Lo de hoy" */}
           <div className="col-span-3 border-r pr-6">
             <div className="sticky top-24">
               <h2 className="font-bold text-xl mb-4">Lo de hoy</h2>
@@ -109,7 +135,7 @@ export default function NoticiasPage() {
 
           {/* Contenido Principal */}
           <div className="col-span-6">
-            {/* Featured Article */}
+            {/* Noticia destacada: se muestra la primera noticia si existe y no se está cargando */}
             {!loading && news.length > 0 && (
               <article className="mb-8">
                 <div className="relative h-[300px] mb-4">
@@ -126,7 +152,7 @@ export default function NoticiasPage() {
               </article>
             )}
 
-            {/* Botones de Filtro */}
+            {/* Botones de Filtro: permiten filtrar noticias por ID específico */}
             <div className="flex gap-4 mb-6">
               {/* Botón para mostrar todas las noticias */}
               <button
@@ -137,7 +163,7 @@ export default function NoticiasPage() {
               >
                 Todas las Noticias
               </button>
-              {/* Otros botones de filtro */}
+              {/* Botones de filtro estáticos: #Noticia2, #Noticia3 */}
               {["#Noticia2", "#Noticia3"].map((filter) => (
                 <button
                   key={filter}
@@ -151,7 +177,7 @@ export default function NoticiasPage() {
               ))}
             </div>
 
-            {/* Grid de Noticias Filtradas */}
+            {/* Grid de Noticias Filtradas: si estamos cargando muestra "Cargando...", de lo contrario muestra las noticias */}
             {loading ? (
               <p>Cargando noticias...</p>
             ) : (
@@ -170,7 +196,7 @@ export default function NoticiasPage() {
             )}
           </div>
 
-          {/* Sidebar Derecho */}
+          {/* Sidebar Derecho: Muestra publicidad (imagen estática) */}
           <div className="col-span-3">
             <div className="sticky top-24">
               <p className="text-sm text-gray-500 mb-4">Patrocinado</p>
@@ -187,8 +213,8 @@ export default function NoticiasPage() {
         </div>
       </main>
 
-      {/* Botón para Registrar Noticias - Mover debajo del Footer */}
-      {professionalId && (
+      {/* Si el usuario tiene un professionalId, se muestra el botón para registrar nuevas noticias */}
+      {professionalId != 'none' && professionalId !=undefined && (
         <div className="flex justify-center items-center px-4 py-8">
           <button
             onClick={() => router.push("/admin/news")}
@@ -199,6 +225,7 @@ export default function NoticiasPage() {
         </div>
       )}
 
+      {/* Footer de la página */}
       <Footer />
     </div>
   );

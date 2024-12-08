@@ -2,21 +2,25 @@ import { NextResponse } from 'next/server';
 import { Pool } from 'pg';
 
 // Configuración de la base de datos
+// Aquí creamos un pool de conexiones a la base de datos Postgres.
+// El objeto pool nos permite realizar consultas a la base de datos sin 
+// tener que abrir y cerrar una conexión en cada operación.
 const pool = new Pool({
   user: 'admin',
   host: 'dpg-csqq4vij1k6c73c10au0-a.oregon-postgres.render.com',
   database: 'healtpage',
   password: '1PZI32W2PRAoL2PAeaUuNROc2pIrQwgl',
   port: 5432,
-  ssl: { rejectUnauthorized: false }, // Solo si tu base usa SSL
+  ssl: { rejectUnauthorized: false }, // Solo si tu base usa SSL, este parámetro desactiva la verificación del certificado.
 });
 
-// Manejo de POST
+// Manejo de solicitudes POST
 export async function POST(req: Request) {
   try {
+    // Obtenemos el cuerpo de la solicitud en formato JSON
     const body = await req.json();
 
-    // Extraer los datos del formulario del cuerpo de la solicitud
+    // Extraemos los datos enviados en el formulario
     const {
       first_name,
       last_name,
@@ -37,7 +41,8 @@ export async function POST(req: Request) {
       privacy_policy,
     } = body;
 
-    // Validar que todos los campos obligatorios estén presentes
+    // Validamos que todos los campos obligatorios estén presentes.
+    // Si falta alguno, se devuelve un error 400.
     if (
       !first_name ||
       !last_name ||
@@ -63,7 +68,8 @@ export async function POST(req: Request) {
       );
     }
 
-    // Insertar los datos en la tabla `requests`
+    // Insertamos los datos en la tabla 'requests' utilizando una consulta parametrizada.
+    // RETURNING * nos devuelve la fila insertada.
     const result = await pool.query(
       `INSERT INTO requests (
         first_name, last_name, document_type, document_number, birth_date, age, 
@@ -93,9 +99,10 @@ export async function POST(req: Request) {
       ]
     );
 
-    // Devolver la fila insertada como respuesta
+    // Devolvemos la fila insertada como respuesta JSON con estado 201 (creado)
     return NextResponse.json(result.rows[0], { status: 201 });
   } catch (error) {
+    // Si ocurre un error durante el proceso (insertar en la BD, etc.), lo registramos y devolvemos un error 500.
     console.error('Error al guardar la solicitud:', error);
     return NextResponse.json(
       { message: 'Error al guardar la solicitud' },
@@ -104,9 +111,10 @@ export async function POST(req: Request) {
   }
 }
 
-// Manejo de GET (opcional, para recuperar solicitudes)
+// Manejo de solicitudes GET (opcional, para recuperar todas las solicitudes)
 export async function GET() {
   try {
+    // Obtenemos todas las filas de la tabla 'requests', ordenadas por fecha de creación descendente
     const result = await pool.query('SELECT * FROM requests ORDER BY created_at DESC');
 
     // Formatear los datos para que coincidan con los nombres de columnas esperados
@@ -132,8 +140,10 @@ export async function GET() {
       created_at: item.created_at,
     }));
 
+    // Devolvemos las solicitudes como respuesta JSON
     return NextResponse.json(formattedRequests, { status: 200 });
   } catch (error) {
+    // Si ocurre un error al obtener las solicitudes, lo registramos y devolvemos un error 500.
     console.error('Error al obtener solicitudes:', error);
     return NextResponse.json(
       { message: 'Error al obtener solicitudes' },

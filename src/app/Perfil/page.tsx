@@ -52,7 +52,7 @@ export default function PerfilPage() {
         
         if (responseData.success && responseData.data) {
           // Verificar la categoría del usuario
-          if (responseData.data.category !== 2) {
+          if (responseData.data.category == 1 || responseData.data.category == 3) {
             // Si no es un doctor, redirigir a la página correspondiente
             router.push('/Perfilpa');
             return;
@@ -310,7 +310,6 @@ export default function PerfilPage() {
               </motion.button>
             </div>
           </motion.aside>
-
           {/* Panel Derecho */}
           <motion.section 
             initial={{ x: 20, opacity: 0 }}
