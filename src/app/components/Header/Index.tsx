@@ -58,26 +58,27 @@ const Header: React.FC = () => {
   // handleLogout: Función para cerrar sesión del usuario
   const handleLogout = async () => {
     try {
-      const response = await fetch('/api/auth', {
-        method: 'POST',
-        credentials: 'include',
-      });
-      const result = await response.json();
+        const response = await fetch('/api/auth', {
+            method: 'POST',
+            credentials: 'include', // Asegura que las cookies se envíen con la solicitud
+        });
+        const result = await response.json();
 
-      // Si se logra cerrar sesión correctamente, se limpia la info del usuario y se redirige al inicio
-      if (result.success) {
-        setUserData(null);
-        
-        if (window.location.pathname === '/') {
-          window.location.reload();
+        if (result.success) {
+            setUserData(null);
+            
+            if (window.location.pathname === '/') {
+                window.location.reload();
+            } else {
+                router.push('/');
+            }
         } else {
-          router.push('/');
+            console.error('Error al cerrar sesión:', result.message);
         }
-      }
     } catch (error) {
-      console.error('Error al cerrar sesión:', error);
+        console.error('Error al cerrar sesión:', error);
     }
-  };
+};
 
   // toggleMenu: Alterna la visibilidad del menú "Nosotros"
   const toggleMenu = () => {

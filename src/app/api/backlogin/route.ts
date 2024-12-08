@@ -3,6 +3,8 @@ import { NextResponse, NextRequest } from "next/server"; // Manejo de solicitude
 import { conn } from '@/libs/PostgDB'; // Conexión a la base de datos PostgreSQL
 import jwt from 'jsonwebtoken'; // Librería para crear y verificar tokens JWT
 
+const JWT_SECRET = process.env.JWT_SECRET || ''; 
+
 // Iniciar sesión y carga los datos de los usuarios en las cookies
 export async function POST(request: NextRequest) {
   try {
@@ -65,7 +67,7 @@ export async function POST(request: NextRequest) {
       last_names: user['last_names'], //Aqui se coloca el apellido del usuario
       category: user['category'], // Agregar la categoría al token
       professionalid: user['professionalid'] //Is del usuario si es un profesional, vacio si es otro tipo de usuario
-    }, 'secretkey')
+    }, JWT_SECRET)
 
     // Crear la respuesta exitosa en formato JSON
     const response = NextResponse.json(
