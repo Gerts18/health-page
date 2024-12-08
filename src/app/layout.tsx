@@ -26,12 +26,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Favicon */}
+        <link rel="icon" href="/Logo-Rosa.png" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Provider>
-          {children}
-        </Provider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
