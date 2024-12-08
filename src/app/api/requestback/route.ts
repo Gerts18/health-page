@@ -117,7 +117,7 @@ export async function GET() {
     // Obtenemos todas las filas de la tabla 'requests', ordenadas por fecha de creación descendente
     const result = await pool.query('SELECT * FROM requests ORDER BY created_at DESC');
 
-    // Formateamos el resultado antes de devolverlo, creando un objeto con nombres de campo amigables.
+    // Formatear los datos para que coincidan con los nombres de columnas esperados
     const formattedRequests = result.rows.map((item) => ({
       id: item.id,
       first_name: item.first_name,
