@@ -187,7 +187,7 @@ const Header: React.FC = () => {
                 </li>
                 <li>
                   <Link
-                    href="/TablaBack"
+                    href="/Tabla"
                     className="block px-4 py-2 hover:bg-pink-100"
                     onClick={() => setIsProfileMenuOpen(false)}
                   >
