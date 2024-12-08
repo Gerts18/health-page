@@ -1,11 +1,15 @@
 'use client'
 
+import Footer from "../components/Footer/Footer"
+import Header from "../components/Header/Index"
 import Register from "../components/Register"
 
 const RegisterPage = () => {
   return (
-    <main>
-        <Register />
+    <main className="min-h-screen flex flex-col bg-white">
+      <Header />
+      <Register />
+      <Footer />
     </main>
   )
 }
