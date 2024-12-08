@@ -51,7 +51,7 @@ export default function PerfilPage() {
         const responseData = await response.json();
         
         if (responseData.success && responseData.data) {
-          if (responseData.data.category !== 1) {
+          if (responseData.data.category == 2) {
             router.push('/Perfil');
             return;
           }
@@ -258,6 +258,7 @@ export default function PerfilPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-blue-500 text-white py-2 rounded shadow hover:bg-blue-800 transition-all duration-300"
+              onClick={() => window.location.href = 'http://localhost:3000/RequestMedic'}
             >
               SOLICITUD DE ESTUDIO <br></br>(Biología Molecular)
             </motion.button>

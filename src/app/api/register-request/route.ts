@@ -134,7 +134,7 @@ export async function POST(req: Request) {
     const orden_medica_especialista_doc = formData.get('orden_medica_especialista_doc');
     const comprobante_pago_doc = formData.get('comprobante_pago_doc');
     const resumen_historia_med_doc = formData.get('resumen_historia_med_doc');
-    const professionalid = formData.get('cedula') || null; // Si no hay 'cedula', se guarda null.
+    const professionalid = formData.get('cedula') || 'none'; // Si no hay 'cedula', se guarda null.
     const nombre = formData.get('name');
     const apellido = formData.get('lastName');
     const correo_electronico = formData.get('email');

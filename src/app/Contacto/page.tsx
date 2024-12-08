@@ -3,7 +3,6 @@
 import Header from '../components/Header/Index';
 import Footer from '../components/Footer/Footer';
 import Image from "next/image"
-import { useState } from "react"
 import { motion, HTMLMotionProps } from "framer-motion"
 
 // Type definitions
@@ -19,25 +18,11 @@ type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>
 
 type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement>
 
-type SelectTriggerProps = React.HTMLAttributes<HTMLDivElement>
 
-type SelectValueProps = {
-  children?: React.ReactNode
-  placeholder?: string
-}
-
-type SelectContentProps = {
-  children: React.ReactNode
-}
-
-type SelectItemProps = {
-  children: React.ReactNode
-  value: string
-}
 
 export default function ContactPage() {
   // Inline component definitions
-  const Button = ({ children, className, variant, ...props }: ButtonProps) => (
+  const Button = ({ children, className, ...props }: ButtonProps) => (
     <motion.button 
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
@@ -82,27 +67,7 @@ export default function ContactPage() {
     </select>
   )
 
-  const SelectTrigger = ({ children, className, ...props }: SelectTriggerProps) => (
-    <div className={`relative ${className}`} {...props}>
-      {children}
-    </div>
-  )
 
-  const SelectValue = ({ children, placeholder }: SelectValueProps) => (
-    <span>{children || placeholder}</span>
-  )
-
-  const SelectContent = ({ children }: SelectContentProps) => (
-    <div className="absolute top-full left-0 w-full bg-white shadow-lg rounded-b-md">
-      {children}
-    </div>
-  )
-
-  const SelectItem = ({ children, value }: SelectItemProps) => (
-    <option value={value}>{children}</option>
-  )
-
-  const [selectOpen, setSelectOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-white pt-[64px]">

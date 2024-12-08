@@ -115,7 +115,6 @@ export async function PUT(request: NextRequest) {
 
     let query;
     let values;
-    let responseDB;
 
     // Actualización de nombre y apellido
     if (updateType === 'personalInfo' && firstName && lastName) {
@@ -151,7 +150,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    responseDB = await conn.query(query, values);
+    const responseDB = await conn.query(query, values);
 
     if (responseDB.rowCount === 0) {
       return NextResponse.json(
