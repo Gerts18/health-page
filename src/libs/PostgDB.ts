@@ -2,14 +2,12 @@ import { Pool } from 'pg';
 
 // Configuración de la conexión utilizando variables de entorno
 const conn = new Pool({
-  user: process.env.DB_USER as string,
-  password: process.env.DB_PASSWORD as string,
-  host: process.env.DB_HOST as string,
-  port: Number(process.env.DB_PORT),
-  database: process.env.DB_DATABASE as string,
-  ssl: {
-    rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED === 'true'
-  }
+  user: 'admin',
+  host: 'dpg-csqq4vij1k6c73c10au0-a.oregon-postgres.render.com',
+  database: 'healtpage',
+  password: '1PZI32W2PRAoL2PAeaUuNROc2pIrQwgl',
+  port: 5432,
+  ssl: { rejectUnauthorized: false },
 }); 
 
 export { conn };
