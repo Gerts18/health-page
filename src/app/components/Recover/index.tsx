@@ -46,9 +46,9 @@ const RecoverArea = () => {
       } else {
         toast.error(result.message || "Error al cambiar la contraseña.");
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error en la solicitud:", error);
-      toast.error(error.message || "Ocurrió un error en el servidor.");
+     // toast.error(error.message || "Ocurrió un error en el servidor.");
     } finally {
       setIsSubmitting(false);
     }
