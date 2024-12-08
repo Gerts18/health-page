@@ -187,7 +187,7 @@ function ServiceModal({ service, isOpen, onClose }: {
                 <div className="space-y-4">
                   {service.testimonios.map((testimonio, index) => (
                     <div key={index} className="bg-gray-50 p-4 rounded-lg">
-                      <p className="text-gray-600 italic">"{testimonio.texto}"</p>
+                      <p className="text-gray-600 italic">&quot;{testimonio.texto}&quot;</p>
                       <p className="text-gray-500 mt-2">- {testimonio.autor}</p>
                     </div>
                   ))}
