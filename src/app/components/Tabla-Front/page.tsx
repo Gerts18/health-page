@@ -166,10 +166,6 @@ export default function TableComponent() {
                         <EyeIcon className="h-5 w-5 mr-1" />
                         Ver
                       </button>
-                      <button className="text-red-500 hover:underline flex items-center">
-                        <DownloadIcon className="h-5 w-5 mr-1" />
-                        Descargar
-                      </button>
                     </div>
                   </td>
                 </motion.tr>
