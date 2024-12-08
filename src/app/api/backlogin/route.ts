@@ -3,7 +3,7 @@ import { NextResponse, NextRequest } from "next/server"; // Manejo de solicitude
 import { conn } from '@/libs/PostgDB'; // Conexión a la base de datos PostgreSQL
 import jwt from 'jsonwebtoken'; // Librería para crear y verificar tokens JWT
 
-const JWT_SECRET = process.env.JWT_SECRET || ''; 
+const JWT_SECRET = process.env.JWT_SECRET || 'secretkey'; 
 
 // Iniciar sesión y carga los datos de los usuarios en las cookies
 export async function POST(request: NextRequest) {
@@ -61,12 +61,12 @@ export async function POST(request: NextRequest) {
 
     //Genera el token unico
     const token = jwt.sign({
-      exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24), // Tiempo de expiracion de token, 1 hora de duración
+      exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24), // Tiempo de expiracion de token, 24 horas de duración
       name: user['first_name'], //Aqui se coloca el nombre del usuario
       email: user['email'], //Aqui se coloca el email del usuario
       last_names: user['last_names'], //Aqui se coloca el apellido del usuario
       category: user['category'], // Agregar la categoría al token
-      professionalid: user['professionalid'] //Is del usuario si es un profesional, vacio si es otro tipo de usuario
+      professionalid: user['professionalid'] || 'none' //Is del usuario si es un profesional, vacio si es otro tipo de usuario
     }, JWT_SECRET)
 
     // Crear la respuesta exitosa en formato JSON
@@ -92,6 +92,7 @@ export async function POST(request: NextRequest) {
       sameSite: 'strict', // Restringe el envío de la cookie a solicitudes del mismo sitio
       maxAge: 60 * 60 * 24, // Duración de la cookie (24 horas)
       path: '/', // Aplica la cookie a toda la aplicación
+      secure: process.env.NODE_ENV === 'production'
     });
 
     // Retornar la respuesta al cliente
