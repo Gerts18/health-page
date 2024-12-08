@@ -317,7 +317,7 @@ export default function PerfilPage() {
                   onChange={handleInputChange}
                 />
               </div>
-              <div>
+              {/* <div>
                 <label className="text-sm text-gray-500">Celular:</label>
                 <input
                   type="text"
@@ -327,7 +327,7 @@ export default function PerfilPage() {
                   name="celular"
                   onChange={handleInputChange}
                 />
-              </div>
+              </div> */}
             </div>
             <motion.button
               whileHover={{ scale: 1.05 }}
