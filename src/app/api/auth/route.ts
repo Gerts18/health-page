@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { verify } from 'jsonwebtoken';
-import cookie from 'cookie';
+import {serialize } from 'cookie';
+
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secretkey'; 
 
@@ -79,7 +80,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const serializedCookie = cookie.serialize('token', '', {
+        const serializedCookie = serialize('token', '', {
             httpOnly: true,
             sameSite: 'strict',
             maxAge: 0,
