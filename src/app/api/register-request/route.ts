@@ -99,19 +99,19 @@
 //   }
 // }
 import { NextResponse } from 'next/server';
-import { conn } from '@/libs/PostgDB';
+import { Pool } from 'pg';
 
 // Configuración de la base de datos
 // Aquí se crea un pool de conexiones a la base de datos Postgres.
 // Esto permite ejecutar consultas sin tener que abrir y cerrar conexiones constantemente.
-/* const pool = new Pool({
+const conn = new Pool({
   user: 'admin',
   host: 'dpg-csqq4vij1k6c73c10au0-a.oregon-postgres.render.com',
   database: 'healtpage',
   password: '1PZI32W2PRAoL2PAeaUuNROc2pIrQwgl',
   port: 5432,
   ssl: { rejectUnauthorized: false }, // Si la base usa SSL, esta opción deshabilita la verificación estricta del certificado.
-}); */
+}); 
 
 // Manejo de solicitudes POST
 // Esta función se ejecuta al recibir una petición POST a la ruta donde esté definido este handler.
