@@ -6,6 +6,7 @@ import{
     StyleSheet,
     Image
 } from '@react-pdf/renderer'
+import { StyleRegistry } from 'styled-jsx';
 
 // Añadir interfaz para props
 interface PDFPageProps {
@@ -376,15 +377,202 @@ function PDFPage({ data }: PDFPageProps) {
                 <Text style={styles.tableCell}>5-15%</Text>
                 <Text style={styles.tableCell}>Dentro del rango normal.</Text>
               </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>Células tumorales</Text>
+                <Text style={styles.tableCell}>EpCAM+</Text>
+                <Text style={styles.tableCell}>3% de la población</Text>
+                <Text style={styles.tableCell}>No detectable</Text>
+                <Text style={styles.tableCell}>Sugiere posible diseminación de células tumorales circulantes.</Text>
+              </View>
               {/* Más variantes genéticas aquí */}
             </View>
 
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Interpretación de los Resultados</Text>
-              <Text style={styles.interpretationText}>• Deleción de PTEN: Confirmada por FISH, la pérdida homocigota en PTEN se asocia con una mayor agresividad tumoral y progresión rápida del cáncer de próstata.</Text>
-              <Text style={styles.interpretationText}>• Reordenamiento de TMPRSS2-ERG: Positivo, lo que confirma una fusión génica que es un biomarcador molecular característico en ciertos tipos de cáncer de próstata.</Text>
-              <Text style={styles.interpretationText}>• Amplificación de MYC: La presencia de múltiples copias de MYC sugiere un fenotipo más agresivo con mayor riesgo de diseminación.</Text>
-              <Text style={styles.interpretationText}>• CEP10 Normal: Ausencia de alteraciones cromosómicas adicionales en el cromosoma 10, lo que respalda la especificidad de los hallazgos en PTEN.</Text>
+              <Text style={styles.interpretationText}>• Células T citotóxicas (CD8+): El porcentaje elevado podría estar relacionado con una respuesta inmune activa, posiblemente dirigida hacia la presencia de células tumorales.</Text>
+              <Text style={styles.interpretationText}>• Células T helper (CD4+): Su disminución puede indicar un desequilibrio inmunológico, a menudo observado en pacientes con carga tumoral significativa o inmunosupresión.</Text>
+              <Text style={styles.interpretationText}>• Células tumorales circulantes (EpCAM+): La presencia de estas células es consistente con una diseminación tumoral sistémica y puede asociarse con enfermedad metastásica en cánceres epiteliales como el de próstata.</Text>
+            </View>
+          </View>
+        )
+
+        case "Mutaciones Específicas":
+        return (
+            <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Resultados de Mutaciones Específicas</Text>
+            <View style={styles.table}>
+              <View style={styles.tableHeader}>
+                <Text style={styles.tableCell}>Gen Analizado</Text>
+                <Text style={styles.tableCell}>Mutación Detectada</Text>
+                <Text style={styles.tableCell}>Frecuencia Alelica (%)</Text>
+                <Text style={styles.tableCell}>Significado Clínico</Text>
+                <Text style={styles.tableCell}>Relevancia Clínica</Text>
+              </View>
+              
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>TP53</Text>
+                <Text style={styles.tableCell}>R273H (Codón 273, Exón 8)</Text>
+                <Text style={styles.tableCell}>45%</Text>
+                <Text style={styles.tableCell}>Mutación funcional asociada a pérdida de función</Text>
+                <Text style={styles.tableCell}>Indicativa de progresión tumoral y mal pronóstico.</Text>
+              </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>BRCA2</Text>
+                <Text style={styles.tableCell}>S1982R (Codón 1982, Exón 11)</Text>
+                <Text style={styles.tableCell}>38%</Text>
+                <Text style={styles.tableCell}>Mutación hereditaria frecuente en cáncer de próstata</Text>
+                <Text style={styles.tableCell}>Sugiere sensibilidad a inhibidores de PARP.</Text>
+              </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>Células T helper</Text>
+                <Text style={styles.tableCell}>CD4+</Text>
+                <Text style={styles.tableCell}>18%</Text>
+                <Text style={styles.tableCell}>30-40%</Text>
+                <Text style={styles.tableCell}>Disminuidas, podrían indicar supresión inmune.</Text>
+              </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>PIK3CA</Text>
+                <Text style={styles.tableCell}>E545K (Codón 545, Exón 9)</Text>
+                <Text style={styles.tableCell}>20%</Text>
+                <Text style={styles.tableCell}>Activación de la vía PI3K/AKT</Text>
+                <Text style={styles.tableCell}>Asociada con resistencia a terapias estándar.</Text>
+              </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>AR</Text>
+                <Text style={styles.tableCell}>T878A (Codón 878, Exón 8)</Text>
+                <Text style={styles.tableCell}>15%</Text>
+                <Text style={styles.tableCell}>Alteración en el receptor de andrógenos</Text>
+                <Text style={styles.tableCell}>Puede generar resistencia a terapia hormonal</Text>
+              </View>
+              {/* Más variantes genéticas aquí */}
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Interpretación de los Resultados</Text>
+              <Text style={styles.interpretationText}>• Mutación TP53 R273H: Alteración frecuente en tumores avanzados, asociada con evasión de la apoptosis y resistencia al tratamiento.</Text>
+              <Text style={styles.interpretationText}>• Mutación BRCA2 S1982R: Variante que sugiere predisposición genética y sensibilidad a terapias dirigidas, como inhibidores de PARP (e.g., olaparib).</Text>
+              <Text style={styles.interpretationText}>• Mutación PIK3CA E545K: Implicada en la activación constitutiva de la vía de señalización PI3K, lo que podría limitar la eficacia de terapias hormonales y justificar el uso de terapias dirigidas.</Text>
+              <Text style={styles.interpretationText}>• Mutación AR T878A: Asociada con resistencia adquirida a terapias hormonales como enzalutamida, pero sugiere la posibilidad de probar alternativas terapéuticas.</Text>
+            </View>
+
+          </View>
+        )
+
+        case "PCR en Tiempo Real":
+        return (
+            <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Resultados de PCR en Tiempo Real</Text>
+            <View style={styles.table}>
+              <View style={styles.tableHeader}>
+                <Text style={styles.tableCell}>Gen/Biomarcador</Text>
+                <Text style={styles.tableCell}>Mutación o Nivel Detectado</Text>
+                <Text style={styles.tableCell}>Ct Value</Text>
+                <Text style={styles.tableCell}>Rango de Referencia</Text>
+                <Text style={styles.tableCell}>Significado Clínico</Text>
+                <Text style={styles.tableCell}>Relevancia Clínica</Text>
+              </View>
+              
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>PSA (KLK3)</Text>
+                <Text style={styles.tableCell}>Sobreexpresión (8x basal)</Text>
+                <Text style={styles.tableCell}>20.3</Text>
+                <Text style={styles.tableCell}>Ct  25</Text>
+                <Text style={styles.tableCell}>Indicativo de actividad tumoral elevada</Text>
+                <text style={styles.tableCell}>Utilizado como marcador diagnóstico y de seguimiento.</text>
+              </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>TMPRSS2-ERG</Text>
+                <Text style={styles.tableCell}>Fusión génica detectada</Text>
+                <Text style={styles.tableCell}>22.8</Text>
+                <Text style={styles.tableCell}>No detectable</Text>
+                <Text style={styles.tableCell}>Alteración común en cáncer de próstata agresivo</Text>
+                <Text style={styles.tableCell}>Implicado en la progresión tumoral.</Text>
+              </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>AR-V7</Text>
+                <Text style={styles.tableCell}>Isoforma variante detectada</Text>
+                <Text style={styles.tableCell}>24.5</Text>
+                <Text style={styles.tableCell}>No detectable</Text>
+                <Text style={styles.tableCell}>Resistencia a terapias antiandrogénicas</Text>
+                <Text style={styles.tableCell}>Sugiere uso limitado de enzalutamida o abiraterona.</Text>
+              </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>BRCA2</Text>
+                <Text style={styles.tableCell}>Mutación Q356X (deleción puntual)</Text>
+                <Text style={styles.tableCell}>No amplificación</Text>
+                <Text style={styles.tableCell}>No detectable</Text>
+                <Text style={styles.tableCell}>Variante asociada a predisposición genética</Text>
+                <Text style={styles.tableCell}>Sensibilidad potencial a inhibidores de PARP.</Text>
+              </View>
+              {/* Más variantes genéticas aquí */}
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Interpretación de los Resultados</Text>
+              <Text style={styles.interpretationText}>• Sobreexpresión de PSA: Compatible con actividad tumoral elevada. Puede ser utilizado como un marcador sérico para monitoreo de respuesta al tratamiento.</Text>
+              <Text style={styles.interpretationText}>• Fusión TMPRSS2-ERG: Confirmada, lo que refuerza el diagnóstico molecular de un cáncer de próstata con perfil agresivo.</Text>
+              <Text style={styles.interpretationText}>• Isoforma AR-V7: La presencia de esta isoforma está correlacionada con resistencia a terapias hormonales estándar, lo que puede influir en la selección del tratamiento.</Text>
+              <Text style={styles.interpretationText}>• BRCA2 sin amplificación: La ausencia de mutaciones o expresiones detectables adicionales en BRCA2 no descarta la necesidad de evaluaciones genéticas familiares.</Text>
+            </View>
+          </View>
+        )
+
+        case "Microscopía Electrónica":
+        return (
+            <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Resultados de PCR en Tiempo Real</Text>
+            <View style={styles.table}>
+              <View style={styles.tableHeader}>
+                <Text style={styles.tableCell}>Estructura Analizada</Text>
+                <Text style={styles.tableCell}>Alteraciones Detectadas</Text>
+                <Text style={styles.tableCell}>Hallazgos Detallados</Text>
+                <Text style={styles.tableCell}>Significado Clínico</Text>
+              </View>
+              
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>Núcleo</Text>
+                <Text style={styles.tableCell}>Pleomorfismo nuclear</Text>
+                <Text style={styles.tableCell}>Presencia de núcleos agrandados, irregulares, con cromatina densa y margina l.</Text>
+                <Text style={styles.tableCell}>Indicativo de actividad tumoral maligna.</Text>
+              </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>Mitocondrias</Text>
+                <Text style={styles.tableCell}>Alteraciones mitocondriales</Text>
+                <Text style={styles.tableCell}>Mitocondrias con crestas dismórficas y vacuolización significativa.</Text>
+                <Text style={styles.tableCell}>Asociado con metabolismo tumoral aberrante.</Text>
+              </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>Retículo Endoplásmico</Text>
+                <Text style={styles.tableCell}>Dilatación del RER</Text>
+                <Text style={styles.tableCell}>Observado un retículo endoplásmico rugoso prominente y dilatado.</Text>
+                <Text style={styles.tableCell}>Posible señal de estrés celular.</Text>
+              </View>
+
+              <View style={styles.tableRow}>
+                <Text style={styles.tableCell}>Membranas Plasmáticas</Text>
+                <Text style={styles.tableCell}>Invaginaciones y proyecciones irregulares</Text>
+                <Text style={styles.tableCell}>Microvellosidades aumentadas y formación de estructuras similares a pseudópodos.</Text>
+                <Text style={styles.tableCell}>Asociado con invasión tumoral y metástasis.</Text>
+              </View>
+              {/* Más variantes genéticas aquí */}
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Interpretación de los Resultados</Text>
+              <Text style={styles.interpretationText}>• Pleomorfismo nuclear y alteraciones mitocondriales: Estas características son consistentes con células de alta malignidad y metabolismo tumoral alterado, típico de cáncer de próstata avanzado.</Text>
+              <Text style={styles.interpretationText}>• Dilatación del RER: Sugiere estrés en la síntesis de proteínas, posiblemente debido a demandas metabólicas elevadas del tumor.</Text>
+              <Text style={styles.interpretationText}>• Cambios en membranas plasmáticas: Las invaginaciones y pseudópodos observados son consistentes con fenómenos de migración celular y metástasis.</Text>
+              <Text style={styles.interpretationText}>• Lisosomas agrandados: Indicativos de procesos autofágicos activos, que pueden estar relacionados con mecanismos de resistencia tumoral.</Text>
             </View>
           </View>
         )
