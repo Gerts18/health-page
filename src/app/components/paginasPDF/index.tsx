@@ -588,7 +588,7 @@ function PDFPage({ data }: PDFPageProps) {
           <Image 
             src="../assets/logo.png"
             style={styles.logoImage}
-            alt="Logo de la Clínica"
+            
           />
         </View>
 

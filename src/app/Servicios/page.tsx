@@ -102,7 +102,7 @@ function ServiceModal({ service, isOpen, onClose }: {
         className="bg-white rounded-xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
       >
         <div className="flex justify-between items-center mb-4 sticky top-0 bg-white pt-2 pb-4 border-b">
-          <h3 className="text-2xl font-bold text-[#547EED]">{service.title}</h3> // Título del servicio.
+          <h3 className="text-2xl font-bold text-[#547EED]">{service.title}</h3> {/*Título del servicio.*/}
           <button 
             onClick={onClose} // Cierra el modal al hacer clic.
             className="text-gray-500 hover:text-gray-700"
@@ -126,13 +126,13 @@ function ServiceModal({ service, isOpen, onClose }: {
 
           <div className="bg-blue-50 p-4 rounded-lg">
             <h4 className="font-bold text-lg text-[#547EED] mb-2">Resumen</h4>
-            <p className="text-gray-700">{service.resumen}</p> // Muestra el resumen del servicio.
+            <p className="text-gray-700">{service.resumen}</p> {/* Muestra el resumen del servicio. */}
           </div>
 
           <div className="space-y-4">
             <h4 className="font-bold text-lg text-[#547EED]">Descripción detallada</h4>
             <div className="text-gray-600 text-justify whitespace-pre-line">
-              {service.description} // Muestra la descripción detallada del servicio.
+              {service.description} {/* // Muestra la descripción detallada del servicio. */}
             </div>
             
             <div className="mt-8 bg-gradient-to-r from-blue-50 to-pink-50 p-6 rounded-xl">
@@ -194,7 +194,7 @@ function ServiceModal({ service, isOpen, onClose }: {
                   {service.testimonios.map((testimonio, index) => (
                     <div key={index} className="bg-gray-50 p-4 rounded-lg">
                       <p className="text-gray-600 italic">&quot;{testimonio.texto}&quot;</p>
-                      <p className="text-gray-500 mt-2">- {testimonio.autor}</p> // Muestra el autor del testimonio.
+                      <p className="text-gray-500 mt-2">- {testimonio.autor}</p> {/* // Muestra el autor del testimonio. */}
                     </div>
                   ))}
                 </div>
@@ -221,7 +221,7 @@ export default function MedicalServices() {
 
   return (
     <>
-    <Header /> // Renderiza el encabezado.
+    <Header /> {/* // Renderiza el encabezado. */}
     <div className="max-w-7xl mx-auto px-4 mt-16">
       {/* Sección Hero */}
       <motion.section 
@@ -307,9 +307,9 @@ export default function MedicalServices() {
                   className="w-full h-full"
                 />
               </motion.div>
-              <h4 className="text-[#EB356E] font-bold mb-4">{service.title}</h4> // Título del servicio.
+              <h4 className="text-[#EB356E] font-bold mb-4">{service.title}</h4> {/* // Título del servicio. */}
               <p className="text-gray-600 mb-6 leading-relaxed">
-                {service.resumen} // Resumen del servicio.
+                {service.resumen} {/* // Resumen del servicio. */}
               </p>
               <motion.button 
                 whileHover={{ scale: 1.1 }} // Efecto al pasar el mouse.
@@ -347,9 +347,9 @@ export default function MedicalServices() {
                   className="w-full h-full"
                 />
               </motion.div>
-              <h4 className="text-[#EB356E] font-bold mb-4">{service.title}</h4> // Título del servicio.
+              <h4 className="text-[#EB356E] font-bold mb-4">{service.title}</h4> {/* // Título del servicio. */}
               <p className="text-gray-600 mb-6 leading-relaxed">
-                {service.resumen} // Resumen del servicio.
+                {service.resumen} {/* // Resumen del servicio. */}
               </p>
               <motion.button 
                 whileHover={{ scale: 1.1 }} // Efecto al pasar el mouse.
@@ -369,7 +369,7 @@ export default function MedicalServices() {
       isOpen={!!selectedService} // Estado de apertura del modal.
       onClose={() => setSelectedService(null)} // Función para cerrar el modal.
     />
-    <Footer /> // Renderiza el pie de página.
+    <Footer /> {/* // Renderiza el pie de página. */}
     </>
   )
 }
