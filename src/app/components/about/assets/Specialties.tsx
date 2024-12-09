@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React from 'react';
 
+//Listados de especialidades
 const Specialties = () => {
   const specialties = [
     {
@@ -27,9 +28,12 @@ const Specialties = () => {
     },
   ];
 
+  //Seccion de especialidades
   return (
     <div className="px-8 py-8 text-center bg-gray-50">
+      {/* Título */}
       <h2 className="text-3xl font-bold text-pink-600 mb-8">Nuestras especialidades Líneas de investigación</h2>
+      {/* Listado de especialidades */}
       <div className="flex flex-wrap justify-center gap-16">
         {specialties.map((specialty, index) => (
           <div className="bg-white border border-gray-100 rounded-lg shadow-lg w-72 p-6 text-left transition-transform transform hover:translate-y-1 hover:shadow-xl" key={index}>

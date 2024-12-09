@@ -104,6 +104,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
+      //Envio de respuesta exitosa
       return NextResponse.json(
         {
           success: true,
@@ -117,6 +118,7 @@ export async function POST(request: NextRequest) {
         { status: 200 }
       );
 
+  //Envio de fallo
   } catch (error) {
     console.error("Error en el backend:", error);
 
