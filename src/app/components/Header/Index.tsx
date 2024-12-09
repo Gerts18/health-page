@@ -96,12 +96,21 @@ const Header: React.FC = () => {
 
       {/* Navegación */}
       <nav className="flex items-center space-x-6 text-gray-700">
+        <Link href="/education" className="text-gray-700 hover:text-pink-500">
+          Educación
+        </Link>
+        <Link href="/News" className="text-gray-700 hover:text-pink-500">
+          Noticias
+        </Link>
+        <Link href="/Servicios" className="text-gray-700 hover:text-pink-500">
+          Servicios
+        </Link>
         <div className="relative">
           <button
             onClick={toggleMenu}
             className="focus:outline-none text-gray-700 hover:text-pink-500"
           >
-            Nuestros Servicios y Contacto
+            Información y Contacto
           </button>
           {isMenuOpen && (
             <ul className="absolute left-0 w-48 mt-2 bg-pink-500 text-white rounded-md shadow-md">
@@ -135,15 +144,6 @@ const Header: React.FC = () => {
             </ul>
           )}
         </div>
-        <Link href="/education" className="text-gray-700 hover:text-pink-500">
-          Educación
-        </Link>
-        <Link href="/News" className="text-gray-700 hover:text-pink-500">
-          Noticias
-        </Link>
-        <Link href="/Servicios" className="text-gray-700 hover:text-pink-500">
-          Servicios
-        </Link>
       </nav>
 
       {/* Botones */}
