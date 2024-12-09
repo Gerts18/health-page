@@ -19,7 +19,7 @@ export default function ContactPage() {
   const Button: React.FC<ButtonProps> = ({ children, className, variant = 'primary', ...props }) => {
     const variantClasses =
       variant === 'secondary'
-        ? 'bg-secondary text-white'
+        ? 'bg-secondary '
         : 'bg-primary text-white';
     return (
       <motion.button
