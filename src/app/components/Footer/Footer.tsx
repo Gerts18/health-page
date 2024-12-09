@@ -55,9 +55,6 @@ const Footer: React.FC = () => {
             <Link href="/" className="hover:text-gray-300">Inicio</Link>
             <Link href="/about" className="hover:text-gray-300">Nosotros</Link>
             <Link href="/education" className="hover:text-gray-300">Educación</Link>
-            <Link href="/medicos" className="hover:text-gray-300">Médicos</Link>
-            <Link href="/pacientes" className="hover:text-gray-300">Pacientes</Link>
-            <Link href="/transparencia" className="hover:text-gray-300">Transparencia</Link>
             <Link href="/News" className="hover:text-gray-300">Noticias</Link>
             <Link href="/donations" className="hover:text-gray-300">Donaciones</Link>
             <Link href="/Contacto" className="hover:text-gray-300">Trabaja con nosotros</Link>
