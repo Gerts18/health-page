@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
+//Listado de certificados
 const Awards = () => {
 const awards =[
   {
@@ -33,6 +34,7 @@ const awards =[
   },
 ];
 
+  //Sección de certificados
   return (
     <div className="text-center p-8 bg-gray-100">
       {/* Título principal */}

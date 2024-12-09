@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+//Listado de videos a mostrar
 const videos = [
   {
     id: 1,
@@ -45,6 +46,7 @@ const videos = [
   },
 ];
 
+//Categorización y filtro de los videos
 const VideoList = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const Carrusel = () => {
+  //Listado de fichas y datos a mostrar del carrusel
   const slides = [
     { id: 1, title: "Sostener una Señal proliferativa", content: ["Ciclo celular", "Factores de crecimiento", "Factores de crecimiento"], bgColor: "bg-green-500", txtColor: "text-green-500" },
     { id: 2, title: "Inactivar supresores de tumores", content: ["Proteínas clave", "Vías reguladoras"], bgColor: "bg-blue-500", txtColor: "text-blue-500" },
@@ -8,6 +9,7 @@ const Carrusel = () => {
     { id: 4, title: "Sostener angiogénesis", content: ["Factores angiogénicos", "Vascularización"], bgColor: "bg-orange-500", txtColor: "text-orange-500" },
   ];
 
+  //Funcion de cambio de fichas del carrusel
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
@@ -18,9 +20,12 @@ const Carrusel = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + slides.length) % slides.length);
   };
 
+  //Seccion de carrusel
   return (
     <div className="flex flex-col items-center pt-12">
+      {/* Titulo */}
       <h1 className="text-6xl font-bold text-center mt-12 pt-12 text-blue-600 underline">Comprendiendo la complejidad del cáncer</h1>
+      {/* Carrusel */}
       <div className="relative w-full h-80 flex justify-center items-center overflow-hidden">
         {slides.map((slide, index) => {
           const position =
@@ -32,6 +37,7 @@ const Carrusel = () => {
               ? "z-20 opacity-80 scale-90 translate-x-1/2"
               : "z-10 opacity-0 translate-x-full";
 
+          {/* Cambio de fichas del carrusel */}
           return (
             <div
               key={slide.id}
@@ -62,6 +68,7 @@ const Carrusel = () => {
           );
         })}
       </div>
+      {/* Botones del carrusel */}
       <div className="flex mt-4 space-x-4">
         <button
           onClick={prevSlide}
@@ -76,6 +83,7 @@ const Carrusel = () => {
           &rarr;
         </button>
       </div>
+      {/* Guia de posición del carrusel */}
       <div className="flex justify-center mt-4 space-x-2">
         {slides.map((_, index) => (
           <div

@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from "react";
 
+//Datos a mostrar en el carrusel
 const Carousel = () => {
   const slides = [
     {
@@ -23,6 +24,7 @@ const Carousel = () => {
     },
   ];
 
+  //Función de desplazamiento del carrusel
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const handleNext = () => {
@@ -35,16 +37,20 @@ const Carousel = () => {
     );
   };
 
+  //Seccion del carrusel
   return (
     <div className="relative w-full h-screen overflow-hidden mt-32">
+      {/* Imagen de fondo */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
         style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
       ></div>
+      {/* Texto frontal */}
       <div className="absolute top-1/2 left-12 transform -translate-y-1/2 bg-white bg-opacity-80 p-8 rounded-lg shadow-lg max-w-lg z-10">
         <h2 className="text-4xl md:text-6xl font-bold mb-4 text-gray-800">{slides[currentSlide].title}</h2>
         <p className="text-lg md:text-2xl text-gray-600 leading-relaxed">{slides[currentSlide].description}</p>
       </div>
+      {/* flechas de carrusel */}
       <button  className="absolute top-1/2 left-4 transform -translate-y-1/2 text-4xl text-white hover:text-pink-500 transition z-10" onClick={handlePrev}>
         &#10094;
       </button>

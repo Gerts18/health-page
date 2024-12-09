@@ -5,6 +5,7 @@ const FICMACSection = () => {
   return (
     <section className="bg-gradient-to-b from-[#547EED] to-[#304887]">
       <div className="bg-adn bg-repeat-x  bg-[length:550px_800px] flex items-center justify-center text-left shadow-lg gap-8 mt-6 p-10 rounded-lg">
+        {/* Video */}
         <div className="flex-shrink-0 opacity-100">
           <iframe
             src="https://www.youtube.com/embed/OrhhcTHXQi0"
@@ -13,6 +14,7 @@ const FICMACSection = () => {
             className="w-[600px] h-[337px] rounded-lg border-none"
           ></iframe>
         </div>
+        {/* Texto */}
         <div className="max-w-sm">
           <h2 className="text-5xl font-bold text-white mb-3">
             Somos FICMAC | Laboratorio Colombiano
