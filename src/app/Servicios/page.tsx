@@ -40,7 +40,7 @@ const services: Service[] = [
     resumen: 'Cáncer que afecta los ovarios en el sistema reproductivo femenino', 
     description: 'El cáncer de ovario es una de las principales causas de muerte por cáncer en mujeres debido a que se detecta a menudo en etapas avanzadas. Los síntomas incluyen hinchazón abdominal, dolor pélvico y dificultad para comer. Los tratamientos incluyen cirugía para extirpar los ovarios afectados y quimioterapia para reducir el tamaño del tumor.\n\nMedicamentos:\nLos medicamentos para el cáncer de ovario incluyen quimioterapias como carboplatino, cisplatino, paclitaxel y doxorrubicina, que destruyen las células cancerosas o frenan su crecimiento. Bevacizumab es una terapia dirigida que bloquea la formación de vasos sanguíneos que alimentan al tumor. Los inhibidores de PARP como olaparib, niraparib y rucaparib ayudan a reparar el daño en el ADN de las células cancerosas, lo que lleva a su destrucción.', 
     images: ['/assets/ovario2.png','/assets/ovarioMP.jpg', '/assets/ovarioA.jpg'],
-    icon: '/assets/icons/icon-4.png'
+    icon: '/assets/icons/Icon-4.png'
   },
   { title: 'Cáncer de pulmón', 
     resumen: 'Cáncer que afecta los pulmones, a menudo relacionado con el tabaquismo', 

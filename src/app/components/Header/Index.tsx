@@ -141,6 +141,9 @@ const Header: React.FC = () => {
         <Link href="/News" className="text-gray-700 hover:text-pink-500">
           Noticias
         </Link>
+        <Link href="/Servicios" className="text-gray-700 hover:text-pink-500">
+          Servicios
+        </Link>
       </nav>
 
       {/* Botones */}
