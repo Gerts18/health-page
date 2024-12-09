@@ -1,30 +1,32 @@
 'use client';
 
+// Importaciones necesarias
 import React from 'react';
 import Header from '../components/Header/Index';
 import Footer from '../components/Footer/Footer';
 import Image from 'next/image';
 import { motion, HTMLMotionProps } from 'framer-motion';
 
-// Definición de tipos
+// Definición de tipos para los props de los componentes
 type ButtonProps = HTMLMotionProps<'button'> & {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary'; // Variantes del botón
 };
 
-type CardProps = HTMLMotionProps<'div'>;
+type CardProps = HTMLMotionProps<'div'>; // Props para el componente Card
 
+// Componente principal de la página de contacto
 export default function ContactPage() {
-  // Definición de subcomponentes con tipos específicos
-
+  // Componente de botón con animaciones
   const Button: React.FC<ButtonProps> = ({ children, className, variant = 'primary', ...props }) => {
+    // Clases CSS basadas en la variante del botón
     const variantClasses =
       variant === 'secondary'
         ? 'bg-secondary text-white'
         : 'bg-primary text-white';
     return (
       <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.05 }} // Efecto al pasar el mouse
+        whileTap={{ scale: 0.95 }} // Efecto al hacer clic
         className={`px-4 py-2 rounded ${variantClasses} ${className}`}
         {...props}
       >
@@ -33,12 +35,13 @@ export default function ContactPage() {
     );
   };
 
+  // Componente de tarjeta con animaciones
   const Card: React.FC<CardProps> = ({ children, className, ...props }) => (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ scale: 1.02 }}
+      initial={{ opacity: 0, y: 20 }} // Estado inicial de la animación
+      whileInView={{ opacity: 1, y: 0 }} // Animación al entrar en vista
+      transition={{ duration: 0.5 }} // Duración de la animación
+      whileHover={{ scale: 1.02 }} // Efecto al pasar el mouse
       className={`p-4 ${className}`}
       {...props}
     >
@@ -46,35 +49,34 @@ export default function ContactPage() {
     </motion.div>
   );
 
-
   return (
     <div className="min-h-screen bg-white pt-[64px]">
-      <Header />
-      {/* Hero Section */}
+      <Header /> {/* Componente de encabezado */}
+      {/* Sección Hero */}
       <div className="relative h-[400px] bg-gray-100">
         <div className="absolute inset-0">
           <Image
-            src="/assets/contactB.png" // Asegúrate de que la ruta es correcta y la imagen está en public/assets
+            src="/assets/contactB.png" // Imagen de fondo
             alt="Hero background"
             width={1920}
             height={400}
             className="h-full w-full object-cover object-top"
           />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-black/40" /> {/* Capa oscura sobre la imagen */}
         </div>
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
           <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: -20 }} // Animación de entrada
+            animate={{ opacity: 1, y: 0 }} // Animación de entrada
+            transition={{ duration: 0.5 }} // Duración de la animación
             className="text-4xl font-bold text-white sm:text-5xl"
           >
             Contáctanos
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }} // Animación de entrada
+            animate={{ opacity: 1, y: 0 }} // Animación de entrada
+            transition={{ duration: 0.5, delay: 0.2 }} // Duración y retraso de la animación
             className="mt-4 max-w-xl text-lg text-white"
           >
             Envíanos cualquier pregunta sobre nuestros servicios a través de esta sección de contacto. Estamos aquí para ayudarte.
@@ -82,23 +84,24 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* Main Content - Rediseñado */}
+      {/* Contenido principal - Rediseñado */}
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: -20 }} // Animación de entrada
+          animate={{ opacity: 1, y: 0 }} // Animación de entrada
+          transition={{ duration: 0.5 }} // Duración de la animación
           className="text-4xl font-bold text-[#547EED] text-center mb-12"
         >
           ¿Cómo podemos ayudarte?
         </motion.h2>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {/* Tarjeta 1 */}
           <Card className="p-6 bg-gradient-to-br from-[#EB356E] to-[#FF6B6B] text-white rounded-2xl transform hover:scale-105 transition-transform duration-300">
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="w-20 h-20 relative mb-4">
                 <Image
-                  src="/assets/Card1.png" // Asegúrate de que la ruta es correcta y la imagen está en public/assets
+                  src="/assets/Card1.png" // Imagen de la tarjeta
                   alt="Encuesta icon"
                   fill
                   className="rounded-full object-cover"
@@ -117,11 +120,12 @@ export default function ContactPage() {
             </div>
           </Card>
 
+          {/* Tarjeta 2 */}
           <Card className="p-6 bg-gradient-to-br from-[#547EED] to-[#84A9FF] text-white rounded-2xl transform hover:scale-105 transition-transform duration-300">
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="w-20 h-20 relative mb-4">
                 <Image
-                  src="/assets/Card2.png" // Asegúrate de que la ruta es correcta y la imagen está en public/assets
+                  src="/assets/Card2.png" // Imagen de la tarjeta
                   alt="Peticiones icon"
                   fill
                   className="rounded-full object-cover"
@@ -140,11 +144,12 @@ export default function ContactPage() {
             </div>
           </Card>
 
+          {/* Tarjeta 3 */}
           <Card className="p-6 bg-gradient-to-br from-[#EB356E] to-[#FF6B6B] text-white rounded-2xl transform hover:scale-105 transition-transform duration-300 md:col-span-2 lg:col-span-1">
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="w-20 h-20 relative mb-4">
                 <Image
-                  src="/assets/Card3.png" // Asegúrate de que la ruta es correcta y la imagen está en public/assets
+                  src="/assets/Card3.png" // Imagen de la tarjeta
                   alt="Trabajo icon"
                   fill
                   className="rounded-full object-cover"
@@ -163,7 +168,7 @@ export default function ContactPage() {
           </Card>
         </div>
       </div>
-      <Footer />
+      <Footer /> {/* Componente de pie de página */}
     </div>
   );
 }
