@@ -1,22 +1,26 @@
 "use client";
+// Importaciones necesarias de React y Next.js
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
-import Footer from "../components/Footer/Footer"
+import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Index";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import PatientIcon from './patient.png'
+import PatientIcon from './patient.png';
 import Link from "next/link";
 
+// Componente principal de la página de perfil
 export default function PerfilPage() {
   const router = useRouter();
 
+  // Estado para almacenar los datos del usuario
   const [userData, setUserData] = useState({
     first_name: '',
     last_names: '',
     email: '',
   });
 
+  // Estado para manejar las contraseñas
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     confirmCurrentPassword: '',
@@ -24,12 +28,14 @@ export default function PerfilPage() {
     confirmNewPassword: '',
   });
 
+  // Estado para manejar la visibilidad del toast
   const [toast, setToast] = useState({
     visible: false,
     message: '',
     type: 'success' // o 'error'
   });
 
+  // Función para mostrar un mensaje toast
   const showToast = (message: string, type: 'success' | 'error') => {
     console.log('Mostrando toast:', message, type);
     setToast({ visible: true, message, type });
@@ -38,6 +44,7 @@ export default function PerfilPage() {
     }, 5000);
   };
 
+  // Efecto para obtener los datos del usuario al cargar el componente
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -59,23 +66,17 @@ export default function PerfilPage() {
           }
           
           const nombreCompleto = responseData.data.name?.split(' ') || [];
-          
-          // Tomamos los dos primeros elementos como nombre
           const nombres = nombreCompleto.slice(0, 2).join(' ');
-          
-          // Tomamos el resto como apellidos
           const apellidos = responseData.data.last_names;
           
           console.log('Nombres:', nombres);
           console.log('Apellidos:', apellidos);
-          console.log(apellidos)
           setUserData({
             first_name: nombres || '',
             last_names: apellidos || '',
             email: responseData.data.email || ''
           });
 
-          // Debug del estado final
           console.log('userData actualizado:', {
             first_name: nombres,
             last_names: apellidos,
@@ -87,15 +88,14 @@ export default function PerfilPage() {
       } catch (error) {
         console.error('Error:', error);
         router.push('/');
-
       }
     };
 
     fetchUserData();
   }, [router]);
 
+  // Efecto para manejar el cierre de sesión
   useEffect(() => {
-    // Agregar el event listener para el cierre de sesión
     const handleLogout = () => {
       router.push('/');
     };
@@ -108,6 +108,7 @@ export default function PerfilPage() {
     };
   }, [router]);
 
+  // Función para manejar cambios en los inputs del usuario
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData(prev => ({
@@ -116,6 +117,7 @@ export default function PerfilPage() {
     }));
   }; 
 
+  // Función para manejar cambios en los inputs de contraseña
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPasswords(prev => ({
@@ -124,6 +126,7 @@ export default function PerfilPage() {
     }));
   };
 
+  // Función para actualizar la información del perfil
   const handleProfileUpdate = async () => {
     try {
       const response = await fetch('/api/users', {
@@ -152,6 +155,7 @@ export default function PerfilPage() {
     }
   };
 
+  // Función para actualizar la contraseña
   const handlePasswordUpdate = async () => {
     if (passwords.newPassword !== passwords.confirmNewPassword) {
       alert('Las nuevas contraseñas no coinciden');
@@ -194,6 +198,7 @@ export default function PerfilPage() {
     }
   };
 
+  // Renderizado del componente
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -217,7 +222,7 @@ export default function PerfilPage() {
           </motion.div>
         )}
 
-        {/* Contenido Main con animación */}
+        {/* Contenido principal con animación */}
         <motion.div 
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -231,7 +236,7 @@ export default function PerfilPage() {
             transition={{ delay: 0.2 }}
             className="w-1/3"
           >
-            {/* Foto de Usuario con hover effect */}
+            {/* Foto de Usuario con efecto hover */}
             <motion.div 
               whileHover={{ scale: 1.02 }}
               className="bg-white shadow-md rounded p-4 flex flex-col items-center transition-all duration-300 hover:shadow-xl"
@@ -248,8 +253,6 @@ export default function PerfilPage() {
                   className="w-32 h-32 mb-4 hover:border-blue-500 transition-colors duration-300"
                 />
               </motion.div>
-              {/* <p className="text-pink-500 font-bold hover:text-blue-500 transition-colors duration-300">@User-Name</p>
-              <p className="text-sm text-gray-500">user@email.com</p> */}
             </motion.div>
             {/* Botones con efectos hover */}
             <motion.div 
@@ -317,17 +320,6 @@ export default function PerfilPage() {
                   onChange={handleInputChange}
                 />
               </div>
-              {/* <div>
-                <label className="text-sm text-gray-500">Celular:</label>
-                <input
-                  type="text"
-                  value={"4432189619"}
-
-                  className="w-full border rounded px-3 py-2 mt-1"
-                  name="celular"
-                  onChange={handleInputChange}
-                />
-              </div> */}
             </div>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -407,6 +399,5 @@ export default function PerfilPage() {
       
       <Footer />
     </motion.div>
-
   );
 }

@@ -1,21 +1,25 @@
-'use client'
-import Footer from "../components/Footer/Footer"
-import Header from "../components/Header/Index"
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { useState } from "react";
+// Este archivo contiene la implementación de la página de servicios médicos.
 
+'use client'
+import Footer from "../components/Footer/Footer" // Importa el componente de pie de página.
+import Header from "../components/Header/Index" // Importa el componente de encabezado.
+import Image from "next/image"; // Importa el componente de imagen de Next.js.
+import { motion } from "framer-motion"; // Importa la biblioteca de animaciones Framer Motion.
+import { useState } from "react"; // Importa el hook useState de React.
+
+// Define la interfaz para los servicios médicos.
 interface Service {
-  title: string;
-  resumen: string;
-  description: string;
-  images: string[];
-  icon: string;
-  tratamientos?: string[];
-  contraindicaciones?: string;
-  testimonios?: Array<{ autor: string, texto: string }>;
+  title: string; // Título del servicio.
+  resumen: string; // Resumen del servicio.
+  description: string; // Descripción detallada del servicio.
+  images: string[]; // Array de imágenes relacionadas con el servicio.
+  icon: string; // Icono del servicio.
+  tratamientos?: string[]; // Opcional: tratamientos disponibles.
+  contraindicaciones?: string; // Opcional: contraindicaciones del servicio.
+  testimonios?: Array<{ autor: string, texto: string }>; // Opcional: testimonios de pacientes.
 }
 
+// Array de servicios médicos disponibles.
 const services: Service[] = [
   { 
     title: 'Cáncer de cabeza y cuello',
@@ -80,25 +84,27 @@ const services: Service[] = [
   },
 ];
 
+// Componente modal para mostrar detalles del servicio seleccionado.
 function ServiceModal({ service, isOpen, onClose }: { 
-  service: Service | null, 
-  isOpen: boolean, 
-  onClose: () => void 
+  service: Service | null, // Servicio seleccionado o null.
+  isOpen: boolean, // Estado de apertura del modal.
+  onClose: () => void // Función para cerrar el modal.
 }) {
+  // Si el modal no está abierto o no hay servicio, no renderiza nada.
   if (!isOpen || !service) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
       <motion.div 
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.8 }}
+        initial={{ opacity: 0, scale: 0.8 }} // Animación inicial.
+        animate={{ opacity: 1, scale: 1 }} // Animación al abrir.
+        exit={{ opacity: 0, scale: 0.8 }} // Animación al cerrar.
         className="bg-white rounded-xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
       >
         <div className="flex justify-between items-center mb-4 sticky top-0 bg-white pt-2 pb-4 border-b">
-          <h3 className="text-2xl font-bold text-[#547EED]">{service.title}</h3>
+          <h3 className="text-2xl font-bold text-[#547EED]">{service.title}</h3> // Título del servicio.
           <button 
-            onClick={onClose}
+            onClick={onClose} // Cierra el modal al hacer clic.
             className="text-gray-500 hover:text-gray-700"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -109,24 +115,24 @@ function ServiceModal({ service, isOpen, onClose }: {
         
         <div className="space-y-6">
           <div className="flex justify-center pb-4 overflow-x-auto snap-x snap-mandatory">
-                <Image
-                  src={service.images[0]}
-                  alt={`${service.title} imagen 1`}
-                  width={300}
-                  height={200}
-                  className="rounded-lg object-cover"
-                />
+            <Image
+              src={service.images[0]} // Muestra la primera imagen del servicio.
+              alt={`${service.title} imagen 1`}
+              width={300}
+              height={200}
+              className="rounded-lg object-cover"
+            />
           </div>
 
           <div className="bg-blue-50 p-4 rounded-lg">
             <h4 className="font-bold text-lg text-[#547EED] mb-2">Resumen</h4>
-            <p className="text-gray-700">{service.resumen}</p>
+            <p className="text-gray-700">{service.resumen}</p> // Muestra el resumen del servicio.
           </div>
 
           <div className="space-y-4">
             <h4 className="font-bold text-lg text-[#547EED]">Descripción detallada</h4>
             <div className="text-gray-600 text-justify whitespace-pre-line">
-              {service.description}
+              {service.description} // Muestra la descripción detallada del servicio.
             </div>
             
             <div className="mt-8 bg-gradient-to-r from-blue-50 to-pink-50 p-6 rounded-xl">
@@ -135,7 +141,7 @@ function ServiceModal({ service, isOpen, onClose }: {
                 <div className="bg-white p-4 rounded-lg shadow-sm">
                   <div className="aspect-video relative rounded-lg overflow-hidden mb-4">
                     <Image
-                      src={service.images[1]}
+                      src={service.images[1]} // Muestra la segunda imagen del servicio.
                       alt={`${service.title} imagen 2`}
                       fill
                       className="object-cover"
@@ -149,7 +155,7 @@ function ServiceModal({ service, isOpen, onClose }: {
                 <div className="bg-white p-4 rounded-lg shadow-sm">
                   <div className="aspect-video relative rounded-lg overflow-hidden mb-4">
                     <Image
-                      src={service.images[2]}
+                      src={service.images[2]} // Muestra la tercera imagen del servicio.
                       alt={`${service.title} imagen 3`}
                       fill
                       className="object-cover"
@@ -163,32 +169,32 @@ function ServiceModal({ service, isOpen, onClose }: {
               </div>
             </div>
 
-            {service.tratamientos && (
+            {service.tratamientos && ( // Si hay tratamientos disponibles, los muestra.
               <div className="mt-6">
                 <h4 className="font-bold text-lg text-[#547EED] mb-2">Tratamientos disponibles</h4>
                 <ul className="list-disc pl-5 space-y-2">
                   {service.tratamientos.map((tratamiento, index) => (
-                    <li key={index} className="text-gray-600">{tratamiento}</li>
+                    <li key={index} className="text-gray-600">{tratamiento}</li> // Muestra cada tratamiento.
                   ))}
                 </ul>
               </div>
             )}
 
-            {service.contraindicaciones && (
+            {service.contraindicaciones && ( // Si hay contraindicaciones, las muestra.
               <div className="bg-red-50 p-4 rounded-lg mt-4">
                 <h4 className="font-bold text-lg text-red-600 mb-2">Contraindicaciones</h4>
                 <p className="text-gray-700">{service.contraindicaciones}</p>
               </div>
             )}
 
-            {service.testimonios && service.testimonios.length > 0 && (
+            {service.testimonios && service.testimonios.length > 0 && ( // Si hay testimonios, los muestra.
               <div className="mt-6">
                 <h4 className="font-bold text-lg text-[#547EED] mb-4">Testimonios</h4>
                 <div className="space-y-4">
                   {service.testimonios.map((testimonio, index) => (
                     <div key={index} className="bg-gray-50 p-4 rounded-lg">
                       <p className="text-gray-600 italic">&quot;{testimonio.texto}&quot;</p>
-                      <p className="text-gray-500 mt-2">- {testimonio.autor}</p>
+                      <p className="text-gray-500 mt-2">- {testimonio.autor}</p> // Muestra el autor del testimonio.
                     </div>
                   ))}
                 </div>
@@ -209,23 +215,24 @@ function ServiceModal({ service, isOpen, onClose }: {
   );
 }
 
+// Componente principal que renderiza los servicios médicos.
 export default function MedicalServices() {
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedService, setSelectedService] = useState<Service | null>(null); // Estado para el servicio seleccionado.
 
   return (
     <>
-    <Header />
+    <Header /> // Renderiza el encabezado.
     <div className="max-w-7xl mx-auto px-4 mt-16">
-      {/* Hero Section */}
+      {/* Sección Hero */}
       <motion.section 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        initial={{ opacity: 0 }} // Animación inicial.
+        animate={{ opacity: 1 }} // Animación al abrir.
+        transition={{ duration: 1 }} // Duración de la animación.
         className="relative h-[400px] mb-16"
       >
         <div className="absolute inset-0">
           <Image
-            src="/assets/Nuestros-S.png"
+            src="/assets/Nuestros-S.png" // Imagen de fondo.
             alt="Servicios médicos"
             fill
             className="object-cover"
@@ -240,12 +247,12 @@ export default function MedicalServices() {
         </div>
       </motion.section>
   
-      {/* Question Section */}
+      {/* Sección de Preguntas */}
       <motion.section 
-        initial={{ y: 50, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
+        initial={{ y: 50, opacity: 0 }} // Animación inicial.
+        whileInView={{ y: 0, opacity: 1 }} // Animación al entrar en vista.
+        viewport={{ once: true }} // Solo se ejecuta una vez.
+        transition={{ duration: 0.8 }} // Duración de la animación.
         className="mb-24"
       >
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -262,12 +269,12 @@ export default function MedicalServices() {
         </div>
       </motion.section>
   
-      {/* Services Section */}
+      {/* Sección de Servicios */}
       <motion.section className="mb-24">
         <motion.div 
-          initial={{ y: 30, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
+          initial={{ y: 30, opacity: 0 }} // Animación inicial.
+          whileInView={{ y: 0, opacity: 1 }} // Animación al entrar en vista.
+          viewport={{ once: true }} // Solo se ejecuta una vez.
           className="text-center mb-16"
         >
           <h3 className="text-xl font-bold text-[#EB356E] mb-4">Patologías</h3>
@@ -277,80 +284,80 @@ export default function MedicalServices() {
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
-          {services.slice(0, 8).map((service, index) => (
+          {services.slice(0, 8).map((service, index) => ( // Muestra los primeros 8 servicios.
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+              initial={{ opacity: 0, scale: 0.9 }} // Animación inicial.
+              whileInView={{ opacity: 1, scale: 1 }} // Animación al entrar en vista.
+              whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }} // Efecto al pasar el mouse.
+              viewport={{ once: true }} // Solo se ejecuta una vez.
+              transition={{ duration: 0.3, delay: index * 0.1 }} // Duración y retraso de la animación.
               className="flex flex-col items-center text-center p-6 rounded-xl bg-white border border-gray-200 hover:border-[#547EED]"
             >
               <motion.div 
-                whileHover={{ rotate: 180 }}
-                transition={{ duration: 0.3 }}
+                whileHover={{ rotate: 180 }} // Efecto de rotación al pasar el mouse.
+                transition={{ duration: 0.3 }} // Duración de la animación.
                 className="w-16 h-16 mb-6"
               >
                 <Image
-                  src={service.icon}
+                  src={service.icon} // Muestra el icono del servicio.
                   alt={`${service.title} icon`}
                   width={64}
                   height={64}
                   className="w-full h-full"
                 />
               </motion.div>
-              <h4 className="text-[#EB356E] font-bold mb-4">{service.title}</h4>
+              <h4 className="text-[#EB356E] font-bold mb-4">{service.title}</h4> // Título del servicio.
               <p className="text-gray-600 mb-6 leading-relaxed">
-                {service.resumen}
+                {service.resumen} // Resumen del servicio.
               </p>
               <motion.button 
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedService(service)}
+                whileHover={{ scale: 1.1 }} // Efecto al pasar el mouse.
+                whileTap={{ scale: 0.95 }} // Efecto al hacer clic.
+                onClick={() => setSelectedService(service)} // Establece el servicio seleccionado.
                 className="px-4 py-2 rounded-full bg-[#547EED] text-white text-sm font-bold hover:bg-[#3b5bb9] transition-colors"
               >
-                Leer más
+                Leer más // Botón para leer más sobre el servicio.
               </motion.button>
             </motion.div>
           ))}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto mt-8">
-          {services.slice(8).map((service, index) => (
+          {services.slice(8).map((service, index) => ( // Muestra los servicios restantes.
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+              initial={{ opacity: 0, scale: 0.9 }} // Animación inicial.
+              whileInView={{ opacity: 1, scale: 1 }} // Animación al entrar en vista.
+              whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }} // Efecto al pasar el mouse.
+              viewport={{ once: true }} // Solo se ejecuta una vez.
+              transition={{ duration: 0.3, delay: index * 0.1 }} // Duración y retraso de la animación.
               className="flex flex-col items-center text-center p-6 rounded-xl bg-white border border-gray-200 hover:border-[#547EED]"
             >
               <motion.div 
-                whileHover={{ rotate: 180 }}
-                transition={{ duration: 0.3 }}
+                whileHover={{ rotate: 180 }} // Efecto de rotación al pasar el mouse.
+                transition={{ duration: 0.3 }} // Duración de la animación.
                 className="w-16 h-16 mb-6"
               >
                 <Image
-                  src={service.icon}
+                  src={service.icon} // Muestra el icono del servicio.
                   alt={`${service.title} icon`}
                   width={64}
                   height={64}
                   className="w-full h-full"
                 />
               </motion.div>
-              <h4 className="text-[#EB356E] font-bold mb-4">{service.title}</h4>
+              <h4 className="text-[#EB356E] font-bold mb-4">{service.title}</h4> // Título del servicio.
               <p className="text-gray-600 mb-6 leading-relaxed">
-                {service.resumen}
+                {service.resumen} // Resumen del servicio.
               </p>
               <motion.button 
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedService(service)}
+                whileHover={{ scale: 1.1 }} // Efecto al pasar el mouse.
+                whileTap={{ scale: 0.95 }} // Efecto al hacer clic.
+                onClick={() => setSelectedService(service)} // Establece el servicio seleccionado.
                 className="px-4 py-2 rounded-full bg-[#547EED] text-white text-sm font-bold hover:bg-[#3b5bb9] transition-colors"
               >
-                Leer más
+                Leer más // Botón para leer más sobre el servicio.
               </motion.button>
             </motion.div>
           ))}
@@ -358,11 +365,11 @@ export default function MedicalServices() {
       </motion.section>
     </div>
     <ServiceModal 
-      service={selectedService}
-      isOpen={!!selectedService}
-      onClose={() => setSelectedService(null)}
+      service={selectedService} // Pasa el servicio seleccionado al modal.
+      isOpen={!!selectedService} // Estado de apertura del modal.
+      onClose={() => setSelectedService(null)} // Función para cerrar el modal.
     />
-    <Footer />
+    <Footer /> // Renderiza el pie de página.
     </>
   )
 }

@@ -8,15 +8,18 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import doctorImage from './doctor.png'
 
+// Componente principal de la página de perfil
 export default function PerfilPage() {
   const router = useRouter();
 
+  // Estado para almacenar los datos del usuario
   const [userData, setUserData] = useState({
     first_name: '',
     last_names: '',
     email: '',
   });
 
+  // Estado para manejar las contraseñas
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     confirmCurrentPassword: '',
@@ -24,12 +27,14 @@ export default function PerfilPage() {
     confirmNewPassword: '',
   });
 
+  // Estado para manejar la visibilidad del toast
   const [toast, setToast] = useState({
     visible: false,
     message: '',
     type: 'success' // o 'error'
   });
 
+  // Función para mostrar un mensaje toast
   const showToast = (message: string, type: 'success' | 'error') => {
     console.log('Mostrando toast:', message, type);
     setToast({ visible: true, message, type });
@@ -38,6 +43,7 @@ export default function PerfilPage() {
     }, 5000);
   };
 
+  // Efecto para obtener los datos del usuario al cargar el componente
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -88,20 +94,20 @@ export default function PerfilPage() {
         }
       } catch (error) {
         console.error('Error:', error);
-        router.push('/');
+        router.push('/'); // Redirigir a la página principal en caso de error
       }
     };
 
-    fetchUserData();
+    fetchUserData(); // Llamar a la función para obtener datos del usuario
   }, [router]);
 
+  // Efecto para manejar el cierre de sesión
   useEffect(() => {
-    // Agregar el event listener para el cierre de sesión
     const handleLogout = () => {
-      router.push('/');
+      router.push('/'); // Redirigir a la página principal al cerrar sesión
     };
 
-    window.addEventListener('logout', handleLogout);
+    window.addEventListener('logout', handleLogout); // Agregar el event listener
 
     // Cleanup del event listener
     return () => {
@@ -109,24 +115,25 @@ export default function PerfilPage() {
     };
   }, [router]);
 
+  // Función para manejar cambios en los inputs del usuario
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value // Actualizar el estado del usuario
     }));
-
   };
 
-
+  // Función para manejar cambios en los inputs de contraseña
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPasswords(prev => ({
       ...prev,
-      [name]: value
+      [name]: value // Actualizar el estado de las contraseñas
     }));
   };
 
+  // Función para actualizar la información del perfil
   const handleProfileUpdate = async () => {
     try {
       const response = await fetch('/api/users', {
@@ -139,15 +146,13 @@ export default function PerfilPage() {
           email: userData.email,
           firstName: userData.first_name,
           lastName: userData.last_names,
-          updateType: 'personalInfo'
+          updateType: 'personalInfo' // Tipo de actualización
         })
       });
 
       if (response.ok) {
-        //const updatedData = await response.json();
         showToast('Perfil actualizado exitosamente', 'success');
-        // Forzamos la recarga de los datos
-        window.location.reload();
+        window.location.reload(); // Forzar recarga de la página
       } else {
         const errorData = await response.json();
         showToast(errorData.message || 'Error al actualizar el perfil', 'error');
@@ -158,6 +163,7 @@ export default function PerfilPage() {
     }
   };
 
+  // Función para actualizar la contraseña
   const handlePasswordUpdate = async () => {
     if (passwords.newPassword !== passwords.confirmNewPassword) {
       alert('Las nuevas contraseñas no coinciden');
@@ -178,7 +184,7 @@ export default function PerfilPage() {
         body: JSON.stringify({
           email: userData.email,
           password: passwords.newPassword,
-          updateType: 'password'
+          updateType: 'password' // Tipo de actualización
         })
       });
 
@@ -203,11 +209,9 @@ export default function PerfilPage() {
             });
 
             if (logoutResponse.ok) {
-              // Limpiamos cualquier dato de sesión del cliente
-              localStorage.clear();
+              localStorage.clear(); // Limpiar datos de sesión
               sessionStorage.clear();
-              // Redirigimos a la página principal
-              window.location.href = '/';
+              window.location.href = '/'; // Redirigir a la página principal
             }
           } catch (error) {
             console.error('Error al cerrar sesión:', error);
@@ -244,7 +248,7 @@ export default function PerfilPage() {
         </motion.div>
       )}
 
-      {/* Contenido Main*/}
+      {/* Contenido Principal */}
       <motion.div 
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -252,7 +256,7 @@ export default function PerfilPage() {
         className="flex-grow flex justify-center p-20"
       >
         <div className="w-full max-w-5xl flex gap-6">
-          {/* Panel Izquierdo*/}
+          {/* Panel Izquierdo */}
           <motion.aside 
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -275,8 +279,6 @@ export default function PerfilPage() {
                   className="w-32 h-32 mb-4 hover:ring-4 hover:ring-pink-300 transition-all duration-300"
                 />
               </motion.div>
-              {/* <p className="text-pink-500 font-bold">@User-Name</p>
-              <p className="text-sm text-gray-500">user@email.com</p> */}
             </motion.div>
 
             {/* Información del Doctor */}
@@ -285,13 +287,11 @@ export default function PerfilPage() {
                 Información del Doctor
               </h3>
               <p>
-
                 <strong>Nombre:</strong> {userData.first_name} {userData.last_names}
               </p>
               <p>
                 <strong>Email:</strong> {userData.email}
               </p>
-
             </div>
 
             {/* Botones */}
@@ -310,12 +310,10 @@ export default function PerfilPage() {
                 <motion.button 
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    
-                  >
+                >
                     AGREGAR ARTÍCULO
-                  </motion.button>
+                </motion.button>
               </Link>
-              
             </div>
           </motion.aside>
           {/* Panel Derecho */}
@@ -360,16 +358,6 @@ export default function PerfilPage() {
                   readOnly
                 />
               </div>
-              {/* <div>
-                <label className="text-sm text-gray-500">Celular:</label>
-                <input
-                  type="text"
-                  value={'4432189619'}
-                  className="w-full border rounded px-3 py-2 mt-1 bg-gray-100"
-                  name="celular"
-                  readOnly
-                />
-              </div> */}
             </div>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -447,6 +435,5 @@ export default function PerfilPage() {
       </motion.div>
       <Footer />
     </motion.div>
-
   );
 }

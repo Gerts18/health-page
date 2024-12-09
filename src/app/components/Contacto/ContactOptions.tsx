@@ -1,97 +1,108 @@
-
 import Image from 'next/image'
 
-
+// Tipos de propiedades para los componentes de botón, tarjeta, entrada, textarea, select y sus elementos
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' // Variantes del botón
 }
 
-type CardProps = React.HTMLAttributes<HTMLDivElement>
+type CardProps = React.HTMLAttributes<HTMLDivElement> // Propiedades para la tarjeta
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> // Propiedades para el input
 
-type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>
+type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> // Propiedades para el textarea
 
-type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement>
+type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> // Propiedades para el select
 
-type SelectTriggerProps = React.HTMLAttributes<HTMLDivElement>
+type SelectTriggerProps = React.HTMLAttributes<HTMLDivElement> // Propiedades para el disparador del select
 
 type SelectValueProps = {
-  children?: React.ReactNode
-  placeholder?: string
+  children?: React.ReactNode // Contenido del valor del select
+  placeholder?: string // Placeholder para el valor del select
 }
 
 type SelectContentProps = {
-  children: React.ReactNode
+  children: React.ReactNode // Contenido del select
 }
 
 type SelectItemProps = {
-  children: React.ReactNode
-  value: string
+  children: React.ReactNode // Contenido del ítem del select
+  value: string // Valor del ítem del select
 }
 
+// Componente de botón
 const Button = ({ children, className, ...props }: ButtonProps) => (
   <button className={`px-4 py-2 rounded ${className}`} {...props}>
     {children}
   </button>
 )
 
+// Componente de tarjeta
 const Card = ({ children, className, ...props }: CardProps) => (
   <div className={`p-4 ${className}`} {...props}>
     {children}
   </div>
 )
 
+// Componente de entrada
 const Input = ({ className, ...props }: InputProps) => (
   <input className={`w-full p-2 ${className}`} {...props} />
 )
 
+// Componente de textarea
 const Textarea = ({ className, ...props }: TextareaProps) => (
   <textarea className={`w-full p-2 ${className}`} {...props} />
 )
 
+// Componente de checkbox
 const Checkbox = ({ className, ...props }: InputProps) => (
   <input type="checkbox" className={`form-checkbox ${className}`} {...props} />
 )
 
+// Componente de select
 const Select = ({ children, ...props }: SelectProps) => (
   <select className="w-full p-2" {...props}>
     {children}
   </select>
 )
 
+// Componente de disparador del select
 const SelectTrigger = ({ children, className, ...props }: SelectTriggerProps) => (
   <div className={`relative ${className}`} {...props}>
     {children}
   </div>
 )
 
+// Componente de valor del select
 const SelectValue = ({ children, placeholder }: SelectValueProps) => (
   <span>{children || placeholder}</span>
 )
 
+// Componente de contenido del select
 const SelectContent = ({ children }: SelectContentProps) => (
   <div className="absolute top-full left-0 w-full bg-white shadow-lg rounded-b-md">
     {children}
   </div>
 )
 
+// Componente de ítem del select
 const SelectItem = ({ children, value }: SelectItemProps) => (
   <option value={value}>{children}</option>
 )
 
+// Componente principal de opciones de contacto
 const ContactOptions = () => {
- // const [selectOpen] = useState(false)
+  // const [selectOpen] = useState(false) // Estado para controlar la apertura del select (comentado)
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="grid gap-10 lg:grid-cols-2">
-        {/* Left Column */}
+        {/* Columna izquierda */}
         <div className="space-y-8">
           <h2 className="text-3xl font-bold text-[#547EED]">Queremos saber tu opinión</h2>
 
-          {/* Contact Cards */}
+          {/* Tarjetas de contacto */}
           <div className="space-y-4">
+            {/* Tarjeta de encuesta de satisfacción */}
             <Card className="p-4 bg-[#EB356E] text-white rounded-xl">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -114,6 +125,7 @@ const ContactOptions = () => {
               </div>
             </Card>
 
+            {/* Tarjeta de peticiones y quejas */}
             <Card className="p-4 bg-[#547EED] text-white rounded-xl">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -136,6 +148,7 @@ const ContactOptions = () => {
               </div>
             </Card>
 
+            {/* Tarjeta de trabajo con nosotros */}
             <Card className="p-4 bg-[#EB356E] text-white rounded-xl">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -160,7 +173,7 @@ const ContactOptions = () => {
           </div>
         </div>
 
-        {/* Right Column - Contact Form */}
+        {/* Columna derecha - Formulario de contacto */}
         <div className="flex justify-center items-center">
           <form className="space-y-6 w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
             <div className="grid grid-cols-2 gap-4">
@@ -226,6 +239,7 @@ const ContactOptions = () => {
   )
 }
 
+// Exportar el componente ContactOptions
 export default ContactOptions
 
   
