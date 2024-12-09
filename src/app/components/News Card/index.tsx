@@ -9,6 +9,17 @@ interface NewsCardProps {
   link: string
 }
 
+/**
+ * Componente `NewsCard` que muestra una tarjeta de noticias con una imagen, título, fecha y descripción.
+ *
+ * @param {NewsCardProps} props - Las propiedades del componente.
+ * @param {string} props.title - El título de la noticia.
+ * @param {string} props.date - La fecha de la noticia.
+ * @param {string} props.description - La descripción de la noticia.
+ * @param {string} props.imageSrc - La URL de la imagen de la noticia.
+ * @param {string} props.link - El enlace a la noticia completa.
+ * @returns {JSX.Element} Un elemento JSX que representa una tarjeta de noticias.
+ */
 export default function NewsCard({ title, date, description, imageSrc, link }: NewsCardProps) {
   return (
     <Link href={link}>

@@ -7,16 +7,19 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import '../Login/index.css';
 
+//Formato de datos a enviar
 interface FormData {
   password: string;
   passwordTwo: string;
 }
 
+//Validacion de requisitos de los datos ingresados
 const schema = yup.object({
     password: yup.string().required("La nueva contraseña es obligatoria").min(6, "La contraseña debe tener al menos 6 caracteres"),
     passwordTwo: yup.string().required("Debe confirmar la nueva contraseña").min(6, "La contraseña debe tener al menos 6 caracteres"),
 }).required();
 
+//Copilacion de datos para el backend
 const RecoverArea = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,6 +27,7 @@ const RecoverArea = () => {
     resolver: yupResolver(schema),
   });
 
+  //Envio de datos al backend
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
@@ -37,11 +41,12 @@ const RecoverArea = () => {
 
       const result = await response.json();
 
+      //Recepcion y manejo de respuesta del backend
       if (result.success) {
         toast.success("¡Contraseña cambiada de forma exitosa!");
         reset();
         setTimeout(() => {
-          window.location.href = "/login";
+          window.location.href = "/Login";
         }, 2000);
       } else {
         toast.error(result.message || "Error al cambiar la contraseña.");

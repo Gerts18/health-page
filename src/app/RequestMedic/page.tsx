@@ -16,6 +16,7 @@ const Page = () => {
         <div className="w-1/4 bg-[#547EED] h-2 rounded-full mr-36" />
       </div>
 
+      {/* Llama al componente del form */}
       <RequestMedic />
 
       <Footer />

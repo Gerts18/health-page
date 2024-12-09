@@ -229,9 +229,9 @@ const RequestMedic = () => {
                   label="Institución"
                   onChange={handleChangeInstitutionRem}
                 >
-                  <MenuItem value={"Institución_1"}>Institución 1</MenuItem>
-                  <MenuItem value={"Institución_2"}>Institución 2</MenuItem>
-                  <MenuItem value={"Institución_3"}>Institución 3</MenuItem>
+                  <MenuItem value={"IMSS"}>IMSS</MenuItem>
+                  <MenuItem value={"Ficmac"}>FICMAC</MenuItem>
+                  <MenuItem value={"ISSSTE"}>ISSSTE</MenuItem>
                 </Select>
               </div>
             </div>
