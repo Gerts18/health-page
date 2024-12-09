@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { VscChevronLeft, VscChevronRight } from "react-icons/vsc";
 
 const ImageSlider = () => {
+
+  // Arreglo de objetos que contiene información de cada diapositiva
   const slides = [
     {
       url: "./assets/slider-main.png",
@@ -54,41 +56,44 @@ const ImageSlider = () => {
     },
   ];
 
+  // Estado para rastrear el índice de la diapositiva actual
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Función para ir a la diapositiva anterior
   const prevSlide = () => {
-    const resetIndex = currentIndex === 0;
-    const index = resetIndex ? slides.length - 1 : currentIndex - 1;
+    const resetIndex = currentIndex === 0; // Si está en la primera diapositiva
+    const index = resetIndex ? slides.length - 1 : currentIndex - 1; // Reinicia o decrementa el índice
     setCurrentIndex(index);
   };
 
+  // Función para ir a la diapositiva siguiente
   const nextSlide = () => {
-    const resetIndex = currentIndex === slides.length - 1;
-    const index = resetIndex ? 0 : currentIndex + 1;
+    const resetIndex = currentIndex === slides.length - 1; // Si está en la última diapositiva
+    const index = resetIndex ? 0 : currentIndex + 1; // Reinicia o incrementa el índice
     setCurrentIndex(index);
   };
 
   return (
     <div className="w-full h-[950px] relative group bg-gray-100 overflow-hidden">
-      {/* Imagen de fondo */}
+      {/* Imagen de fondo que cambia según el índice actual */}
       <div
         className="w-full h-full bg-center bg-cover transition-all duration-500"
         style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
       >
-        {/* Contenedor del texto */}
+        {/* Contenedor del contenido de la diapositiva */}
         <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
           <div className="bg-white/75 flex flex-col items-center text-center rounded-3xl w-2/3 p-10">
-            {/* Título */}
+            {/* Título de la diapositiva */}
             <h1 className={slides[currentIndex].titleStyle}>
               {slides[currentIndex].title}
             </h1>
 
-            {/* Descripción */}
+            {/* Descripción de la diapositiva */}
             <p className={slides[currentIndex].descriptionStyle}>
               {slides[currentIndex].description}
             </p>
 
-            {/* Botón */}
+            {/* Botón con enlace */}
             <div className="mt-6 font-semibold">
               <Link href={slides[currentIndex].link}>
                 <button className={slides[currentIndex].buttonStyle}>
@@ -100,7 +105,7 @@ const ImageSlider = () => {
         </div>
       </div>
 
-      {/* Flecha izquierda */}
+      {/* Flechaz para cambiar diapositivas */}
       <div
         className="hidden group-hover:flex absolute top-1/2 left-5 transform -translate-y-1/2 bg-[#EB356E] hover:bg-[#e77297] opacity-80 hover:opacity-100 transition duration-200 ease-in-out p-3 rounded-full cursor-pointer"
         onClick={prevSlide}
@@ -108,7 +113,6 @@ const ImageSlider = () => {
         <VscChevronLeft className="h-6 w-6 text-white" />
       </div>
 
-      {/* Flecha derecha */}
       <div
         className="hidden group-hover:flex absolute top-1/2 right-5 transform -translate-y-1/2 bg-[#EB356E] hover:bg-[#e77297] opacity-80 hover:opacity-100 transition duration-200 ease-in-out p-3 rounded-full cursor-pointer"
         onClick={nextSlide}
