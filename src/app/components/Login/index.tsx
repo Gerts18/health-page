@@ -7,23 +7,26 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import './index.css';
 
+//Formato de datos a enviar al backend
 interface FormData {
   email: string;
   password: string;
 }
 
+//Validacion de cumplimiento de requisitos en datos ingresados
 const schema = yup.object({
   email: yup.string().required("El correo electrónico es obligatorio").email("Debe ser un correo electrónico válido"),
   password: yup.string().required("La contraseña es obligatoria").min(6, "La contraseña debe tener al menos 6 caracteres"),
 }).required();
 
+//Copilacion de datos para el backend
 const LoginArea = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
-
+//Envio de datos al backend
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
@@ -36,7 +39,7 @@ const LoginArea = () => {
       });
 
       const result = await response.json();
-
+      //Recepcion y manejo de la respuesta del backend
       if (result.success) {
         toast.success("¡Inicio de sesión exitoso!");
         reset();

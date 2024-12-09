@@ -24,7 +24,8 @@ export async function GET() {
           telefono,
           correo_electronico,
           celular_contacto,
-          tipo_prueba
+          tipo_prueba,
+          professionalid
         FROM requests 
         ORDER BY fecha_nac DESC
       `);

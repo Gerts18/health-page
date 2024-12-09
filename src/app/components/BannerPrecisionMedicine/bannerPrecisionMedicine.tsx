@@ -1,10 +1,13 @@
 import React from "react";
 
-const bannerPrecisionMedicine = () => {
+const BannerPrecisionMedicine = () => {
   return (
-  <section className="bg-blue-900 text-white ">
-      <div className="bg-fondo_blu bg-cover  py-14 bg-bottom">
+    <section className="bg-blue-900 text-white">
+      {/* Contenedor principal con fondo azul oscuro y texto blanco */}
+      <div className="bg-fondo_blu bg-cover py-14 bg-bottom">
+        {/* Contenedor para centrar el contenido y usar diseño de cuadrícula */}
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 px-6 items-center shadow-sm">
+          
           {/* Columna de texto */}
           <div>
             <h2 className="text-4xl font-bold mb-6">Medicina de Precisión</h2>
@@ -18,6 +21,7 @@ const bannerPrecisionMedicine = () => {
               cuidado de la salud, con beneficios significativos tanto para los
               pacientes como para la comunidad médica y científica:
             </p>
+            {/* Lista con beneficios de la medicina de precisión */}
             <ul className="list-disc list-inside space-y-2 text-lg">
               <li>Diagnóstico más preciso</li>
               <li>Terapias dirigidas</li>
@@ -28,7 +32,7 @@ const bannerPrecisionMedicine = () => {
             </ul>
           </div>
 
-          {/* Columna de video o imagen */}
+          {/* Columna de video */}
           <div className="relative">
             <iframe
               width="640"
@@ -47,4 +51,4 @@ const bannerPrecisionMedicine = () => {
   );
 };
 
-export default bannerPrecisionMedicine;
+export default BannerPrecisionMedicine;

@@ -1,18 +1,20 @@
 "use client";
 import React, { useState } from "react";
 import { Image } from "@nextui-org/react";
-
+//Cambio entre misión y visión
 const MissionVision: React.FC = () => {
   const [activeTab, setActiveTab] = useState("mission");
-
+//Seccion de mision y vision
   return (
     <div className="flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 to-blue-900 w-full min-h-screen font-sans px-4 py-2 md:px-16 md:py-12">
       <div className="w-full mb-5">
         <div className="w-full py-6 md:py-8 bg-[rgba(160,184,255,0.3)] rounded-lg">
+          {/* Área de encabezado mision y vision */}
           <div
             className="flex justify-start w-full mb-5 px-4 md:px-10"
             role="tablist"
           >
+            {/* mision */}
             <button
               className={`relative font-bold mx-2 cursor-pointer bg-transparent border-none transition-colors text-2xl md:text-4xl ${
                 activeTab === "mission"
@@ -28,6 +30,7 @@ const MissionVision: React.FC = () => {
                 <span className="absolute bottom-[-6px] md:bottom-[-8px] left-0 w-full h-[2px] md:h-[3px] bg-blue-200" />
               )}
             </button>
+            {/* vision */}
             <button
               className={`relative font-bold mx-2 cursor-pointer bg-transparent border-none transition-colors text-2xl md:text-4xl ${
                 activeTab === "vision"
@@ -44,7 +47,8 @@ const MissionVision: React.FC = () => {
               )}
             </button>
           </div>
-
+          
+          {/* Texto de mision y vision */}
           <div className="px-4 md:px-10 w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="text-white text-justify leading-relaxed space-y-4 pr-0 md:pr-8 text-lg md:text-2xl">
               {activeTab === "mission" && (
@@ -65,7 +69,8 @@ const MissionVision: React.FC = () => {
                 </p>
               )}
             </div>
-
+            
+            {/* Imagen */}
             <div className="flex justify-center">
               <Image
                 isBlurred

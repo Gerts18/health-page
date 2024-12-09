@@ -8,7 +8,9 @@ const BannerUniqueTreatment: React.FC = () => {
       {/* Imagen */}
       <div className="flex-1 absolute px-40">
         <Image
-          src={"/assets/cancerHug.jpeg"} width={500} height={500}
+          src={"/assets/cancerHug.jpeg"}
+          width={500}
+          height={500}
           alt="Paciente y médico"
           className="object-cover w-[500px] h-auto"
         />
@@ -30,7 +32,7 @@ const BannerUniqueTreatment: React.FC = () => {
           La medicina de precisión es el camino del futuro en el cuidado de la salud.
           Descubre más sobre este emocionante enfoque visitando nuestro canal de YouTube.
         </p>
-        <Link href='/about' >
+        <Link href='/about'>
           <button className="px-6 py-3 w-48 bg-[#EB356E] text-white rounded-3xl font-semibold hover:bg-pink-600 transition">
             Saber más
           </button>

@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { EyeIcon } from '@heroicons/react/outline';
 import { useEffect, useState } from 'react';
-import PDFPage from '../paginasPDF';
+import PDFPage from '../paginasPDF/';
 import { PDFViewer } from '@react-pdf/renderer';
 
 interface Request {
@@ -12,6 +12,7 @@ interface Request {
   correo_electronico: string;
   celular_contacto: string;
   tipo_prueba: string;
+  professionalid?: string;
 }
 
 export default function TableComponent() {
@@ -23,8 +24,37 @@ export default function TableComponent() {
   const [selectedItem, setSelectedItem] = useState<Request | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [userProfessionalId, setUserProfessionalId] = useState<string>('none');
+
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchUserData = async () => {
+      try {
+        const authResponse = await fetch('/api/auth', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const authData = await authResponse.json();
+        
+        // Asegúrate de que /api/auth devuelva professionalid
+        if (authData.success && authData.data) {
+          const email = authData.data.email || '';
+          const professionalid = authData.data.professionalid || 'none';
+          setUserEmail(email);
+          setUserProfessionalId(professionalid);
+          
+          console.log("Obtenido desde /api/auth:");
+          console.log("Email:", email);
+          console.log("ProfessionalId:", professionalid);
+        } else {
+          console.warn("No se pudo obtener professionalid o email desde /api/auth");
+        }
+      } catch (e) {
+        console.error('Error fetching user data:', e);
+      }
+    };
+
+    const fetchRequests = async () => {
       try {
         setLoading(true);
         const response = await fetch('/api/tabla');
@@ -34,9 +64,10 @@ export default function TableComponent() {
         }
 
         const jsonData = await response.json();
-        
+
         if (jsonData.success && Array.isArray(jsonData.data)) {
           setRequests(jsonData.data);
+          console.log("Requests obtenidas:", jsonData.data);
         } else {
           throw new Error('Formato de datos inválido');
         }
@@ -48,10 +79,25 @@ export default function TableComponent() {
       }
     };
 
-    fetchData();
+    // Primero se obtiene la info del usuario
+    fetchUserData().then(() => {
+      // Luego de tener userEmail y userProfessionalId, obtener las requests
+      fetchRequests();
+    });
   }, []);
 
-  const filteredRequests = requests.filter((item) => {
+  // Aplicar el filtrado según professionalid o email
+  const filteredByUser = requests.filter((req) => {
+    if (userProfessionalId !== 'none') {
+      // Filtrar por professionalid
+      return (req.professionalid || '').toLowerCase().trim() === userProfessionalId.toLowerCase().trim();
+    } else {
+      // Filtrar por email
+      return req.correo_electronico.toLowerCase().trim() === userEmail.toLowerCase().trim();
+    }
+  });
+
+  const filteredRequests = filteredByUser.filter((item) => {
     const searchValue = searchTerm.toLowerCase();
     switch (filterBy) {
       case 'nombre':
@@ -84,7 +130,6 @@ export default function TableComponent() {
   return (
     <>
       <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 pt-24">
-        {/* Sección de búsqueda y filtrado mejorada */}
         <div className="w-full max-w-4xl mb-6 mt-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Búsqueda de Registros</h2>
           <div className="bg-white rounded-lg shadow p-6">
@@ -123,7 +168,6 @@ export default function TableComponent() {
           </div>
         </div>
 
-        {/* Resto de la tabla */}
         <div className="w-full max-w-4xl bg-white rounded-lg shadow overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
@@ -134,6 +178,7 @@ export default function TableComponent() {
                 <th className="px-4 py-2">Correo Electrónico</th>
                 <th className="px-4 py-2">Teléfono Familiar</th>
                 <th className="px-4 py-2">Tipo de Prueba</th>
+                <th className="px-4 py-2">ProfessionalID</th>
                 <th className="px-4 py-2">Estado</th>
                 <th className="px-4 py-2">Acciones</th>
               </tr>
@@ -153,6 +198,7 @@ export default function TableComponent() {
                   <td className="border px-4 py-2">{item.correo_electronico}</td>
                   <td className="border px-4 py-2">{item.celular_contacto}</td>
                   <td className="border px-4 py-2">{item.tipo_prueba || 'PCR'}</td>
+                  <td className="border px-4 py-2">{item.professionalid || 'none'}</td>
                   <td className="border px-4 py-2">Visto</td>
                   <td className="border px-4 py-2">
                     <div className="flex flex-col items-center gap-2">
@@ -179,8 +225,7 @@ export default function TableComponent() {
         </button>
       </div>
 
-      {/* Modal */}
-      {isModalOpen && (
+      {isModalOpen && selectedItem && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-4 rounded-lg w-[90%] h-[90%] relative">
             <button 
@@ -190,7 +235,7 @@ export default function TableComponent() {
               <span className="text-2xl">×</span>
             </button>
             <PDFViewer style={{ width: '100%', height: '100%' }}>
-              <PDFPage data={selectedItem || undefined} />
+              <PDFPage data={selectedItem} />
             </PDFViewer>
           </div>
         </div>

@@ -7,14 +7,17 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import '../Login/index.css';
 
+//Formato de datos para el backend
 interface FormData {
   email: string;
 }
 
+//Validacion de requisitos de los datos ingresados
 const schema = yup.object({
   email: yup.string().required("El correo electrónico es obligatorio").email("Debe ser un correo electrónico válido"),
 }).required();
 
+//Copilacion de datos para el backend
 const ForgotArea = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -22,6 +25,7 @@ const ForgotArea = () => {
     resolver: yupResolver(schema),
   });
 
+  //Envio de datos al backend
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
@@ -35,6 +39,7 @@ const ForgotArea = () => {
 
       const result = await response.json();
 
+      //Recepcion y manejo de respuesta del backend
       if (result.success) {
         toast.success("¡Correo identificado de forma exitosa!");
         reset();
