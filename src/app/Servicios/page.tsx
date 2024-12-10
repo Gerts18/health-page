@@ -65,7 +65,7 @@ const services: Service[] = [
       "/assets/ovarioMP.jpg",
       "/assets/ovarioA.jpg",
     ],
-    icon: "/assets/icons/icon-4.png",
+    icon: "/assets/icons/Icon-4.png",
 
   },
   {
