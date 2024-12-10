@@ -66,6 +66,7 @@ const services: Service[] = [
       "/assets/ovarioA.jpg",
     ],
     icon: "/assets/icons/icon-4.png",
+
   },
   {
     title: "Cáncer de pulmón",

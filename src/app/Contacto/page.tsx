@@ -21,7 +21,7 @@ export default function ContactPage() {
     // Clases CSS basadas en la variante del botón
     const variantClasses =
       variant === 'secondary'
-        ? 'bg-secondary text-white'
+        ? 'bg-secondary '
         : 'bg-primary text-white';
     return (
       <motion.button

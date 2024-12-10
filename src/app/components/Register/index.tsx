@@ -1,4 +1,5 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+// Importación de módulos y componentes necesarios
+import React, { useState, ChangeEvent, FormEvent } from 'react'; // Importa React y hooks para manejar el estado y eventos
 import {
   Card,
   CardBody,
@@ -7,13 +8,14 @@ import {
   Button,
   Select,
   SelectItem,
-} from '@nextui-org/react';
+} from '@nextui-org/react'; // Importa componentes de la librería @nextui-org/react para la interfaz de usuario
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify'; // Importa componentes para notificaciones
+import 'react-toastify/dist/ReactToastify.css'; // Importa estilos para las notificaciones
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'; // Importa el hook useRouter para la navegación en Next.js
 
+// Definición de la interfaz para los datos del formulario
 interface FormData {
   firstName: string;
   lastName: string;
@@ -24,6 +26,7 @@ interface FormData {
   professionalId?: string;
 }
 
+// Definición de la interfaz para los errores del formulario
 interface FormErrors {
   firstName?: string;
   lastName?: string;
@@ -34,15 +37,18 @@ interface FormErrors {
   professionalId?: string;
 }
 
+// Componente principal del formulario de registro
 export default function RegistrationForm() {
-  const router = useRouter();
+  const router = useRouter(); // Hook para la navegación
 
+  // Definición de las categorías disponibles en el select
   const categories = [
     { label: 'Paciente', value: '1' },
     { label: 'Doctor', value: '2' },
     { label: 'Otro', value: '3' },
   ];
 
+  // Estado para almacenar los datos del formulario
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
@@ -53,9 +59,18 @@ export default function RegistrationForm() {
     professionalId: '',
   });
 
+  // Estado para almacenar los errores de validación del formulario
   const [errors, setErrors] = useState<FormErrors>({});
+
+  // Estado para indicar si el formulario está siendo enviado
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  /**
+   * Función para validar un campo específico del formulario.
+   * @param name - Nombre del campo a validar.
+   * @param value - Valor del campo a validar.
+   * @returns Mensaje de error si la validación falla, de lo contrario una cadena vacía.
+   */
   const validateField = (name: keyof FormData, value: FormData[keyof FormData]): string => {
     let error = "";
 
@@ -126,6 +141,10 @@ export default function RegistrationForm() {
     return error;
   };
 
+  /**
+   * Función para validar todo el formulario.
+   * @returns Un objeto con los errores encontrados en cada campo.
+   */
   const validateForm = (): FormErrors => {
     const newErrors: FormErrors = {};
 
@@ -139,21 +158,31 @@ export default function RegistrationForm() {
     return newErrors;
   };
 
+  /**
+   * Manejador de cambios en los campos de entrada (inputs).
+   * @param e - Evento de cambio en el input.
+   */
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     const fieldValue: FormData[keyof FormData] = type === 'checkbox' ? checked : value;
 
+    // Actualiza el estado del formulario con el nuevo valor
     setFormData((prev) => ({
       ...prev,
       [name]: fieldValue,
     }));
 
+    // Valida el campo que ha cambiado y actualiza los errores
     setErrors((prev) => ({
       ...prev,
       [name]: validateField(name as keyof FormData, fieldValue),
     }));
   };
 
+  /**
+   * Manejador de cambios en el campo de selección (select).
+   * @param value - Valor seleccionado en el select.
+   */
   const handleSelectChange = (value: string) => {
     const selectedValue = value || '';
     setFormData((prev) => ({
@@ -167,6 +196,10 @@ export default function RegistrationForm() {
     }));
   };
 
+  /**
+   * Manejador de cambios en el checkbox de aceptación de términos.
+   * @param isSelected - Estado del checkbox (seleccionado o no).
+   */
   const handleCheckboxChange = (isSelected: boolean) => {
     setFormData((prev) => ({
       ...prev,
@@ -179,16 +212,22 @@ export default function RegistrationForm() {
     }));
   };
 
+  /**
+   * Manejador del envío del formulario.
+   * @param e - Evento de envío del formulario.
+   */
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    e.preventDefault(); // Previene el comportamiento por defecto del formulario
+    setIsSubmitting(true); // Indica que el formulario está siendo enviado
 
-    const validationErrors = validateForm();
-    setErrors(validationErrors);
+    const validationErrors = validateForm(); // Valida todo el formulario
+    setErrors(validationErrors); // Actualiza el estado de errores
 
+    // Si no hay errores de validación, procede a enviar los datos
     if (Object.keys(validationErrors).length === 0) {
       console.log('Formulario válido:', formData);
       try {
+        // Envía los datos del formulario a la API correspondiente
         const response = await fetch('/api/users', {
           method: 'POST',
           headers: {
@@ -198,12 +237,12 @@ export default function RegistrationForm() {
         });
 
         if (!response.ok) {
-
+          // Si la respuesta no es exitosa, maneja los errores específicos
           const errorData = await response.json();
 
           console.error('Error encontrado:', errorData);
 
-          // Manejo de errores específico
+          // Manejo de errores específico según el mensaje de error recibido
           if (errorData['error'].includes('unique_professionalid_except_none')) {
             toast.error("La cédula profesional ya está registrada. Por favor, intenta con otra.");
           } else if (errorData['error'].includes('users_pkey')){
@@ -213,18 +252,21 @@ export default function RegistrationForm() {
           }
 
         } else {
+          // Si la respuesta es exitosa, muestra una notificación de éxito y redirige al usuario
           toast.success("Registro exitoso!, redirigiendo ...");
           setTimeout(() => {
-            router.push('/Login');
+            router.push('/Login'); // Redirige al usuario a la página de login después de 2 segundos
           }, 2000);
         }
       } catch (error: unknown) {
+        // Manejo de errores inesperados durante la solicitud
         console.error('Error:', error);
         toast.error("Ocurrió un error inesperado.");
       } finally {
-        setIsSubmitting(false);
+        setIsSubmitting(false); // Finaliza el estado de envío
       }
 
+      // Reinicia los campos del formulario después del envío
       setFormData({
         firstName: "",
         lastName: "",
@@ -236,7 +278,7 @@ export default function RegistrationForm() {
       });
       setIsSubmitting(false);
     } else {
-      //console.log("Hay errores en el formulario");
+      // Si hay errores de validación, muestra una notificación de error
       toast.error("Por favor, corrige los errores en el formulario.");
       setIsSubmitting(false);
     }
@@ -246,6 +288,7 @@ export default function RegistrationForm() {
     <div
       className="relative w-full mt-[76px] flex flex-col items-center justify-center p-4 pt-10 gap-5 bg-cover bg-center bg-authImage"
     >
+      {/* Título y descripción del formulario */}
       <div className="flex flex-col gap-5">
         <h1 className="text-5xl font-bold text-center text-white">Registrar</h1>
         <p className="text-center text-sm text-white ">
@@ -253,10 +296,12 @@ export default function RegistrationForm() {
         </p>
       </div>
 
+      {/* Tarjeta que contiene el formulario */}
       <Card className="w-full max-w-md p-6 shadow-lg overflow-visible">
         <CardBody className="flex flex-col gap-4">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
+            
+            {/* Campo de entrada para el nombre */}
             <Input
               label="Nombre"
               type='text'
@@ -269,6 +314,7 @@ export default function RegistrationForm() {
               isRequired
             />
 
+            {/* Campo de entrada para los apellidos */}
             <Input
               label="Apellidos"
               type='text'
@@ -281,6 +327,7 @@ export default function RegistrationForm() {
               isRequired
             />
 
+            {/* Campo de entrada para el correo electrónico */}
             <Input
               label="Correo"
               type="email"
@@ -293,6 +340,7 @@ export default function RegistrationForm() {
               isRequired
             />
 
+            {/* Campo de entrada para la contraseña */}
             <Input
               label="Contraseña"
               type="password"
@@ -305,6 +353,7 @@ export default function RegistrationForm() {
               isRequired
             />
 
+            {/* Campo de selección para la categoría */}
             <Select
               label="Categoría"
               variant="bordered"
@@ -322,6 +371,7 @@ export default function RegistrationForm() {
               ))}
             </Select>
 
+            {/* Campo de entrada para la cédula profesional, solo visible si la categoría es 'Doctor' */}
             {formData.category === '2' && (
               <Input
                 label="Cédula Profesional"
@@ -336,6 +386,7 @@ export default function RegistrationForm() {
               />
             )}
 
+            {/* Checkbox para aceptar términos y condiciones */}
             <Checkbox
               size="sm"
               name="termsAccepted"
@@ -345,17 +396,19 @@ export default function RegistrationForm() {
             >
               Estoy de acuerdo con los términos y condiciones
             </Checkbox>
+            {/* Mensaje de error para el checkbox si no se acepta */}
             {errors.termsAccepted && (
               <div className="text-[hsl(339,90%,51%)] text-tiny m-0">
                 {errors.termsAccepted}
               </div>
             )}
 
+            {/* Botón de envío del formulario */}
             <Button
               className="w-full bg-button text-white font-medium mt-2 p-7"
               radius="sm"
               type="submit"
-              isLoading={isSubmitting}
+              isLoading={isSubmitting} // Indica si el formulario está siendo enviado
             >
               Registrarse
             </Button>
@@ -363,6 +416,7 @@ export default function RegistrationForm() {
         </CardBody>
       </Card>
 
+      {/* Contenedor para las notificaciones */}
       <ToastContainer />
     </div>
   );
